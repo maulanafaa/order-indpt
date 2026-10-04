@@ -1,0 +1,1808 @@
+[
+  {
+    "storeId": "store-129",
+    "day": 0,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-129",
+    "day": 1,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-129",
+    "day": 2,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-129",
+    "day": 3,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-129",
+    "day": 4,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-129",
+    "day": 5,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-129",
+    "day": 6,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-128",
+    "day": 0,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-128",
+    "day": 1,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-128",
+    "day": 2,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-128",
+    "day": 3,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-128",
+    "day": 4,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-128",
+    "day": 5,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-128",
+    "day": 6,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-117",
+    "day": 0,
+    "opens": "00:00",
+    "closes": "24:00"
+  },
+  {
+    "storeId": "store-117",
+    "day": 1,
+    "opens": "00:00",
+    "closes": "24:00"
+  },
+  {
+    "storeId": "store-117",
+    "day": 2,
+    "opens": "00:00",
+    "closes": "24:00"
+  },
+  {
+    "storeId": "store-117",
+    "day": 3,
+    "opens": "00:00",
+    "closes": "24:00"
+  },
+  {
+    "storeId": "store-117",
+    "day": 4,
+    "opens": "00:00",
+    "closes": "24:00"
+  },
+  {
+    "storeId": "store-117",
+    "day": 5,
+    "opens": "00:00",
+    "closes": "24:00"
+  },
+  {
+    "storeId": "store-117",
+    "day": 6,
+    "opens": "00:00",
+    "closes": "24:00"
+  },
+  {
+    "storeId": "store-79",
+    "day": 0,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-79",
+    "day": 1,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-79",
+    "day": 2,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-79",
+    "day": 3,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-79",
+    "day": 4,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-79",
+    "day": 5,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-79",
+    "day": 6,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-7",
+    "day": 0,
+    "opens": "11:00",
+    "closes": "03:00"
+  },
+  {
+    "storeId": "store-7",
+    "day": 1,
+    "opens": "11:00",
+    "closes": "03:00"
+  },
+  {
+    "storeId": "store-7",
+    "day": 2,
+    "opens": "11:00",
+    "closes": "03:00"
+  },
+  {
+    "storeId": "store-7",
+    "day": 3,
+    "opens": "11:00",
+    "closes": "03:00"
+  },
+  {
+    "storeId": "store-7",
+    "day": 4,
+    "opens": "11:00",
+    "closes": "03:00"
+  },
+  {
+    "storeId": "store-7",
+    "day": 5,
+    "opens": "11:00",
+    "closes": "03:00"
+  },
+  {
+    "storeId": "store-7",
+    "day": 6,
+    "opens": "11:00",
+    "closes": "03:00"
+  },
+  {
+    "storeId": "store-6",
+    "day": 0,
+    "opens": "11:00",
+    "closes": "00:00"
+  },
+  {
+    "storeId": "store-6",
+    "day": 1,
+    "opens": "11:00",
+    "closes": "00:00"
+  },
+  {
+    "storeId": "store-6",
+    "day": 2,
+    "opens": "11:00",
+    "closes": "00:00"
+  },
+  {
+    "storeId": "store-6",
+    "day": 3,
+    "opens": "11:00",
+    "closes": "00:00"
+  },
+  {
+    "storeId": "store-6",
+    "day": 4,
+    "opens": "11:00",
+    "closes": "00:00"
+  },
+  {
+    "storeId": "store-6",
+    "day": 5,
+    "opens": "11:00",
+    "closes": "00:00"
+  },
+  {
+    "storeId": "store-6",
+    "day": 6,
+    "opens": "11:00",
+    "closes": "00:00"
+  },
+  {
+    "storeId": "store-5",
+    "day": 0,
+    "opens": "10:00",
+    "closes": "00:00"
+  },
+  {
+    "storeId": "store-5",
+    "day": 1,
+    "opens": "10:00",
+    "closes": "00:00"
+  },
+  {
+    "storeId": "store-5",
+    "day": 2,
+    "opens": "10:00",
+    "closes": "00:00"
+  },
+  {
+    "storeId": "store-5",
+    "day": 3,
+    "opens": "10:00",
+    "closes": "00:00"
+  },
+  {
+    "storeId": "store-5",
+    "day": 4,
+    "opens": "10:00",
+    "closes": "00:00"
+  },
+  {
+    "storeId": "store-5",
+    "day": 5,
+    "opens": "10:00",
+    "closes": "00:00"
+  },
+  {
+    "storeId": "store-5",
+    "day": 6,
+    "opens": "10:00",
+    "closes": "12:00"
+  },
+  {
+    "storeId": "store-4",
+    "day": 0,
+    "opens": "16:00",
+    "closes": "23:20"
+  },
+  {
+    "storeId": "store-4",
+    "day": 1,
+    "opens": "16:00",
+    "closes": "23:20"
+  },
+  {
+    "storeId": "store-4",
+    "day": 2,
+    "opens": "16:00",
+    "closes": "23:20"
+  },
+  {
+    "storeId": "store-4",
+    "day": 3,
+    "opens": "16:00",
+    "closes": "23:20"
+  },
+  {
+    "storeId": "store-4",
+    "day": 4,
+    "opens": "16:00",
+    "closes": "23:20"
+  },
+  {
+    "storeId": "store-4",
+    "day": 5,
+    "opens": "16:00",
+    "closes": "23:20"
+  },
+  {
+    "storeId": "store-4",
+    "day": 6,
+    "opens": "16:00",
+    "closes": "23:20"
+  },
+  {
+    "storeId": "store-3",
+    "day": 0,
+    "opens": "10:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-3",
+    "day": 1,
+    "opens": "10:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-3",
+    "day": 2,
+    "opens": "10:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-3",
+    "day": 3,
+    "opens": "10:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-3",
+    "day": 4,
+    "opens": "10:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-3",
+    "day": 5,
+    "opens": "10:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-3",
+    "day": 6,
+    "opens": "10:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-2",
+    "day": 0,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-2",
+    "day": 1,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-2",
+    "day": 2,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-2",
+    "day": 3,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-2",
+    "day": 4,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-2",
+    "day": 5,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-2",
+    "day": 6,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-1",
+    "day": 0,
+    "opens": "11:00",
+    "closes": "01:30"
+  },
+  {
+    "storeId": "store-1",
+    "day": 1,
+    "opens": "11:00",
+    "closes": "01:30"
+  },
+  {
+    "storeId": "store-1",
+    "day": 2,
+    "opens": "11:00",
+    "closes": "01:30"
+  },
+  {
+    "storeId": "store-1",
+    "day": 3,
+    "opens": "11:00",
+    "closes": "01:30"
+  },
+  {
+    "storeId": "store-1",
+    "day": 4,
+    "opens": "11:00",
+    "closes": "01:30"
+  },
+  {
+    "storeId": "store-1",
+    "day": 5,
+    "opens": "11:00",
+    "closes": "01:30"
+  },
+  {
+    "storeId": "store-1",
+    "day": 6,
+    "opens": "11:00",
+    "closes": "01:30"
+  },
+  {
+    "storeId": "store-76",
+    "day": 0,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-76",
+    "day": 1,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-76",
+    "day": 2,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-76",
+    "day": 3,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-76",
+    "day": 4,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-76",
+    "day": 5,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-76",
+    "day": 6,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-116",
+    "day": 0,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-116",
+    "day": 1,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-116",
+    "day": 2,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-116",
+    "day": 3,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-116",
+    "day": 4,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-116",
+    "day": 5,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-116",
+    "day": 6,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-115",
+    "day": 0,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-115",
+    "day": 1,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-115",
+    "day": 2,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-115",
+    "day": 3,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-115",
+    "day": 4,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-115",
+    "day": 5,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-115",
+    "day": 6,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-114",
+    "day": 0,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-114",
+    "day": 1,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-114",
+    "day": 2,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-114",
+    "day": 3,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-114",
+    "day": 4,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-114",
+    "day": 5,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-114",
+    "day": 6,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-113",
+    "day": 0,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-113",
+    "day": 1,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-113",
+    "day": 2,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-113",
+    "day": 3,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-113",
+    "day": 4,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-113",
+    "day": 5,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-113",
+    "day": 6,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-112",
+    "day": 0,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-112",
+    "day": 1,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-112",
+    "day": 2,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-112",
+    "day": 3,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-112",
+    "day": 4,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-112",
+    "day": 5,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-112",
+    "day": 6,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-124",
+    "day": 0,
+    "opens": "10:00",
+    "closes": "24:00"
+  },
+  {
+    "storeId": "store-124",
+    "day": 1,
+    "opens": "10:00",
+    "closes": "24:00"
+  },
+  {
+    "storeId": "store-124",
+    "day": 2,
+    "opens": "10:00",
+    "closes": "24:00"
+  },
+  {
+    "storeId": "store-124",
+    "day": 3,
+    "opens": "10:00",
+    "closes": "24:00"
+  },
+  {
+    "storeId": "store-124",
+    "day": 4,
+    "opens": "10:00",
+    "closes": "02:00"
+  },
+  {
+    "storeId": "store-124",
+    "day": 5,
+    "opens": "10:00",
+    "closes": "02:00"
+  },
+  {
+    "storeId": "store-124",
+    "day": 6,
+    "opens": "10:00",
+    "closes": "02:00"
+  },
+  {
+    "storeId": "store-123",
+    "day": 0,
+    "opens": "11:00",
+    "closes": "02:00"
+  },
+  {
+    "storeId": "store-123",
+    "day": 1,
+    "opens": "11:00",
+    "closes": "02:00"
+  },
+  {
+    "storeId": "store-123",
+    "day": 2,
+    "opens": "11:00",
+    "closes": "02:00"
+  },
+  {
+    "storeId": "store-123",
+    "day": 3,
+    "opens": "11:00",
+    "closes": "02:00"
+  },
+  {
+    "storeId": "store-123",
+    "day": 4,
+    "opens": "11:00",
+    "closes": "02:00"
+  },
+  {
+    "storeId": "store-123",
+    "day": 5,
+    "opens": "11:00",
+    "closes": "02:00"
+  },
+  {
+    "storeId": "store-123",
+    "day": 6,
+    "opens": "11:00",
+    "closes": "02:00"
+  },
+  {
+    "storeId": "store-122",
+    "day": 0,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-122",
+    "day": 1,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-122",
+    "day": 2,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-122",
+    "day": 3,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-122",
+    "day": 4,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-122",
+    "day": 5,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-122",
+    "day": 6,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-120",
+    "day": 0,
+    "opens": "09:00",
+    "closes": "23:30"
+  },
+  {
+    "storeId": "store-120",
+    "day": 1,
+    "opens": "09:00",
+    "closes": "23:30"
+  },
+  {
+    "storeId": "store-120",
+    "day": 2,
+    "opens": "09:00",
+    "closes": "23:30"
+  },
+  {
+    "storeId": "store-120",
+    "day": 3,
+    "opens": "09:00",
+    "closes": "23:30"
+  },
+  {
+    "storeId": "store-120",
+    "day": 4,
+    "opens": "09:00",
+    "closes": "23:30"
+  },
+  {
+    "storeId": "store-120",
+    "day": 5,
+    "opens": "09:00",
+    "closes": "00:30"
+  },
+  {
+    "storeId": "store-120",
+    "day": 6,
+    "opens": "09:00",
+    "closes": "24:00"
+  },
+  {
+    "storeId": "store-119",
+    "day": 0,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-119",
+    "day": 1,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-119",
+    "day": 2,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-119",
+    "day": 3,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-119",
+    "day": 4,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-119",
+    "day": 5,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-119",
+    "day": 6,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-118",
+    "day": 0,
+    "opens": "10:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-118",
+    "day": 1,
+    "opens": "10:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-118",
+    "day": 2,
+    "opens": "10:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-118",
+    "day": 3,
+    "opens": "10:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-118",
+    "day": 4,
+    "opens": "10:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-118",
+    "day": 5,
+    "opens": "10:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-118",
+    "day": 6,
+    "opens": "10:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-111",
+    "day": 0,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-111",
+    "day": 1,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-111",
+    "day": 2,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-111",
+    "day": 3,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-111",
+    "day": 4,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-111",
+    "day": 5,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-111",
+    "day": 6,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-110",
+    "day": 0,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-110",
+    "day": 1,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-110",
+    "day": 2,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-110",
+    "day": 3,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-110",
+    "day": 4,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-110",
+    "day": 5,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-110",
+    "day": 6,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-108",
+    "day": 0,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-108",
+    "day": 1,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-108",
+    "day": 2,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-108",
+    "day": 3,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-108",
+    "day": 4,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-108",
+    "day": 5,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-108",
+    "day": 6,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-107",
+    "day": 0,
+    "opens": "12:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-107",
+    "day": 1,
+    "opens": "12:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-107",
+    "day": 2,
+    "opens": "12:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-107",
+    "day": 3,
+    "opens": "12:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-107",
+    "day": 4,
+    "opens": "12:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-107",
+    "day": 5,
+    "opens": "12:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-107",
+    "day": 6,
+    "opens": "12:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-106",
+    "day": 0,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-106",
+    "day": 1,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-106",
+    "day": 2,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-106",
+    "day": 3,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-106",
+    "day": 4,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-106",
+    "day": 5,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-106",
+    "day": 6,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-77",
+    "day": 0,
+    "opens": "11:00",
+    "closes": "24:00"
+  },
+  {
+    "storeId": "store-77",
+    "day": 1,
+    "opens": "11:00",
+    "closes": "24:00"
+  },
+  {
+    "storeId": "store-77",
+    "day": 2,
+    "opens": "11:00",
+    "closes": "24:00"
+  },
+  {
+    "storeId": "store-77",
+    "day": 3,
+    "opens": "11:00",
+    "closes": "24:00"
+  },
+  {
+    "storeId": "store-77",
+    "day": 4,
+    "opens": "11:00",
+    "closes": "24:00"
+  },
+  {
+    "storeId": "store-77",
+    "day": 5,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-77",
+    "day": 6,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-27",
+    "day": 0,
+    "opens": "10:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-27",
+    "day": 1,
+    "opens": "10:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-27",
+    "day": 2,
+    "opens": "10:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-27",
+    "day": 3,
+    "opens": "10:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-27",
+    "day": 4,
+    "opens": "10:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-27",
+    "day": 5,
+    "opens": "10:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-27",
+    "day": 6,
+    "opens": "10:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-26",
+    "day": 0,
+    "opens": "11:00",
+    "closes": "02:00"
+  },
+  {
+    "storeId": "store-26",
+    "day": 1,
+    "opens": "11:00",
+    "closes": "02:00"
+  },
+  {
+    "storeId": "store-26",
+    "day": 2,
+    "opens": "11:00",
+    "closes": "02:00"
+  },
+  {
+    "storeId": "store-26",
+    "day": 3,
+    "opens": "11:00",
+    "closes": "02:00"
+  },
+  {
+    "storeId": "store-26",
+    "day": 4,
+    "opens": "11:00",
+    "closes": "02:00"
+  },
+  {
+    "storeId": "store-26",
+    "day": 5,
+    "opens": "11:00",
+    "closes": "02:00"
+  },
+  {
+    "storeId": "store-26",
+    "day": 6,
+    "opens": "11:00",
+    "closes": "02:00"
+  },
+  {
+    "storeId": "store-25",
+    "day": 0,
+    "opens": "10:00",
+    "closes": "24:00"
+  },
+  {
+    "storeId": "store-25",
+    "day": 1,
+    "opens": "10:00",
+    "closes": "23:00"
+  },
+  {
+    "storeId": "store-25",
+    "day": 2,
+    "opens": "10:00",
+    "closes": "23:00"
+  },
+  {
+    "storeId": "store-25",
+    "day": 3,
+    "opens": "10:00",
+    "closes": "23:00"
+  },
+  {
+    "storeId": "store-25",
+    "day": 4,
+    "opens": "10:00",
+    "closes": "23:00"
+  },
+  {
+    "storeId": "store-25",
+    "day": 5,
+    "opens": "10:00",
+    "closes": "23:00"
+  },
+  {
+    "storeId": "store-25",
+    "day": 6,
+    "opens": "10:00",
+    "closes": "24:00"
+  },
+  {
+    "storeId": "store-21",
+    "day": 0,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-21",
+    "day": 1,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-21",
+    "day": 2,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-21",
+    "day": 3,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-21",
+    "day": 4,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-21",
+    "day": 5,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-21",
+    "day": 6,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-18",
+    "day": 0,
+    "opens": "09:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-18",
+    "day": 1,
+    "opens": "09:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-18",
+    "day": 2,
+    "opens": "09:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-18",
+    "day": 3,
+    "opens": "09:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-18",
+    "day": 4,
+    "opens": "09:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-18",
+    "day": 5,
+    "opens": "09:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-18",
+    "day": 6,
+    "opens": "09:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-17",
+    "day": 0,
+    "opens": "10:00",
+    "closes": "02:00"
+  },
+  {
+    "storeId": "store-17",
+    "day": 1,
+    "opens": "10:00",
+    "closes": "02:00"
+  },
+  {
+    "storeId": "store-17",
+    "day": 2,
+    "opens": "10:00",
+    "closes": "02:00"
+  },
+  {
+    "storeId": "store-17",
+    "day": 3,
+    "opens": "10:00",
+    "closes": "02:00"
+  },
+  {
+    "storeId": "store-17",
+    "day": 4,
+    "opens": "10:00",
+    "closes": "02:00"
+  },
+  {
+    "storeId": "store-17",
+    "day": 5,
+    "opens": "10:00",
+    "closes": "02:00"
+  },
+  {
+    "storeId": "store-17",
+    "day": 6,
+    "opens": "10:00",
+    "closes": "02:00"
+  },
+  {
+    "storeId": "store-16",
+    "day": 0,
+    "opens": "10:00",
+    "closes": "24:00"
+  },
+  {
+    "storeId": "store-16",
+    "day": 1,
+    "opens": "10:00",
+    "closes": "23:00"
+  },
+  {
+    "storeId": "store-16",
+    "day": 2,
+    "opens": "10:00",
+    "closes": "23:00"
+  },
+  {
+    "storeId": "store-16",
+    "day": 3,
+    "opens": "10:00",
+    "closes": "23:00"
+  },
+  {
+    "storeId": "store-16",
+    "day": 4,
+    "opens": "10:00",
+    "closes": "23:00"
+  },
+  {
+    "storeId": "store-16",
+    "day": 5,
+    "opens": "10:00",
+    "closes": "23:00"
+  },
+  {
+    "storeId": "store-16",
+    "day": 6,
+    "opens": "10:00",
+    "closes": "24:00"
+  },
+  {
+    "storeId": "store-15",
+    "day": 0,
+    "opens": "10:00",
+    "closes": "24:00"
+  },
+  {
+    "storeId": "store-15",
+    "day": 1,
+    "opens": "10:00",
+    "closes": "24:00"
+  },
+  {
+    "storeId": "store-15",
+    "day": 2,
+    "opens": "10:00",
+    "closes": "24:00"
+  },
+  {
+    "storeId": "store-15",
+    "day": 3,
+    "opens": "10:00",
+    "closes": "24:00"
+  },
+  {
+    "storeId": "store-15",
+    "day": 4,
+    "opens": "10:00",
+    "closes": "24:00"
+  },
+  {
+    "storeId": "store-15",
+    "day": 5,
+    "opens": "10:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-15",
+    "day": 6,
+    "opens": "10:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-14",
+    "day": 0,
+    "opens": "09:00",
+    "closes": "02:00"
+  },
+  {
+    "storeId": "store-14",
+    "day": 1,
+    "opens": "09:00",
+    "closes": "02:00"
+  },
+  {
+    "storeId": "store-14",
+    "day": 2,
+    "opens": "09:00",
+    "closes": "02:00"
+  },
+  {
+    "storeId": "store-14",
+    "day": 3,
+    "opens": "09:00",
+    "closes": "02:00"
+  },
+  {
+    "storeId": "store-14",
+    "day": 4,
+    "opens": "09:00",
+    "closes": "02:00"
+  },
+  {
+    "storeId": "store-14",
+    "day": 5,
+    "opens": "09:00",
+    "closes": "02:00"
+  },
+  {
+    "storeId": "store-14",
+    "day": 6,
+    "opens": "09:00",
+    "closes": "02:00"
+  },
+  {
+    "storeId": "store-13",
+    "day": 0,
+    "opens": "10:00",
+    "closes": "24:00"
+  },
+  {
+    "storeId": "store-13",
+    "day": 1,
+    "opens": "10:00",
+    "closes": "23:00"
+  },
+  {
+    "storeId": "store-13",
+    "day": 2,
+    "opens": "10:00",
+    "closes": "23:00"
+  },
+  {
+    "storeId": "store-13",
+    "day": 3,
+    "opens": "10:00",
+    "closes": "23:00"
+  },
+  {
+    "storeId": "store-13",
+    "day": 4,
+    "opens": "10:00",
+    "closes": "23:00"
+  },
+  {
+    "storeId": "store-13",
+    "day": 5,
+    "opens": "10:00",
+    "closes": "23:00"
+  },
+  {
+    "storeId": "store-13",
+    "day": 6,
+    "opens": "10:00",
+    "closes": "24:00"
+  },
+  {
+    "storeId": "store-12",
+    "day": 0,
+    "opens": "09:00",
+    "closes": "24:00"
+  },
+  {
+    "storeId": "store-12",
+    "day": 1,
+    "opens": "09:00",
+    "closes": "24:00"
+  },
+  {
+    "storeId": "store-12",
+    "day": 2,
+    "opens": "09:00",
+    "closes": "24:00"
+  },
+  {
+    "storeId": "store-12",
+    "day": 3,
+    "opens": "09:00",
+    "closes": "24:00"
+  },
+  {
+    "storeId": "store-12",
+    "day": 4,
+    "opens": "09:00",
+    "closes": "24:00"
+  },
+  {
+    "storeId": "store-12",
+    "day": 5,
+    "opens": "09:00",
+    "closes": "24:00"
+  },
+  {
+    "storeId": "store-12",
+    "day": 6,
+    "opens": "09:00",
+    "closes": "24:00"
+  },
+  {
+    "storeId": "store-11",
+    "day": 0,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-11",
+    "day": 1,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-11",
+    "day": 2,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-11",
+    "day": 3,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-11",
+    "day": 4,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-11",
+    "day": 5,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-11",
+    "day": 6,
+    "opens": "11:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-10",
+    "day": 0,
+    "opens": "09:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-10",
+    "day": 1,
+    "opens": "09:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-10",
+    "day": 2,
+    "opens": "09:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-10",
+    "day": 3,
+    "opens": "09:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-10",
+    "day": 4,
+    "opens": "09:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-10",
+    "day": 5,
+    "opens": "09:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-10",
+    "day": 6,
+    "opens": "09:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-9",
+    "day": 0,
+    "opens": "12:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-9",
+    "day": 1,
+    "opens": "12:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-9",
+    "day": 2,
+    "opens": "12:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-9",
+    "day": 3,
+    "opens": "12:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-9",
+    "day": 4,
+    "opens": "12:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-9",
+    "day": 5,
+    "opens": "12:00",
+    "closes": "01:00"
+  },
+  {
+    "storeId": "store-9",
+    "day": 6,
+    "opens": "12:00",
+    "closes": "01:00"
+  }
+]

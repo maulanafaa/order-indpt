@@ -1,0 +1,4335 @@
+{
+ "fetchedAt": "2026-10-04T15:45:00.000Z",
+ "_note": "Small real sample captured 2026-10-04 for npm run scrape -- --fixtures: all 43 locator stores, the U Walk menu (order.indpt.com), qlub hours for 3 UAE stores, and SALT Hamra products with 7 product details. Not the full data set.",
+ "locations": [
+  {
+   "id": 129,
+   "name": "Talgah Shopping Mall - Abha",
+   "address": "6J8X+7RJ Abha",
+   "city": "Saudi Arabia",
+   "latitude": "18.21589562",
+   "longitude": "42.64947535",
+   "phone": "920024788",
+   "order_url": null,
+   "is_active": true
+  },
+  {
+   "id": 128,
+   "name": "JAKS - Riyadh",
+   "address": "PGWP+PFX Diriyah",
+   "city": "Saudi Arabia",
+   "latitude": "24.77336511",
+   "longitude": "46.53757278",
+   "phone": "920024788",
+   "order_url": null,
+   "is_active": true
+  },
+  {
+   "id": 117,
+   "name": "SALT Al Haram Makkah",
+   "address": "CR9F+VJ2, Al Haram, makkah towers, Makkah 24231",
+   "city": "Saudi Arabia",
+   "latitude": "21.42243326",
+   "longitude": "39.82348752",
+   "phone": "920024788",
+   "order_url": "https://order.indpt.com/saltmk/20016",
+   "is_active": true
+  },
+  {
+   "id": 79,
+   "name": "SALT AL BAHAR RESORT - KHOBAR",
+   "address": "Near Pearl Roundabout\r\nCorniche Rd, Alkurnaish, Al Khobar 34411",
+   "city": "Saudi Arabia",
+   "latitude": "26.33533314",
+   "longitude": "50.22583897",
+   "phone": "920024788",
+   "order_url": null,
+   "is_active": true
+  },
+  {
+   "id": 7,
+   "name": "SALT SAAD Square",
+   "address": "Prince Faisal Ibn Abdulrahman, Hittin.Riyadh",
+   "city": "Saudi Arabia",
+   "latitude": "24.76789695",
+   "longitude": "46.57759094",
+   "phone": "9200 24788",
+   "order_url": "https://order.indpt.com/saadsqua/20001",
+   "is_active": true
+  },
+  {
+   "id": 6,
+   "name": "SALT West Field",
+   "address": "3543 8 A, Al Manar, Dammam 32274.",
+   "city": "Saudi Arabia",
+   "latitude": "26.39185221",
+   "longitude": "50.03644622",
+   "phone": "9200 24788",
+   "order_url": "https://order.indpt.com/westfiel/20006",
+   "is_active": true
+  },
+  {
+   "id": 5,
+   "name": "SALT Nakheel Mall Riyadh",
+   "address": "QP88+648 Al Mughrizat, Riyadh.",
+   "city": "Saudi Arabia",
+   "latitude": "24.76567880",
+   "longitude": "46.71534403",
+   "phone": "9200 24788",
+   "order_url": "https://order.indpt.com/saltnak/20010",
+   "is_active": true
+  },
+  {
+   "id": 4,
+   "name": "SALT Al Ula",
+   "address": "Elephant rock, AlUla 43539",
+   "city": "Saudi Arabia",
+   "latitude": "26.68872079",
+   "longitude": "37.97996563",
+   "phone": "9200 24788",
+   "order_url": "https://order.indpt.com/saltalul/20007",
+   "is_active": true
+  },
+  {
+   "id": 3,
+   "name": "SALT U Walk",
+   "address": "King Saud University, Cenomi u walk, Riyadh 12373",
+   "city": "Saudi Arabia",
+   "latitude": "24.73626058",
+   "longitude": "46.63148740",
+   "phone": "9200 24788",
+   "order_url": "https://order.indpt.com/uwalk/20005",
+   "is_active": true
+  },
+  {
+   "id": 2,
+   "name": "SALT Olaya Khobar",
+   "address": "8103 Pepsi street, Olaya.",
+   "city": "Saudi Arabia",
+   "latitude": "26.30749458",
+   "longitude": "50.17828597",
+   "phone": "920024788",
+   "order_url": "https://order.indpt.com/khobarp/20004",
+   "is_active": true
+  },
+  {
+   "id": 1,
+   "name": "SALT Riyadh Park Mall",
+   "address": "QJ4J+8H, Al Aqiq, Riyadh 13511.",
+   "city": "Saudi Arabia",
+   "latitude": "24.75604953",
+   "longitude": "46.63145437",
+   "phone": "920024788",
+   "order_url": "https://order.indpt.com/salt/20002",
+   "is_active": true
+  },
+  {
+   "id": 76,
+   "name": "Salt Doha",
+   "address": "Doha, Qatar",
+   "city": "Qatar",
+   "latitude": "25.29095796",
+   "longitude": "51.52626397",
+   "phone": "920024788",
+   "order_url": null,
+   "is_active": true
+  },
+  {
+   "id": 116,
+   "name": "SALT Marassi",
+   "address": "8J3V+CRH Samaheej, Bahrain Marassi Galleria Mall Level-1 Shop No. 1.833, Bahrain",
+   "city": "Bahrain",
+   "latitude": "26.30284011",
+   "longitude": "50.64424983",
+   "phone": null,
+   "order_url": null,
+   "is_active": true
+  },
+  {
+   "id": 115,
+   "name": "SALT Shuwaikh",
+   "address": "8WRR+8MH, Shuwaikh Industrial, Kuwait",
+   "city": "Kuwait",
+   "latitude": "29.34089163",
+   "longitude": "47.94146164",
+   "phone": null,
+   "order_url": null,
+   "is_active": true
+  },
+  {
+   "id": 114,
+   "name": "SALT Khiran",
+   "address": "M8GX+GW4, 278 Road, Al Khiran, Kuwait",
+   "city": "Kuwait",
+   "latitude": "28.67671403",
+   "longitude": "48.34941922",
+   "phone": null,
+   "order_url": null,
+   "is_active": true
+  },
+  {
+   "id": 113,
+   "name": "SALT Blajat",
+   "address": "Al Blajat St, Salmiya, Kuwait",
+   "city": "Kuwait",
+   "latitude": "29.33055071",
+   "longitude": "48.09332960",
+   "phone": null,
+   "order_url": null,
+   "is_active": true
+  },
+  {
+   "id": 112,
+   "name": "SALT Avenues",
+   "address": "The Avenues Mall, Kuwait",
+   "city": "Kuwait",
+   "latitude": "29.30332992",
+   "longitude": "47.93702953",
+   "phone": null,
+   "order_url": null,
+   "is_active": true
+  },
+  {
+   "id": 124,
+   "name": "SALT Al Ain - Syde",
+   "address": "Al Dimani St - Al Tiwayya - Eidan Al Jareh.",
+   "city": "United Arab Emirates",
+   "latitude": "24.24891768",
+   "longitude": "55.67614143",
+   "phone": null,
+   "order_url": "https://app.qlub.io/qr/ae/salt-syde-al-ain/100/_/_/03d73ae0ea/qsr?lang=en&qsr=true",
+   "is_active": true
+  },
+  {
+   "id": 123,
+   "name": "SALT Marjan Island",
+   "address": "Al Marjan Island - Jazeerat Al Marjan - Ras Al Khaimah",
+   "city": "United Arab Emirates",
+   "latitude": "25.66845721",
+   "longitude": "55.74195698",
+   "phone": null,
+   "order_url": "https://app.qlub.io/qr/ae/salt-al-marjan-rak/100/_/_/78b6280af0/qsr?lang=en&qsr=true",
+   "is_active": true
+  },
+  {
+   "id": 122,
+   "name": "SALT - Al Ain Oasis",
+   "address": "",
+   "city": "United Arab Emirates",
+   "latitude": "24.21862680",
+   "longitude": "55.77414720",
+   "phone": null,
+   "order_url": null,
+   "is_active": true
+  },
+  {
+   "id": 120,
+   "name": "SALT Nad Al Sheba",
+   "address": "Nadd Al Shiba Third",
+   "city": "United Arab Emirates",
+   "latitude": "25.15879222",
+   "longitude": "55.37068976",
+   "phone": null,
+   "order_url": "https://app.qlub.io/qr/ae/salt-nad-al-sheba-qsr/100/_/_/8a8027b1cc/qsr?lang=en&qsr=true",
+   "is_active": true
+  },
+  {
+   "id": 119,
+   "name": "SALT Marsa Al Arab",
+   "address": "Jumeira St - Umm Suqeim - Umm Suqeim 3.",
+   "city": "United Arab Emirates",
+   "latitude": "25.14483243",
+   "longitude": "55.19036387",
+   "phone": "920024788",
+   "order_url": "https://app.qlub.io/qr/ae/salt-al-marsa-qsr/2000/_/_/30bc31e49a/qsr?theme=black&lang=en&qsr=true",
+   "is_active": true
+  },
+  {
+   "id": 118,
+   "name": "SALT Marsana Beach",
+   "address": "Al Hidayriyyat Island - Abu Dhabi - United Arab Emirates",
+   "city": "United Arab Emirates",
+   "latitude": "24.41320199",
+   "longitude": "54.35114136",
+   "phone": null,
+   "order_url": "https://app.qlub.io/qr/ae/salt-marsana-abu-dhabi/100/_/_/21743dc6bd/qsr?lang=en&qsr=true",
+   "is_active": true
+  },
+  {
+   "id": 111,
+   "name": "SALT Kite Beach",
+   "address": "Kite Beach, Street 2C, Umm Suqeim, Dubai, behind Al Manara Mosque UAE",
+   "city": "United Arab Emirates",
+   "latitude": "25.17162493",
+   "longitude": "55.21112041",
+   "phone": null,
+   "order_url": null,
+   "is_active": true
+  },
+  {
+   "id": 110,
+   "name": "SALT Dubai Mall",
+   "address": "2nd Floor, Public Restaurant Building, next to the Mall Valet and The Address.\r\nExit 5 toward the Dubai Fountain.\r\n\r\nSouk Al Bahar Bridge,\r\nDubai Mall,\r\nDubai, United Arab Emirates",
+   "city": "United Arab Emirates",
+   "latitude": "25.19484534",
+   "longitude": "55.27923774",
+   "phone": null,
+   "order_url": null,
+   "is_active": true
+  },
+  {
+   "id": 108,
+   "name": "SALT Umm Al Emarat",
+   "address": "Umm Al Emarat Park - Abu Dhabi - United Arab Emirates",
+   "city": "United Arab Emirates",
+   "latitude": "24.45437819",
+   "longitude": "54.38065110",
+   "phone": null,
+   "order_url": "https://app.qlub.io/qr/ae/salt-emarat-park2/100/_/_/f05c8311e6/qsr?theme=black&lang=en&qsr=true",
+   "is_active": true
+  },
+  {
+   "id": 107,
+   "name": "SALT Shamkha",
+   "address": "Al Shamkhah - SH30 - Abu Dhabi - United Arab Emirates",
+   "city": "United Arab Emirates",
+   "latitude": "24.44114013",
+   "longitude": "54.71801758",
+   "phone": null,
+   "order_url": "https://app.qlub.io/qr/ae/salt-al-shamkha/100/_/_/e958ffbc3c/qsr?lang=en&qsr=true",
+   "is_active": true
+  },
+  {
+   "id": 106,
+   "name": "SALT MBZ",
+   "address": "9H85+4Q9 - Mohamed Bin Zayed City - Z4 - Abu Dhabi - United Arab Emirates",
+   "city": "United Arab Emirates",
+   "latitude": "24.36442034",
+   "longitude": "54.56024524",
+   "phone": null,
+   "order_url": "https://app.qlub.io/qr/ae/salt-mbz/100/_/_/5874140575/qsr?theme=black&lang=en&qsr=true",
+   "is_active": true
+  },
+  {
+   "id": 77,
+   "name": "SALT Jumeirah 2",
+   "address": "665V+25J - Al Urouba St - Jumeirah - Jumeirah 2.",
+   "city": "United Arab Emirates",
+   "latitude": "25.21019510",
+   "longitude": "55.24380269",
+   "phone": "920024788",
+   "order_url": "https://app.qlub.io/qr/ae/salt-kiosk-jumeirah/100/_/_/8d64546782/qsr?lang=en&qsr=true",
+   "is_active": true
+  },
+  {
+   "id": 27,
+   "name": "SALT Zero 6",
+   "address": "06 Mall - شارع الجامعة - Al Juraina - Sharjah.",
+   "city": "United Arab Emirates",
+   "latitude": "25.31666536",
+   "longitude": "55.45630014",
+   "phone": "600 555551",
+   "order_url": "https://app.qlub.io/qr/ae/salt-zero-6-mall-sharjah/100/_/_/223e35f78e/qsr?lang=en&qsr=true",
+   "is_active": true
+  },
+  {
+   "id": 26,
+   "name": "SALT Al Zahia City Centre",
+   "address": "Muwaileh Commercial - Al Zahia - Sharjah",
+   "city": "United Arab Emirates",
+   "latitude": "25.31666536",
+   "longitude": "55.45630014",
+   "phone": "600 555551",
+   "order_url": "https://app.qlub.io/qr/ae/salt-zahia-center/100/_/_/5e9514136d/qsr?lang=en&qsr=true",
+   "is_active": true
+  },
+  {
+   "id": 25,
+   "name": "SALT Yas Mall",
+   "address": "Yas Island - YS1 - Abu Dhabi - United Arab Emirates",
+   "city": "United Arab Emirates",
+   "latitude": "24.48756772",
+   "longitude": "54.60782751",
+   "phone": "600 555551",
+   "order_url": "https://app.qlub.io/qr/ae/salt-yas-mall/100/_/_/5521f6a94c/qsr?lang=en&qsr=true",
+   "is_active": true
+  },
+  {
+   "id": 21,
+   "name": "SALT Museum of the Future",
+   "address": "Sheikh Zayed Rd - Trade Centre - Trade Centre 2.",
+   "city": "United Arab Emirates",
+   "latitude": "25.21932479",
+   "longitude": "55.28183227",
+   "phone": "600 555551",
+   "order_url": "https://app.qlub.io/qr/ae/salt-motf/100/_/_/b68ccd61d5/qsr?theme=black&lang=en&qsr=true",
+   "is_active": true
+  },
+  {
+   "id": 18,
+   "name": "SALT Khawaneej",
+   "address": "Al Khawaneej Walk - Al Khawaneej - Al Khawaneej 1 - Dubai - United Arab Emirates",
+   "city": "United Arab Emirates",
+   "latitude": "25.23355055",
+   "longitude": "55.47494913",
+   "phone": "600 555551",
+   "order_url": "https://app.qlub.io/qr/ae/salt-al-khawaneej/100/_/_/ce0ad03cc1/qsr?theme=black&lang=en&qsr=true",
+   "is_active": true
+  },
+  {
+   "id": 17,
+   "name": "Find Salt-Jumeirah 3",
+   "address": "5686+7FG - Shop - 8 & 9 31A St - Jumeirah - Umm Suqeim 1.",
+   "city": "United Arab Emirates",
+   "latitude": "25.16577742",
+   "longitude": "55.21108754",
+   "phone": "600 555551",
+   "order_url": "https://app.qlub.io/qr/ae/salt-jumierah3/100/_/_/aa99b5555a/qsr?lang=en&qsr=true",
+   "is_active": true
+  },
+  {
+   "id": 16,
+   "name": "SALT Galleria Mall",
+   "address": "F9XQ+XW2 Island - Maryah Island - MI10.",
+   "city": "United Arab Emirates",
+   "latitude": "24.50017062",
+   "longitude": "54.39001238",
+   "phone": "600 555551",
+   "order_url": "https://app.qlub.io/qr/ae/salt-galleria-mall/100/_/_/52dd04b645/qsr?lang=en&qsr=true",
+   "is_active": true
+  },
+  {
+   "id": 15,
+   "name": "SALT Motor City",
+   "address": "26WR+HG2 - Motor City - Dubai - United Arab Emirates",
+   "city": "United Arab Emirates",
+   "latitude": "25.04661246",
+   "longitude": "55.24136614",
+   "phone": "600 555551",
+   "order_url": "https://app.qlub.io/qr/ae/salt-first-avenue-mall/100/_/_/02e43ad934/qsr?theme=black&lang=en&qsr=true",
+   "is_active": true
+  },
+  {
+   "id": 14,
+   "name": "SALT DXBike",
+   "address": "Beside Backyard Café,\r\nHadaeq Sheikh Mohammed Bin Rashid,\r\nDubai, United Arab Emirates",
+   "city": "United Arab Emirates",
+   "latitude": "25.15002614",
+   "longitude": "55.28606250",
+   "phone": "600 555551",
+   "order_url": "https://app.qlub.io/qr/ae/salt-dxbike/100/_/_/f4a8925ca7/qsr?lang=en&qsr=true",
+   "is_active": true
+  },
+  {
+   "id": 13,
+   "name": "SALT Marina Mall",
+   "address": "1st floor to DMM-GF004 Marina Mall - Dubai.",
+   "city": "United Arab Emirates",
+   "latitude": "25.07706968",
+   "longitude": "55.13960957",
+   "phone": "600 555551",
+   "order_url": "https://app.qlub.io/qr/ae/salt-marina-mall-qsr/100/_/_/362fc8d602/qsr?lang=en&qsr=true",
+   "is_active": true
+  },
+  {
+   "id": 12,
+   "name": "SALT Barsha",
+   "address": "36X2+FMJ Community Mall - Al Barsha - Al Barsha 2.",
+   "city": "United Arab Emirates",
+   "latitude": "25.09893633",
+   "longitude": "55.20103430",
+   "phone": "600 555551",
+   "order_url": "https://app.qlub.io/qr/ae/Salt-al-barsha-mall/100/_/_/0dd5ad2568/qsr?theme=black&lang=en&qsr=true",
+   "is_active": true
+  },
+  {
+   "id": 11,
+   "name": "SALT Heera Beach",
+   "address": "231 Al Muntazah St - Al Fisht 1 - Alheera Suburb - Sharjah.",
+   "city": "United Arab Emirates",
+   "latitude": "25.38278778",
+   "longitude": "55.40217159",
+   "phone": "600 555551",
+   "order_url": "https://app.qlub.io/qr/ae/salt-heera-beach/100/_/_/7747a1f539/qsr?lang=en&qsr=true",
+   "is_active": true
+  },
+  {
+   "id": 10,
+   "name": "SALT Hamra",
+   "address": "16 Paris St-Al Jazeera Al Hamra-Qaryat Al Hamra-Ras Al Khaimah.",
+   "city": "United Arab Emirates",
+   "latitude": "25.68463475",
+   "longitude": "55.78394410",
+   "phone": "600 555551",
+   "order_url": "https://app.qlub.io/qr/ae/salt-al-hamra-mall/100/_/_/49e76e5722/qsr?lang=en&qsr=true",
+   "is_active": true
+  },
+  {
+   "id": 9,
+   "name": "SALT Al Ain - Spot",
+   "address": "Ni'mah - Abu Dhabi.",
+   "city": "United Arab Emirates",
+   "latitude": "24.10594388",
+   "longitude": "55.71797362",
+   "phone": "600 555551",
+   "order_url": "https://app.qlub.io/qr/ae/salt-al-ain-spot/100/_/_/ae33810e75/qsr?lang=en&qsr=true",
+   "is_active": true
+  }
+ ],
+ "indpt": {
+  "3": {
+   "orderUrl": "https://order.indpt.com/uwalk/20005",
+   "settings": {
+    "branch": {
+     "id": 22,
+     "name": "SALT U Walk",
+     "phone_number": "920024788",
+     "address": "King Saud University, Cenomi u walk, Riyadh 12373",
+     "city": "Riyadh",
+     "latitude": "24.73626058299049",
+     "longitude": "46.63148739815133"
+    },
+    "currency": "SAR"
+   },
+   "menu": {
+    "operating_hours": {
+     "schedule": [
+      {
+       "day_of_week": 0,
+       "is_open": true,
+       "open_time": "10:00",
+       "close_time": "01:00",
+       "is_next_day_close": true
+      },
+      {
+       "day_of_week": 1,
+       "is_open": true,
+       "open_time": "10:00",
+       "close_time": "01:00",
+       "is_next_day_close": true
+      },
+      {
+       "day_of_week": 2,
+       "is_open": true,
+       "open_time": "10:00",
+       "close_time": "01:00",
+       "is_next_day_close": true
+      },
+      {
+       "day_of_week": 3,
+       "is_open": true,
+       "open_time": "10:00",
+       "close_time": "01:00",
+       "is_next_day_close": true
+      },
+      {
+       "day_of_week": 4,
+       "is_open": true,
+       "open_time": "10:00",
+       "close_time": "01:00",
+       "is_next_day_close": true
+      },
+      {
+       "day_of_week": 5,
+       "is_open": true,
+       "open_time": "10:00",
+       "close_time": "01:00",
+       "is_next_day_close": true
+      },
+      {
+       "day_of_week": 6,
+       "is_open": true,
+       "open_time": "10:00",
+       "close_time": "01:00",
+       "is_next_day_close": true
+      }
+     ]
+    },
+    "categories": [
+     {
+      "id": 35,
+      "name": "SLIDERS",
+      "sort_order": 0,
+      "items": [
+       {
+        "id": 10900,
+        "oracle_menu_item_id": 20000003,
+        "name": {
+         "en-US": "Original Beef Slider"
+        },
+        "base_price": 37,
+        "sort_order": 1
+       },
+       {
+        "id": 10912,
+        "oracle_menu_item_id": 20000004,
+        "name": {
+         "en-US": "Jalapeno Beef Slider"
+        },
+        "base_price": 45,
+        "sort_order": 2
+       },
+       {
+        "id": 10913,
+        "oracle_menu_item_id": 20000005,
+        "name": {
+         "en-US": "Truffle Beef Slider"
+        },
+        "base_price": 47,
+        "sort_order": 3
+       },
+       {
+        "id": 10914,
+        "oracle_menu_item_id": 20000006,
+        "name": {
+         "en-US": "Original Beef Slider - Double"
+        },
+        "base_price": 53,
+        "sort_order": 4
+       },
+       {
+        "id": 10903,
+        "oracle_menu_item_id": 20000007,
+        "name": {
+         "en-US": "Jalapeno Beef Slider - Double"
+        },
+        "base_price": 61,
+        "sort_order": 5
+       },
+       {
+        "id": 10904,
+        "oracle_menu_item_id": 20000008,
+        "name": {
+         "en-US": "Truffle Beef Slider -Double"
+        },
+        "base_price": 63,
+        "sort_order": 6
+       },
+       {
+        "id": 10905,
+        "oracle_menu_item_id": 20000009,
+        "name": {
+         "en-US": "Original Chicken Slider"
+        },
+        "base_price": 43,
+        "sort_order": 7
+       },
+       {
+        "id": 10906,
+        "oracle_menu_item_id": 20000010,
+        "name": {
+         "en-US": "Crispy Chicken Slider"
+        },
+        "base_price": 43,
+        "sort_order": 8
+       },
+       {
+        "id": 10907,
+        "oracle_menu_item_id": 20000011,
+        "name": {
+         "en-US": "Chicken Cheetos Slider"
+        },
+        "base_price": 45,
+        "sort_order": 9
+       },
+       {
+        "id": 10908,
+        "oracle_menu_item_id": 20000012,
+        "name": {
+         "en-US": "Lettuce Beef Wrap"
+        },
+        "base_price": 33,
+        "sort_order": 10
+       },
+       {
+        "id": 10909,
+        "oracle_menu_item_id": 20000013,
+        "name": {
+         "en-US": "Lettuce Beef Wrap - Double"
+        },
+        "base_price": 44,
+        "sort_order": 11
+       }
+      ]
+     },
+     {
+      "id": 36,
+      "name": "BURGER'S",
+      "sort_order": 0,
+      "items": [
+       {
+        "id": 10901,
+        "oracle_menu_item_id": 20000001,
+        "name": {
+         "en-US": "Salt Burger"
+        },
+        "base_price": 43,
+        "sort_order": 1
+       },
+       {
+        "id": 10902,
+        "oracle_menu_item_id": 20000002,
+        "name": {
+         "en-US": "Campfire Burger"
+        },
+        "base_price": 48,
+        "sort_order": 2
+       }
+      ]
+     },
+     {
+      "id": 38,
+      "name": "FRIES",
+      "sort_order": 0,
+      "items": [
+       {
+        "id": 10916,
+        "oracle_menu_item_id": 20000016,
+        "name": {
+         "en-US": "Original Fries"
+        },
+        "base_price": 15,
+        "sort_order": 1
+       },
+       {
+        "id": 10911,
+        "oracle_menu_item_id": 20000017,
+        "name": {
+         "en-US": "Cheese Fries"
+        },
+        "base_price": 21,
+        "sort_order": 2
+       },
+       {
+        "id": 10917,
+        "oracle_menu_item_id": 20000019,
+        "name": {
+         "en-US": "Salt & Vinegar Fries"
+        },
+        "base_price": 27,
+        "sort_order": 4
+       },
+       {
+        "id": 10918,
+        "oracle_menu_item_id": 20000020,
+        "name": {
+         "en-US": "Truffle Fries"
+        },
+        "base_price": 31,
+        "sort_order": 5
+       },
+       {
+        "id": 10920,
+        "oracle_menu_item_id": 20000021,
+        "name": {
+         "en-US": "Sweet Potato Fries"
+        },
+        "base_price": 25,
+        "sort_order": 6
+       },
+       {
+        "id": 10921,
+        "oracle_menu_item_id": 20000022,
+        "name": {
+         "en-US": "Salt Fries"
+        },
+        "base_price": 21,
+        "sort_order": 7
+       },
+       {
+        "id": 10922,
+        "oracle_menu_item_id": 20000023,
+        "name": {
+         "en-US": "Cheetos Fries"
+        },
+        "base_price": 28,
+        "sort_order": 8
+       }
+      ]
+     },
+     {
+      "id": 40,
+      "name": "KID'S MEAL",
+      "sort_order": 0,
+      "items": [
+       {
+        "id": 10946,
+        "oracle_menu_item_id": 20000034,
+        "name": {
+         "en-US": "Chicken Strips Meal"
+        },
+        "base_price": 27,
+        "sort_order": 1
+       },
+       {
+        "id": 10947,
+        "oracle_menu_item_id": 20000035,
+        "name": {
+         "en-US": "Beef Slider Meal"
+        },
+        "base_price": 32,
+        "sort_order": 2
+       },
+       {
+        "id": 10928,
+        "oracle_menu_item_id": 20000036,
+        "name": {
+         "en-US": "Chicken Slider Meal"
+        },
+        "base_price": 27,
+        "sort_order": 3
+       }
+      ]
+     },
+     {
+      "id": 41,
+      "name": "BREAKFAST",
+      "sort_order": 0,
+      "items": [
+       {
+        "id": 11065,
+        "oracle_menu_item_id": 20000173,
+        "name": {
+         "en-US": "Granola yogurt Bowl"
+        },
+        "base_price": 40,
+        "sort_order": 5
+       }
+      ]
+     },
+     {
+      "id": 42,
+      "name": "LEMONADE",
+      "sort_order": 0,
+      "items": [
+       {
+        "id": 11229,
+        "oracle_menu_item_id": 20001001,
+        "name": {
+         "en-US": "Pink Lemonade"
+        },
+        "base_price": 18,
+        "sort_order": 1
+       },
+       {
+        "id": 11230,
+        "oracle_menu_item_id": 20001003,
+        "name": {
+         "en-US": "Original Lemonade"
+        },
+        "base_price": 15,
+        "sort_order": 2
+       },
+       {
+        "id": 11277,
+        "oracle_menu_item_id": 20001049,
+        "name": {
+         "en-US": "Mint lemonade"
+        },
+        "base_price": 18,
+        "sort_order": 3
+       }
+      ]
+     },
+     {
+      "id": 43,
+      "name": "FRESH JUICES",
+      "sort_order": 0,
+      "items": [
+       {
+        "id": 11296,
+        "oracle_menu_item_id": 20001065,
+        "name": {
+         "en-US": "Orange Juice"
+        },
+        "base_price": 30,
+        "sort_order": 1
+       },
+       {
+        "id": 11329,
+        "oracle_menu_item_id": 20001083,
+        "name": {
+         "en-US": "Watermelon Juice"
+        },
+        "base_price": 30,
+        "sort_order": 2
+       },
+       {
+        "id": 11330,
+        "oracle_menu_item_id": 20001084,
+        "name": {
+         "en-US": "Coconut  Fresh Juice"
+        },
+        "base_price": 30,
+        "sort_order": 3
+       },
+       {
+        "id": 11331,
+        "oracle_menu_item_id": 20001085,
+        "name": {
+         "en-US": "Pomegranate Fresh Juice"
+        },
+        "base_price": 30,
+        "sort_order": 4
+       },
+       {
+        "id": 11332,
+        "oracle_menu_item_id": 20001086,
+        "name": {
+         "en-US": "Green Apple Fresh Juice"
+        },
+        "base_price": 30,
+        "sort_order": 5
+       }
+      ]
+     },
+     {
+      "id": 44,
+      "name": "SOFTDRINKS",
+      "sort_order": 0,
+      "items": [
+       {
+        "id": 11245,
+        "oracle_menu_item_id": 20001030,
+        "name": {
+         "en-US": "Pepsi"
+        },
+        "base_price": 9,
+        "sort_order": 1
+       },
+       {
+        "id": 11246,
+        "oracle_menu_item_id": 20001031,
+        "name": {
+         "en-US": "Diet Pepsi"
+        },
+        "base_price": 9,
+        "sort_order": 2
+       },
+       {
+        "id": 11260,
+        "oracle_menu_item_id": 20001032,
+        "name": {
+         "en-US": "7up"
+        },
+        "base_price": 9,
+        "sort_order": 3
+       },
+       {
+        "id": 11261,
+        "oracle_menu_item_id": 20001033,
+        "name": {
+         "en-US": "Mirinda"
+        },
+        "base_price": 9,
+        "sort_order": 5
+       }
+      ]
+     },
+     {
+      "id": 45,
+      "name": "WATER",
+      "sort_order": 0,
+      "items": [
+       {
+        "id": 11267,
+        "oracle_menu_item_id": 20001050,
+        "name": {
+         "en-US": "Sparkling Water bottle"
+        },
+        "base_price": 15,
+        "sort_order": 1
+       },
+       {
+        "id": 11300,
+        "oracle_menu_item_id": 20001073,
+        "name": {
+         "en-US": "Aquafina Water"
+        },
+        "base_price": 5,
+        "sort_order": 2
+       }
+      ]
+     },
+     {
+      "id": 46,
+      "name": "MOJITO",
+      "sort_order": 0,
+      "items": [
+       {
+        "id": 11247,
+        "oracle_menu_item_id": 20001002,
+        "name": {
+         "en-US": "Lemon Mint Mojito"
+        },
+        "base_price": 27,
+        "sort_order": 1
+       },
+       {
+        "id": 11282,
+        "oracle_menu_item_id": 20001058,
+        "name": {
+         "en-US": "Passionfruit - Mojito"
+        },
+        "base_price": 27,
+        "sort_order": 2
+       },
+       {
+        "id": 11303,
+        "oracle_menu_item_id": 20001076,
+        "name": {
+         "en-US": "Beri Mojito"
+        },
+        "base_price": 27,
+        "sort_order": 3
+       }
+      ]
+     },
+     {
+      "id": 16,
+      "name": "COFFEE - COLD",
+      "sort_order": 0,
+      "items": [
+       {
+        "id": 11286,
+        "oracle_menu_item_id": 20001059,
+        "name": {
+         "en-US": "Americano - Cold"
+        },
+        "base_price": 17,
+        "sort_order": 1
+       },
+       {
+        "id": 11287,
+        "oracle_menu_item_id": 20001060,
+        "name": {
+         "en-US": "Iced Latte"
+        },
+        "base_price": 20,
+        "sort_order": 2
+       },
+       {
+        "id": 11290,
+        "oracle_menu_item_id": 20001063,
+        "name": {
+         "en-US": "Cereal Matcha Latte Iced"
+        },
+        "base_price": 29,
+        "sort_order": 3
+       },
+       {
+        "id": 11291,
+        "oracle_menu_item_id": 20001064,
+        "name": {
+         "en-US": "Classic Iced Matcha 120z"
+        },
+        "base_price": 29,
+        "sort_order": 4
+       },
+       {
+        "id": 11297,
+        "oracle_menu_item_id": 20001066,
+        "name": {
+         "en-US": "Salted Vanilla Matcha Latte"
+        },
+        "base_price": 29,
+        "sort_order": 5
+       },
+       {
+        "id": 11233,
+        "oracle_menu_item_id": 20001006,
+        "name": {
+         "en-US": "Cereal Latte - Cold"
+        },
+        "base_price": 29,
+        "sort_order": 6
+       },
+       {
+        "id": 11234,
+        "oracle_menu_item_id": 20001008,
+        "name": {
+         "en-US": "Matcha Latte - Cold"
+        },
+        "base_price": 29,
+        "sort_order": 7
+       },
+       {
+        "id": 11239,
+        "oracle_menu_item_id": 20001014,
+        "name": {
+         "en-US": "Lotus Affogato - Cold"
+        },
+        "base_price": 35,
+        "sort_order": 8
+       },
+       {
+        "id": 11240,
+        "oracle_menu_item_id": 20001015,
+        "name": {
+         "en-US": "Brownie Affogato - Cold"
+        },
+        "base_price": 37,
+        "sort_order": 9
+       },
+       {
+        "id": 11279,
+        "oracle_menu_item_id": 20001052,
+        "name": {
+         "en-US": "Spanish Latte - Cold"
+        },
+        "base_price": 25,
+        "sort_order": 10
+       },
+       {
+        "id": 11289,
+        "oracle_menu_item_id": 20001062,
+        "name": {
+         "en-US": "Matcha Coconut Cloud"
+        },
+        "base_price": 29,
+        "sort_order": 11
+       }
+      ]
+     },
+     {
+      "id": 17,
+      "name": "COFFEE - HOT",
+      "sort_order": 0,
+      "items": [
+       {
+        "id": 11248,
+        "oracle_menu_item_id": 20001007,
+        "name": {
+         "en-US": "Cereal Latte - Hot"
+        },
+        "base_price": 29,
+        "sort_order": 2
+       },
+       {
+        "id": 11249,
+        "oracle_menu_item_id": 20001009,
+        "name": {
+         "en-US": "Matcha Latte - Hot"
+        },
+        "base_price": 29,
+        "sort_order": 3
+       },
+       {
+        "id": 11278,
+        "oracle_menu_item_id": 20001051,
+        "name": {
+         "en-US": "Spanish Latte - Hot"
+        },
+        "base_price": 25,
+        "sort_order": 6
+       },
+       {
+        "id": 11280,
+        "oracle_menu_item_id": 20001053,
+        "name": {
+         "en-US": " Espresso - Hot"
+        },
+        "base_price": 15,
+        "sort_order": 7
+       },
+       {
+        "id": 11283,
+        "oracle_menu_item_id": 20001054,
+        "name": {
+         "en-US": "Americano - Hot"
+        },
+        "base_price": 17,
+        "sort_order": 8
+       },
+       {
+        "id": 11284,
+        "oracle_menu_item_id": 20001056,
+        "name": {
+         "en-US": "Cappuccino - Hot"
+        },
+        "base_price": 20,
+        "sort_order": 9
+       },
+       {
+        "id": 11285,
+        "oracle_menu_item_id": 20001057,
+        "name": {
+         "en-US": "Flat White - Hot"
+        },
+        "base_price": 20,
+        "sort_order": 10
+       },
+       {
+        "id": 11292,
+        "oracle_menu_item_id": 20001067,
+        "name": {
+         "en-US": "Cereal Matcha Latte Hot 8oz"
+        },
+        "base_price": 29,
+        "sort_order": 11
+       },
+       {
+        "id": 11293,
+        "oracle_menu_item_id": 20001068,
+        "name": {
+         "en-US": "Classic Hot Matcha Lattte 8oz"
+        },
+        "base_price": 29,
+        "sort_order": 12
+       },
+       {
+        "id": 12208,
+        "oracle_menu_item_id": 20001087,
+        "name": {
+         "en-US": "Classic Hot Matcha Lattte 12 oz"
+        },
+        "base_price": 29,
+        "sort_order": 13
+       }
+      ]
+     },
+     {
+      "id": 47,
+      "name": "SHAKES",
+      "sort_order": 0,
+      "items": [
+       {
+        "id": 11255,
+        "oracle_menu_item_id": 20001022,
+        "name": {
+         "en-US": "Lotus Shake"
+        },
+        "base_price": 30,
+        "sort_order": 1
+       },
+       {
+        "id": 11242,
+        "oracle_menu_item_id": 20001023,
+        "name": {
+         "en-US": "Brownie Shake"
+        },
+        "base_price": 30,
+        "sort_order": 2
+       },
+       {
+        "id": 11256,
+        "oracle_menu_item_id": 20001024,
+        "name": {
+         "en-US": "Hybrid Shake"
+        },
+        "base_price": 35,
+        "sort_order": 3
+       }
+      ]
+     },
+     {
+      "id": 48,
+      "name": "SOFTIES",
+      "sort_order": 0,
+      "items": [
+       {
+        "id": 10929,
+        "oracle_menu_item_id": 20000037,
+        "name": {
+         "en-US": "Mango Softie"
+        },
+        "base_price": 25,
+        "sort_order": 1
+       },
+       {
+        "id": 10948,
+        "oracle_menu_item_id": 20000039,
+        "name": {
+         "en-US": "Lotus Softie"
+        },
+        "base_price": 25,
+        "sort_order": 2
+       },
+       {
+        "id": 10931,
+        "oracle_menu_item_id": 20000040,
+        "name": {
+         "en-US": "Brownie Softie"
+        },
+        "base_price": 27,
+        "sort_order": 3
+       },
+       {
+        "id": 10932,
+        "oracle_menu_item_id": 20000041,
+        "name": {
+         "en-US": "Hybrid Softie"
+        },
+        "base_price": 28,
+        "sort_order": 4
+       },
+       {
+        "id": 11335,
+        "oracle_menu_item_id": 20000192,
+        "name": {
+         "en-US": "Mango Coconut Softie"
+        },
+        "base_price": 28,
+        "sort_order": 5
+       },
+       {
+        "id": 12207,
+        "oracle_menu_item_id": 20500252,
+        "name": {
+         "en-US": "Mango Coconut Sticky Rice Softie "
+        },
+        "base_price": 28,
+        "sort_order": 6
+       }
+      ]
+     },
+     {
+      "id": 49,
+      "name": "PINTS",
+      "sort_order": 0,
+      "items": [
+       {
+        "id": 11045,
+        "oracle_menu_item_id": 20000144,
+        "name": {
+         "en-US": "Pints Pack of 4"
+        },
+        "base_price": 80,
+        "sort_order": 1
+       },
+       {
+        "id": 11031,
+        "oracle_menu_item_id": 20000145,
+        "name": {
+         "en-US": "Pint Pack of 8"
+        },
+        "base_price": 150,
+        "sort_order": 2
+       },
+       {
+        "id": 11032,
+        "oracle_menu_item_id": 20000146,
+        "name": {
+         "en-US": "Pint Pack of 12"
+        },
+        "base_price": 210,
+        "sort_order": 3
+       },
+       {
+        "id": 11307,
+        "oracle_menu_item_id": 20000183,
+        "name": {
+         "en-US": "Mango Pint"
+        },
+        "base_price": 25,
+        "sort_order": 4
+       },
+       {
+        "id": 11305,
+        "oracle_menu_item_id": 20000184,
+        "name": {
+         "en-US": "Mango Lotus Pint"
+        },
+        "base_price": 25,
+        "sort_order": 5
+       },
+       {
+        "id": 11308,
+        "oracle_menu_item_id": 20000185,
+        "name": {
+         "en-US": "Mango Coconut Pint"
+        },
+        "base_price": 25,
+        "sort_order": 6
+       },
+       {
+        "id": 11306,
+        "oracle_menu_item_id": 20000186,
+        "name": {
+         "en-US": "Lotus Pint"
+        },
+        "base_price": 25,
+        "sort_order": 7
+       },
+       {
+        "id": 11311,
+        "oracle_menu_item_id": 20000187,
+        "name": {
+         "en-US": "Brownie Lotus Pint"
+        },
+        "base_price": 25,
+        "sort_order": 8
+       },
+       {
+        "id": 11309,
+        "oracle_menu_item_id": 20000188,
+        "name": {
+         "en-US": "Brownie Pint"
+        },
+        "base_price": 25,
+        "sort_order": 9
+       },
+       {
+        "id": 11310,
+        "oracle_menu_item_id": 20000189,
+        "name": {
+         "en-US": "Raspbeery Pint"
+        },
+        "base_price": 25,
+        "sort_order": 10
+       }
+      ]
+     },
+     {
+      "id": 50,
+      "name": "POPSICLES",
+      "sort_order": 0,
+      "items": [
+       {
+        "id": 11313,
+        "oracle_menu_item_id": 20000193,
+        "name": {
+         "en-US": "Pink Lemonade Popsicle"
+        },
+        "base_price": 20,
+        "sort_order": 1
+       },
+       {
+        "id": 11314,
+        "oracle_menu_item_id": 20000194,
+        "name": {
+         "en-US": "Mango Lotus Popsicle"
+        },
+        "base_price": 20,
+        "sort_order": 2
+       },
+       {
+        "id": 11318,
+        "oracle_menu_item_id": 20000196,
+        "name": {
+         "en-US": "Lotus Popsicle"
+        },
+        "base_price": 20,
+        "sort_order": 3
+       },
+       {
+        "id": 11319,
+        "oracle_menu_item_id": 20000197,
+        "name": {
+         "en-US": "Pinacolado Popsicle"
+        },
+        "base_price": 20,
+        "sort_order": 4
+       },
+       {
+        "id": 11320,
+        "oracle_menu_item_id": 20000199,
+        "name": {
+         "en-US": "Cocktail popsicle"
+        },
+        "base_price": 20,
+        "sort_order": 5
+       },
+       {
+        "id": 11316,
+        "oracle_menu_item_id": 20000200,
+        "name": {
+         "en-US": "Rasberyy & Choc Popsicle"
+        },
+        "base_price": 20,
+        "sort_order": 6
+       }
+      ]
+     },
+     {
+      "id": 51,
+      "name": "EXTRAS",
+      "sort_order": 0,
+      "items": [
+       {
+        "id": 11084,
+        "oracle_menu_item_id": 20500001,
+        "name": {
+         "en-US": "Extra Beef Patty"
+        },
+        "base_price": 16,
+        "sort_order": 1
+       },
+       {
+        "id": 11085,
+        "oracle_menu_item_id": 20500002,
+        "name": {
+         "en-US": "Extra Caramelised Onion"
+        },
+        "base_price": 3,
+        "sort_order": 2
+       },
+       {
+        "id": 11086,
+        "oracle_menu_item_id": 20500003,
+        "name": {
+         "en-US": "Extra Cheese Slice-Yellow"
+        },
+        "base_price": 7,
+        "sort_order": 3
+       },
+       {
+        "id": 11069,
+        "oracle_menu_item_id": 20500004,
+        "name": {
+         "en-US": "Extra Cheetos Crunch"
+        },
+        "base_price": 3,
+        "sort_order": 4
+       },
+       {
+        "id": 11087,
+        "oracle_menu_item_id": 20500005,
+        "name": {
+         "en-US": "Extra Jalapeno Sauce"
+        },
+        "base_price": 5,
+        "sort_order": 5
+       },
+       {
+        "id": 11088,
+        "oracle_menu_item_id": 20500006,
+        "name": {
+         "en-US": "Extra Jalapeno Sliced"
+        },
+        "base_price": 3,
+        "sort_order": 6
+       },
+       {
+        "id": 11089,
+        "oracle_menu_item_id": 20500007,
+        "name": {
+         "en-US": "Extra Kewpie Mayo"
+        },
+        "base_price": 5,
+        "sort_order": 7
+       },
+       {
+        "id": 11090,
+        "oracle_menu_item_id": 20500008,
+        "name": {
+         "en-US": "Extra Lettuce Shredded"
+        },
+        "base_price": 3,
+        "sort_order": 8
+       },
+       {
+        "id": 11070,
+        "oracle_menu_item_id": 20500009,
+        "name": {
+         "en-US": "Extra Pickle"
+        },
+        "base_price": 3,
+        "sort_order": 9
+       },
+       {
+        "id": 11071,
+        "oracle_menu_item_id": 20500010,
+        "name": {
+         "en-US": "Extra Sliced Cheese-White"
+        },
+        "base_price": 7,
+        "sort_order": 10
+       },
+       {
+        "id": 11091,
+        "oracle_menu_item_id": 20500011,
+        "name": {
+         "en-US": "Extra Tomatoes"
+        },
+        "base_price": 3,
+        "sort_order": 11
+       },
+       {
+        "id": 11072,
+        "oracle_menu_item_id": 20500012,
+        "name": {
+         "en-US": "Extra Cheese Sauce"
+        },
+        "base_price": 5,
+        "sort_order": 12
+       },
+       {
+        "id": 11073,
+        "oracle_menu_item_id": 20500013,
+        "name": {
+         "en-US": "Extra Cheetos Sauce"
+        },
+        "base_price": 5,
+        "sort_order": 13
+       },
+       {
+        "id": 11074,
+        "oracle_menu_item_id": 20500014,
+        "name": {
+         "en-US": "Extra Chick Sauce"
+        },
+        "base_price": 5,
+        "sort_order": 14
+       },
+       {
+        "id": 11092,
+        "oracle_menu_item_id": 20500015,
+        "name": {
+         "en-US": "Extra Choco Sauce"
+        },
+        "base_price": 5,
+        "sort_order": 15
+       },
+       {
+        "id": 11075,
+        "oracle_menu_item_id": 20500017,
+        "name": {
+         "en-US": "Extra Fire Sauce"
+        },
+        "base_price": 5,
+        "sort_order": 17
+       },
+       {
+        "id": 11076,
+        "oracle_menu_item_id": 20500018,
+        "name": {
+         "en-US": "Extra Honey Mustard Sauce"
+        },
+        "base_price": 5,
+        "sort_order": 18
+       },
+       {
+        "id": 11094,
+        "oracle_menu_item_id": 20500019,
+        "name": {
+         "en-US": "Extra Iceburg Lettuce"
+        },
+        "base_price": 3,
+        "sort_order": 19
+       },
+       {
+        "id": 11095,
+        "oracle_menu_item_id": 20500020,
+        "name": {
+         "en-US": "Extra Mushroom Sauce"
+        },
+        "base_price": 5,
+        "sort_order": 20
+       },
+       {
+        "id": 11077,
+        "oracle_menu_item_id": 20500021,
+        "name": {
+         "en-US": "Extra Onion White Fresh"
+        },
+        "base_price": 3,
+        "sort_order": 21
+       },
+       {
+        "id": 11096,
+        "oracle_menu_item_id": 20500022,
+        "name": {
+         "en-US": "Extra Original Sauce"
+        },
+        "base_price": 5,
+        "sort_order": 22
+       },
+       {
+        "id": 11097,
+        "oracle_menu_item_id": 20500023,
+        "name": {
+         "en-US": "Extra Parmesan Cheese"
+        },
+        "base_price": 5,
+        "sort_order": 23
+       },
+       {
+        "id": 11098,
+        "oracle_menu_item_id": 20500024,
+        "name": {
+         "en-US": "Extra Salt & Vinegar Sauce"
+        },
+        "base_price": 5,
+        "sort_order": 24
+       },
+       {
+        "id": 11099,
+        "oracle_menu_item_id": 20500025,
+        "name": {
+         "en-US": "Extra Truffle Aioli"
+        },
+        "base_price": 5,
+        "sort_order": 25
+       },
+       {
+        "id": 11100,
+        "oracle_menu_item_id": 20500026,
+        "name": {
+         "en-US": "Extra Labnah"
+        },
+        "base_price": 5,
+        "sort_order": 26
+       },
+       {
+        "id": 11186,
+        "oracle_menu_item_id": 20500115,
+        "name": {
+         "en-US": "Extra Vanilla Syrup"
+        },
+        "base_price": 8,
+        "sort_order": 28
+       },
+       {
+        "id": 11187,
+        "oracle_menu_item_id": 20500116,
+        "name": {
+         "en-US": "Extra Single Shot Espresso"
+        },
+        "base_price": 15,
+        "sort_order": 29
+       },
+       {
+        "id": 11188,
+        "oracle_menu_item_id": 20500117,
+        "name": {
+         "en-US": "Extra Double Shot Espresso"
+        },
+        "base_price": 21,
+        "sort_order": 30
+       },
+       {
+        "id": 11405,
+        "oracle_menu_item_id": 20500251,
+        "name": {
+         "en-US": "Extra hour"
+        },
+        "base_price": 0,
+        "sort_order": 31
+       },
+       {
+        "id": 10923,
+        "oracle_menu_item_id": 20000025,
+        "name": {
+         "en-US": "Original Sauce"
+        },
+        "base_price": 5,
+        "sort_order": 32
+       },
+       {
+        "id": 10924,
+        "oracle_menu_item_id": 20000026,
+        "name": {
+         "en-US": "Chick Sauce"
+        },
+        "base_price": 5,
+        "sort_order": 33
+       },
+       {
+        "id": 10925,
+        "oracle_menu_item_id": 20000027,
+        "name": {
+         "en-US": "Honey Mustard Sauce"
+        },
+        "base_price": 5,
+        "sort_order": 34
+       },
+       {
+        "id": 10926,
+        "oracle_menu_item_id": 20000028,
+        "name": {
+         "en-US": "Fire Sauce"
+        },
+        "base_price": 5,
+        "sort_order": 35
+       },
+       {
+        "id": 10942,
+        "oracle_menu_item_id": 20000029,
+        "name": {
+         "en-US": "Cheetos Sauce"
+        },
+        "base_price": 5,
+        "sort_order": 36
+       },
+       {
+        "id": 10927,
+        "oracle_menu_item_id": 20000030,
+        "name": {
+         "en-US": "Hook Sauce"
+        },
+        "base_price": 5,
+        "sort_order": 37
+       },
+       {
+        "id": 10943,
+        "oracle_menu_item_id": 20000031,
+        "name": {
+         "en-US": "Salt & Vinegar Sauce"
+        },
+        "base_price": 5,
+        "sort_order": 38
+       },
+       {
+        "id": 10944,
+        "oracle_menu_item_id": 20000032,
+        "name": {
+         "en-US": "Cheese Sauce"
+        },
+        "base_price": 5,
+        "sort_order": 39
+       },
+       {
+        "id": 10940,
+        "oracle_menu_item_id": 20000069,
+        "name": {
+         "en-US": "Original sauce-80 G"
+        },
+        "base_price": 18,
+        "sort_order": 41
+       },
+       {
+        "id": 10969,
+        "oracle_menu_item_id": 20000070,
+        "name": {
+         "en-US": "Chic sauce- 80 G"
+        },
+        "base_price": 18,
+        "sort_order": 42
+       }
+      ]
+     },
+     {
+      "id": 52,
+      "name": "COOKIES",
+      "sort_order": 0,
+      "items": [
+       {
+        "id": 11080,
+        "oracle_menu_item_id": 20000177,
+        "name": {
+         "en-US": "Lotus Cookie"
+        },
+        "base_price": 35,
+        "sort_order": 1
+       },
+       {
+        "id": 11081,
+        "oracle_menu_item_id": 20000178,
+        "name": {
+         "en-US": "Brownie Cookie"
+        },
+        "base_price": 35,
+        "sort_order": 2
+       }
+      ]
+     },
+     {
+      "id": 53,
+      "name": "ENERGY BOOST",
+      "sort_order": 0,
+      "items": [
+       {
+        "id": 11298,
+        "oracle_menu_item_id": 20001070,
+        "name": {
+         "en-US": "Salt Vanilla Protien Shake"
+        },
+        "base_price": 40,
+        "sort_order": 1
+       },
+       {
+        "id": 11299,
+        "oracle_menu_item_id": 20001072,
+        "name": {
+         "en-US": "Dates & Banana Protien Shake"
+        },
+        "base_price": 45,
+        "sort_order": 2
+       },
+       {
+        "id": 11294,
+        "oracle_menu_item_id": 20001069,
+        "name": {
+         "en-US": "Acai Smoothie"
+        },
+        "base_price": 40,
+        "sort_order": 3
+       }
+      ]
+     },
+     {
+      "id": 37,
+      "name": "SIDES",
+      "sort_order": 0,
+      "items": [
+       {
+        "id": 10910,
+        "oracle_menu_item_id": 20000014,
+        "name": {
+         "en-US": "Chicken Strips"
+        },
+        "base_price": 35,
+        "sort_order": 1
+       },
+       {
+        "id": 10915,
+        "oracle_menu_item_id": 20000015,
+        "name": {
+         "en-US": "Chicken Popcorn"
+        },
+        "base_price": 30,
+        "sort_order": 2
+       }
+      ]
+     },
+     {
+      "id": 10,
+      "name": "Pushpop",
+      "sort_order": 0,
+      "items": [
+       {
+        "id": 10952,
+        "oracle_menu_item_id": 20000045,
+        "name": {
+         "en-US": "Bag Of 6 - Pushpop"
+        },
+        "base_price": 120,
+        "sort_order": 1
+       },
+       {
+        "id": 10953,
+        "oracle_menu_item_id": 20000046,
+        "name": {
+         "en-US": "Bag Of 12 - Pushpop"
+        },
+        "base_price": 240,
+        "sort_order": 2
+       },
+       {
+        "id": 10956,
+        "oracle_menu_item_id": 20000049,
+        "name": {
+         "en-US": "Mango Pushpop"
+        },
+        "base_price": 20,
+        "sort_order": 3
+       },
+       {
+        "id": 10957,
+        "oracle_menu_item_id": 20000051,
+        "name": {
+         "en-US": "Lotus Pushpop"
+        },
+        "base_price": 20,
+        "sort_order": 5
+       },
+       {
+        "id": 10934,
+        "oracle_menu_item_id": 20000052,
+        "name": {
+         "en-US": "Brownie Pushpop"
+        },
+        "base_price": 20,
+        "sort_order": 6
+       },
+       {
+        "id": 10958,
+        "oracle_menu_item_id": 20000053,
+        "name": {
+         "en-US": "Hybrid Pushpop"
+        },
+        "base_price": 20,
+        "sort_order": 7
+       },
+       {
+        "id": 10935,
+        "oracle_menu_item_id": 20000054,
+        "name": {
+         "en-US": "Cocktail Pushpop"
+        },
+        "base_price": 20,
+        "sort_order": 8
+       },
+       {
+        "id": 11046,
+        "oracle_menu_item_id": 20000147,
+        "name": {
+         "en-US": "Salted Caramel Pushpop"
+        },
+        "base_price": 20,
+        "sort_order": 11
+       },
+       {
+        "id": 11047,
+        "oracle_menu_item_id": 20000148,
+        "name": {
+         "en-US": "Mango Lotus Pushpop"
+        },
+        "base_price": 20,
+        "sort_order": 12
+       },
+       {
+        "id": 11049,
+        "oracle_menu_item_id": 20000150,
+        "name": {
+         "en-US": "Mango Coconut Pushpop"
+        },
+        "base_price": 20,
+        "sort_order": 14
+       },
+       {
+        "id": 11407,
+        "oracle_menu_item_id": 20000207,
+        "name": {
+         "en-US": "Mango Lotus Pushpops"
+        },
+        "base_price": 20,
+        "sort_order": 15
+       },
+       {
+        "id": 11406,
+        "oracle_menu_item_id": 20001034,
+        "name": {
+         "en-US": "Lemon Mint Pushpops"
+        },
+        "base_price": 20,
+        "sort_order": 16
+       }
+      ]
+     }
+    ]
+   }
+  }
+ },
+ "qlubMenus": {
+  "10": {
+   "orderUrl": "https://app.qlub.io/qr/ae/salt-al-hamra-mall/100/_/_/49e76e5722/qsr?lang=en&qsr=true",
+   "menus": [
+    {
+     "id": "pqbBr",
+     "name": "Food",
+     "availabilities": [
+      {
+       "active": true,
+       "dow": 0,
+       "start": 32400,
+       "end": 86340
+      },
+      {
+       "active": true,
+       "dow": 0,
+       "start": 0,
+       "end": 3600
+      },
+      {
+       "active": true,
+       "dow": 1,
+       "start": 32400,
+       "end": 86340
+      },
+      {
+       "active": true,
+       "dow": 2,
+       "start": 32400,
+       "end": 86340
+      },
+      {
+       "active": true,
+       "dow": 3,
+       "start": 32400,
+       "end": 86340
+      },
+      {
+       "active": true,
+       "dow": 4,
+       "start": 32400,
+       "end": 86340
+      },
+      {
+       "active": true,
+       "dow": 5,
+       "start": 32400,
+       "end": 86340
+      },
+      {
+       "active": true,
+       "dow": 6,
+       "start": 32400,
+       "end": 86340
+      },
+      {
+       "active": true,
+       "dow": 6,
+       "start": 0,
+       "end": 3600
+      }
+     ],
+     "categories": [
+      {
+       "id": "bjbK7",
+       "name": "Salt Summer"
+      },
+      {
+       "id": "1gyQN",
+       "name": "Sliders"
+      },
+      {
+       "id": "D60Rn",
+       "name": "Burger"
+      },
+      {
+       "id": "wljDB",
+       "name": "Fries"
+      },
+      {
+       "id": "7DeRb",
+       "name": "Little Salter"
+      },
+      {
+       "id": "dGrMl",
+       "name": "Sauces"
+      },
+      {
+       "id": "MXvKd",
+       "name": "Dessert"
+      },
+      {
+       "id": "wlL2K",
+       "name": "Softies"
+      },
+      {
+       "id": "ZBP8o",
+       "name": "Sides"
+      }
+     ]
+    },
+    {
+     "id": "96WWX",
+     "name": "Beverage",
+     "availabilities": [
+      {
+       "active": true,
+       "dow": 0,
+       "start": 32400,
+       "end": 86340
+      },
+      {
+       "active": true,
+       "dow": 0,
+       "start": 0,
+       "end": 3600
+      },
+      {
+       "active": true,
+       "dow": 1,
+       "start": 32400,
+       "end": 86340
+      },
+      {
+       "active": true,
+       "dow": 1,
+       "start": 0,
+       "end": 3600
+      },
+      {
+       "active": true,
+       "dow": 2,
+       "start": 32400,
+       "end": 86340
+      },
+      {
+       "active": true,
+       "dow": 2,
+       "start": 0,
+       "end": 3600
+      },
+      {
+       "active": true,
+       "dow": 3,
+       "start": 32400,
+       "end": 86340
+      },
+      {
+       "active": true,
+       "dow": 3,
+       "start": 0,
+       "end": 3600
+      },
+      {
+       "active": true,
+       "dow": 4,
+       "start": 32400,
+       "end": 86340
+      },
+      {
+       "active": true,
+       "dow": 4,
+       "start": 0,
+       "end": 3600
+      },
+      {
+       "active": true,
+       "dow": 5,
+       "start": 32400,
+       "end": 86340
+      },
+      {
+       "active": true,
+       "dow": 5,
+       "start": 0,
+       "end": 3600
+      },
+      {
+       "active": true,
+       "dow": 6,
+       "start": 32400,
+       "end": 86340
+      },
+      {
+       "active": true,
+       "dow": 6,
+       "start": 0,
+       "end": 3600
+      }
+     ],
+     "categories": [
+      {
+       "id": "Oqrwk",
+       "name": "Slush"
+      },
+      {
+       "id": "kWgDJ",
+       "name": "Lemonades"
+      },
+      {
+       "id": "jWL64",
+       "name": "Tea"
+      },
+      {
+       "id": "rKWkN",
+       "name": "Juices"
+      },
+      {
+       "id": "W4Pzy",
+       "name": "Soft Drinks"
+      },
+      {
+       "id": "JDOrK",
+       "name": "Water"
+      },
+      {
+       "id": "ylXdK",
+       "name": "Shakes"
+      },
+      {
+       "id": "VJNeG",
+       "name": "Macha"
+      },
+      {
+       "id": "RBdb4",
+       "name": "Specialities Hot"
+      },
+      {
+       "id": "od2jY",
+       "name": "Specialities Cold | Frappes"
+      },
+      {
+       "id": "nwxOL",
+       "name": "Add On-Beverage"
+      }
+     ]
+    }
+   ]
+  },
+  "12": {
+   "orderUrl": "https://app.qlub.io/qr/ae/Salt-al-barsha-mall/100/_/_/0dd5ad2568/qsr?theme=black&lang=en&qsr=true",
+   "menus": [
+    {
+     "id": "pX4YP",
+     "name": "Food",
+     "availabilities": [
+      {
+       "active": true,
+       "dow": 0,
+       "start": 32400,
+       "end": 86340
+      },
+      {
+       "active": true,
+       "dow": 1,
+       "start": 32400,
+       "end": 86340
+      },
+      {
+       "active": true,
+       "dow": 2,
+       "start": 32400,
+       "end": 86340
+      },
+      {
+       "active": true,
+       "dow": 3,
+       "start": 32400,
+       "end": 86340
+      },
+      {
+       "active": true,
+       "dow": 4,
+       "start": 32400,
+       "end": 86340
+      },
+      {
+       "active": true,
+       "dow": 5,
+       "start": 32400,
+       "end": 86340
+      },
+      {
+       "active": true,
+       "dow": 6,
+       "start": 32400,
+       "end": 86340
+      }
+     ],
+     "categories": []
+    },
+    {
+     "id": "pXAre",
+     "name": "Beverage",
+     "availabilities": [
+      {
+       "active": true,
+       "dow": 0,
+       "start": 32400,
+       "end": 86340
+      },
+      {
+       "active": true,
+       "dow": 1,
+       "start": 32400,
+       "end": 86340
+      },
+      {
+       "active": true,
+       "dow": 2,
+       "start": 32400,
+       "end": 86340
+      },
+      {
+       "active": true,
+       "dow": 3,
+       "start": 32400,
+       "end": 86340
+      },
+      {
+       "active": true,
+       "dow": 4,
+       "start": 32400,
+       "end": 86340
+      },
+      {
+       "active": true,
+       "dow": 5,
+       "start": 32400,
+       "end": 86340
+      },
+      {
+       "active": true,
+       "dow": 6,
+       "start": 32400,
+       "end": 86340
+      }
+     ],
+     "categories": []
+    },
+    {
+     "id": "a3NOb",
+     "name": "Rise Menu",
+     "availabilities": [],
+     "categories": []
+    }
+   ]
+  },
+  "25": {
+   "orderUrl": "https://app.qlub.io/qr/ae/salt-yas-mall/100/_/_/5521f6a94c/qsr?lang=en&qsr=true",
+   "menus": [
+    {
+     "id": "pX4JO",
+     "name": "Food",
+     "availabilities": [
+      {
+       "active": true,
+       "dow": 0,
+       "start": 36000,
+       "end": 86340
+      },
+      {
+       "active": true,
+       "dow": 1,
+       "start": 36000,
+       "end": 82800
+      },
+      {
+       "active": true,
+       "dow": 2,
+       "start": 36000,
+       "end": 82800
+      },
+      {
+       "active": true,
+       "dow": 3,
+       "start": 36000,
+       "end": 82800
+      },
+      {
+       "active": true,
+       "dow": 4,
+       "start": 36000,
+       "end": 82800
+      },
+      {
+       "active": true,
+       "dow": 5,
+       "start": 36000,
+       "end": 82800
+      },
+      {
+       "active": true,
+       "dow": 6,
+       "start": 36000,
+       "end": 86340
+      }
+     ],
+     "categories": []
+    },
+    {
+     "id": "EeBmR",
+     "name": "Beverage",
+     "availabilities": [
+      {
+       "active": true,
+       "dow": 0,
+       "start": 36000,
+       "end": 86340
+      },
+      {
+       "active": true,
+       "dow": 1,
+       "start": 36000,
+       "end": 82800
+      },
+      {
+       "active": true,
+       "dow": 2,
+       "start": 36000,
+       "end": 82800
+      },
+      {
+       "active": true,
+       "dow": 3,
+       "start": 36000,
+       "end": 82800
+      },
+      {
+       "active": true,
+       "dow": 4,
+       "start": 36000,
+       "end": 82800
+      },
+      {
+       "active": true,
+       "dow": 5,
+       "start": 36000,
+       "end": 82800
+      },
+      {
+       "active": true,
+       "dow": 6,
+       "start": 36000,
+       "end": 86340
+      }
+     ],
+     "categories": []
+    },
+    {
+     "id": "pQlrj",
+     "name": "Rise Menu",
+     "availabilities": [],
+     "categories": []
+    }
+   ]
+  }
+ },
+ "qlubReference": [
+  {
+   "locationId": 10,
+   "products": [
+    {
+     "id": "12x7K",
+     "name": "Hook Slider - Double",
+     "price": 67,
+     "status": "ENABLED",
+     "hasAdditives": false,
+     "tags": [],
+     "menuId": "pqbBr"
+    },
+    {
+     "id": "m3q2g",
+     "name": "Hook Slider",
+     "price": 42,
+     "status": "ENABLED",
+     "hasAdditives": false,
+     "tags": [],
+     "menuId": "pqbBr"
+    },
+    {
+     "id": "PMnwA",
+     "name": "Original Beef Slider - Double",
+     "price": 65,
+     "description": "2 pcs. classic SALT sliders made with double grilled beef patty, cheese, pickles",
+     "status": "ENABLED",
+     "hasAdditives": true,
+     "tags": [
+      {
+       "name": "Soya",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Sesame",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Mustard",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Gluten",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Egg",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Dairy",
+       "group": "ALLERGEN"
+      }
+     ],
+     "menuId": "pqbBr"
+    },
+    {
+     "id": "MKnxg",
+     "name": "Jalapeno Beef Slider - Double",
+     "price": 72,
+     "description": "2 pcs. sliders with double grilled beef patty, white cheese, jalapeño slices, sh",
+     "status": "ENABLED",
+     "hasAdditives": true,
+     "tags": [
+      {
+       "name": "Sesame",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Mustard",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Gluten",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Egg",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Dairy",
+       "group": "ALLERGEN"
+      }
+     ],
+     "menuId": "pqbBr"
+    },
+    {
+     "id": "zD3AL",
+     "name": "Original Chicken Slider",
+     "price": 45,
+     "description": "2 pcs. sliders with crispy chicken, pickles, lettuce and Japanese mayo sauce\n\n",
+     "status": "ENABLED",
+     "hasAdditives": true,
+     "tags": [
+      {
+       "name": "Soya",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Sesame",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Mustard",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Gluten",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Egg",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Dairy",
+       "group": "ALLERGEN"
+      }
+     ],
+     "menuId": "pqbBr"
+    },
+    {
+     "id": "Z8nAq",
+     "name": "Lettuce Beef Wrap - Double",
+     "price": 72,
+     "description": "Go light! 2 pcs. iceberg lettuce wrap with double grilled beef patty, tomato, pi",
+     "status": "ENABLED",
+     "hasAdditives": true,
+     "tags": [
+      {
+       "name": "Mustard",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Dairy",
+       "group": "ALLERGEN"
+      }
+     ],
+     "menuId": "pqbBr"
+    },
+    {
+     "id": "ARm8w",
+     "name": "Truffle Beef Slider - Double ",
+     "price": 79,
+     "description": "2 pcs. sliders with double grilled beef patty, white cheese, mushrooms, Truffle ",
+     "status": "ENABLED",
+     "hasAdditives": true,
+     "tags": [
+      {
+       "name": "Fish",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Sesame",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Mustard",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Gluten",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Egg",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Dairy",
+       "group": "ALLERGEN"
+      }
+     ],
+     "menuId": "pqbBr"
+    },
+    {
+     "id": "7RxMN",
+     "name": "Chicken Cheetos Slider",
+     "price": 47,
+     "description": "2 pcs. classic SALT sliders with chicken fillet, crunchy cheetos crumbs, cheese,",
+     "status": "ENABLED",
+     "hasAdditives": true,
+     "tags": [
+      {
+       "name": "Soya",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Sesame",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Mustard",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Gluten",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Egg",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Dairy",
+       "group": "ALLERGEN"
+      }
+     ],
+     "menuId": "pqbBr"
+    },
+    {
+     "id": "0kvw2",
+     "name": "Crispy Chicken Slider",
+     "price": 45,
+     "description": "2 pcs. sliders with crispy chicken strips, pickles, lettuce and Chic Sauce.\n",
+     "status": "ENABLED",
+     "hasAdditives": true,
+     "tags": [
+      {
+       "name": "Fish",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Soya",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Sesame",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Mustard",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Gluten",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Egg",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Dairy",
+       "group": "ALLERGEN"
+      }
+     ],
+     "menuId": "pqbBr"
+    },
+    {
+     "id": "4kgKl",
+     "name": "Truffle Beef Slider",
+     "price": 54,
+     "description": "2 pcs. sliders with grilled beef, white cheese, mushrooms, Truffle Sauce.\n",
+     "status": "ENABLED",
+     "hasAdditives": true,
+     "tags": [
+      {
+       "name": "Fish",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Sesame",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Mustard",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Gluten",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Egg",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Dairy",
+       "group": "ALLERGEN"
+      }
+     ],
+     "menuId": "pqbBr"
+    },
+    {
+     "id": "V4nPO",
+     "name": "Original Beef Slider",
+     "price": 40,
+     "description": "2pc. classic SALT sliders made with grilled beef, cheese, pickles and our famous",
+     "status": "ENABLED",
+     "hasAdditives": true,
+     "tags": [
+      {
+       "name": "Dairy",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Egg",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Gluten",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Mustard",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Sesame",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Soya",
+       "group": "ALLERGEN"
+      }
+     ],
+     "menuId": "pqbBr"
+    },
+    {
+     "id": "5R6QL",
+     "name": "Jalapeno Beef Slider",
+     "price": 47,
+     "description": "2 pc. sliders with grilled beef, white cheese, jalapeño slices, shredded lettuce",
+     "status": "ENABLED",
+     "hasAdditives": true,
+     "tags": [
+      {
+       "name": "Sesame",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Mustard",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Gluten",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Egg",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Dairy",
+       "group": "ALLERGEN"
+      }
+     ],
+     "menuId": "pqbBr"
+    },
+    {
+     "id": "GRnee",
+     "name": "Single Lettuce Wrap",
+     "price": 47,
+     "description": "Go light! 2 pcs. iceberg lettuce wrap with grilled beef, tomato, pickles and lig",
+     "status": "ENABLED",
+     "hasAdditives": true,
+     "tags": [
+      {
+       "name": "Mustard",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Dairy",
+       "group": "ALLERGEN"
+      }
+     ],
+     "menuId": "pqbBr"
+    },
+    {
+     "id": "qM1Pr",
+     "name": "Salt Burger",
+     "price": 48,
+     "description": "Double-beef patty, cheese, onions, secret sauce\n\n",
+     "status": "ENABLED",
+     "hasAdditives": true,
+     "tags": [
+      {
+       "name": "Soya",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Mustard",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Gluten",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Dairy",
+       "group": "ALLERGEN"
+      }
+     ],
+     "menuId": "pqbBr"
+    },
+    {
+     "id": "v0G71",
+     "name": "Vegetarian Salt Burger",
+     "price": 49,
+     "description": "Plant-based Impossible patty with cheese (milk-based), lettuce, pickles and secr",
+     "status": "DISABLED",
+     "hasAdditives": true,
+     "tags": [
+      {
+       "name": "Sulphites",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Soya",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Mustard",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Gluten",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Dairy",
+       "group": "ALLERGEN"
+      }
+     ],
+     "menuId": "pqbBr"
+    },
+    {
+     "id": "YX6xn",
+     "name": "Original Fries",
+     "price": 17,
+     "description": "Original skin-on crispy French fries\n\n",
+     "status": "ENABLED",
+     "hasAdditives": true,
+     "tags": [
+      {
+       "name": "Soya",
+       "group": "ALLERGEN"
+      }
+     ],
+     "menuId": "pqbBr"
+    },
+    {
+     "id": "qM1ze",
+     "name": "Cheese Fries",
+     "price": 25,
+     "description": "Skin-on crispy fries and melted cheese.\n\n",
+     "status": "ENABLED",
+     "hasAdditives": true,
+     "tags": [
+      {
+       "name": "Soya",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Gluten",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Dairy",
+       "group": "ALLERGEN"
+      }
+     ],
+     "menuId": "pqbBr"
+    },
+    {
+     "id": "v0G4R",
+     "name": "Fire Fries",
+     "price": 31,
+     "description": "Skin-on fries, melted cheese, jalapeño slices, fire sauce\n\n",
+     "status": "DISABLED",
+     "hasAdditives": true,
+     "tags": [
+      {
+       "name": "Soya",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Mustard",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Gluten",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Dairy",
+       "group": "ALLERGEN"
+      }
+     ],
+     "menuId": "pqbBr"
+    },
+    {
+     "id": "eVyN5",
+     "name": "Salt & Vinegar Fries",
+     "price": 31,
+     "description": "Skin-on fries, parmesan cheese, salt & vinegar sauce\n\n",
+     "status": "DISABLED",
+     "hasAdditives": true,
+     "tags": [
+      {
+       "name": "Soya",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Mustard",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Gluten",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Dairy",
+       "group": "ALLERGEN"
+      }
+     ],
+     "menuId": "pqbBr"
+    },
+    {
+     "id": "3Xxwx",
+     "name": "Truffle Fries",
+     "price": 31,
+     "description": "Skin-on fries, parmesan cheese, parsley, truffle oil and truffle cream sauce\n\n",
+     "status": "ENABLED",
+     "hasAdditives": true,
+     "tags": [
+      {
+       "name": "Soya",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Mustard",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Gluten",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Dairy",
+       "group": "ALLERGEN"
+      }
+     ],
+     "menuId": "pqbBr"
+    },
+    {
+     "id": "LkVLo",
+     "name": "Sweet Potato Fries",
+     "price": 27,
+     "description": "Original crispy sweet potato fries\n\n",
+     "status": "ENABLED",
+     "hasAdditives": true,
+     "tags": [
+      {
+       "name": "Soya",
+       "group": "ALLERGEN"
+      }
+     ],
+     "menuId": "pqbBr"
+    },
+    {
+     "id": "6Qjbv",
+     "name": "Flaming Cheetos Fries",
+     "price": 31,
+     "description": "Skin - on Fries Hot Flaming Seasoning ,Cheetos, Labnah Mix",
+     "status": "ENABLED",
+     "hasAdditives": true,
+     "tags": [
+      {
+       "name": "Soya",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Gluten",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Dairy",
+       "group": "ALLERGEN"
+      }
+     ],
+     "menuId": "pqbBr"
+    },
+    {
+     "id": "8MJQv",
+     "name": "Beef Slider Meal",
+     "price": 32,
+     "description": "1 pc. Original Beef Slider, Original Fries, and a Drink of your choice.\n\n",
+     "status": "ENABLED",
+     "hasAdditives": true,
+     "tags": [
+      {
+       "name": "Soya",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Sesame",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Mustard",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Gluten",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Dairy",
+       "group": "ALLERGEN"
+      }
+     ],
+     "menuId": "pqbBr"
+    },
+    {
+     "id": "B8K50",
+     "name": "Chicken Strips Meal",
+     "price": 28,
+     "description": "6 pcs. Chicken Strips, Original Fries, and a Drink of your choice.\n\n",
+     "status": "ENABLED",
+     "hasAdditives": true,
+     "tags": [
+      {
+       "name": "Soya",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Gluten",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Dairy",
+       "group": "ALLERGEN"
+      }
+     ],
+     "menuId": "pqbBr"
+    },
+    {
+     "id": "NoGRA",
+     "name": "Chicken Slider Meal",
+     "price": 28,
+     "description": "1 pc. Original Chicken Slider, Original Fries, and a Drink of your choice.\n\n",
+     "status": "ENABLED",
+     "hasAdditives": true,
+     "tags": [
+      {
+       "name": "Soya",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Sesame",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Mustard",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Gluten",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Dairy",
+       "group": "ALLERGEN"
+      }
+     ],
+     "menuId": "pqbBr"
+    },
+    {
+     "id": "qD5de",
+     "name": "Lotus Softie",
+     "price": 27,
+     "description": "Our homemade ice-cream mix of caramelized biscuits\n\n\n",
+     "status": "ENABLED",
+     "hasAdditives": false,
+     "tags": [
+      {
+       "name": "Soya",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Gluten",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Dairy",
+       "group": "ALLERGEN"
+      }
+     ],
+     "menuId": "pqbBr"
+    },
+    {
+     "id": "vOYPR",
+     "name": "Brownie Softie",
+     "price": 27,
+     "status": "ENABLED",
+     "hasAdditives": false,
+     "tags": [
+      {
+       "name": "Soya",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Gluten",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Egg",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Dairy",
+       "group": "ALLERGEN"
+      }
+     ],
+     "menuId": "pqbBr"
+    },
+    {
+     "id": "ezbq5",
+     "name": "Hybrid Softie",
+     "price": 33,
+     "status": "ENABLED",
+     "hasAdditives": false,
+     "tags": [],
+     "menuId": "pqbBr"
+    },
+    {
+     "id": "7PWoN",
+     "name": "Chicken Strips",
+     "price": 37,
+     "description": "6pcs Crispy Chicken Strips served with our signature Chic Sauce\n\n",
+     "status": "DISABLED",
+     "hasAdditives": true,
+     "tags": [
+      {
+       "name": "Soya",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Gluten",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Dairy",
+       "group": "ALLERGEN"
+      }
+     ],
+     "menuId": "pqbBr"
+    },
+    {
+     "id": "0Bgo2",
+     "name": "Chicken Popcorn",
+     "price": 31,
+     "description": "Chicken nuggets, honey mustard sauce\n\n\n",
+     "status": "DISABLED",
+     "hasAdditives": true,
+     "tags": [
+      {
+       "name": "Soya",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Mustard",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Gluten",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Dairy",
+       "group": "ALLERGEN"
+      }
+     ],
+     "menuId": "pqbBr"
+    },
+    {
+     "id": "2eMxw",
+     "name": "Mint Lemonade",
+     "price": 18,
+     "description": "Freshly squeezed lemon juice with simple sugar syrup and fresh mint leaves\n\n",
+     "status": "ENABLED",
+     "hasAdditives": false,
+     "tags": [],
+     "menuId": "96WWX"
+    },
+    {
+     "id": "jrL3l",
+     "name": "Pink Lemonade",
+     "price": 18,
+     "description": "Freshly squeezed lemon juice with simple sugar syrup and strawberry puree\n\n",
+     "status": "ENABLED",
+     "hasAdditives": false,
+     "tags": [],
+     "menuId": "96WWX"
+    },
+    {
+     "id": "WbP7j",
+     "name": "Lotus Shake",
+     "price": 32,
+     "description": "The Classic lotus ice cream blended with fresh milk\n\n",
+     "status": "ENABLED",
+     "hasAdditives": false,
+     "tags": [],
+     "menuId": "96WWX"
+    },
+    {
+     "id": "JvOwv",
+     "name": "Brownie Shake",
+     "price": 32,
+     "status": "ENABLED",
+     "hasAdditives": false,
+     "tags": [],
+     "menuId": "96WWX"
+    },
+    {
+     "id": "krg3j",
+     "name": "Hybrid Shake",
+     "price": 35,
+     "status": "ENABLED",
+     "hasAdditives": false,
+     "tags": [],
+     "menuId": "96WWX"
+    },
+    {
+     "id": "1rPRM",
+     "name": "Brownie Shake",
+     "price": 0,
+     "status": "ENABLED",
+     "hasAdditives": false,
+     "tags": [],
+     "menuId": "96WWX"
+    }
+   ],
+   "details": {
+    "zD3AL": {
+     "id": "zD3AL",
+     "name": "Original Chicken Slider",
+     "price": 45,
+     "status": "ENABLED",
+     "description": "2 pcs. sliders with crispy chicken, pickles, lettuce and Japanese mayo sauce\n\n",
+     "tags": [
+      {
+       "name": "Soya",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Sesame",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Mustard",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Gluten",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Egg",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Dairy",
+       "group": "ALLERGEN"
+      }
+     ],
+     "modifierGroups": [
+      {
+       "id": "2gyPr",
+       "name": "Add Extra:",
+       "status": "ENABLED",
+       "products": [
+        {
+         "id": "RyYRb",
+         "name": "Extra Lettuce",
+         "price": 2,
+         "status": "ENABLED"
+        },
+        {
+         "id": "B8KLk",
+         "name": "Extra Kewpie Mayo",
+         "price": 5,
+         "status": "ENABLED"
+        },
+        {
+         "id": "2dD52",
+         "name": "Extra Cheese Slice-Yellow",
+         "price": 5,
+         "status": "ENABLED"
+        },
+        {
+         "id": "jwKMz",
+         "name": "Extra Jalapeno Sliced",
+         "price": 2,
+         "status": "ENABLED"
+        },
+        {
+         "id": "WwLKJ",
+         "name": "Extra Truffle Aioli",
+         "price": 5,
+         "status": "ENABLED"
+        }
+       ]
+      },
+      {
+       "id": "jlrwq",
+       "name": "Add Fries:",
+       "status": "ENABLED",
+       "min": 0,
+       "max": 1,
+       "multiMax": 0,
+       "products": [
+        {
+         "id": "zGYMB",
+         "name": "Flaming Cheetos Fries",
+         "price": 31,
+         "status": "ENABLED"
+        },
+        {
+         "id": "ZbDMj",
+         "name": "Salt & Vinegar Fries",
+         "price": 31,
+         "status": "ENABLED"
+        },
+        {
+         "id": "AGb3Z",
+         "name": "Fire Fries",
+         "price": 31,
+         "status": "ENABLED"
+        },
+        {
+         "id": "7PWBO",
+         "name": "Sweet Potato Fries",
+         "price": 27,
+         "status": "ENABLED"
+        },
+        {
+         "id": "0Bg44",
+         "name": "Cheese Fries",
+         "price": 25,
+         "status": "ENABLED"
+        },
+        {
+         "id": "Vk3bL",
+         "name": "Original Fries",
+         "price": 17,
+         "status": "ENABLED"
+        }
+       ]
+      },
+      {
+       "id": "WrbwR",
+       "name": "Add Drinks:",
+       "status": "ENABLED",
+       "min": 0,
+       "max": 1,
+       "multiMax": 0,
+       "products": [
+        {
+         "id": "5KOBK",
+         "name": "Mint Lemonade",
+         "price": 18,
+         "status": "ENABLED"
+        },
+        {
+         "id": "GkZxR",
+         "name": "Pink Lemonade",
+         "price": 18,
+         "status": "ENABLED"
+        }
+       ]
+      },
+      {
+       "id": "gDzzr",
+       "name": "Hungry? Go all the way!",
+       "status": "ENABLED",
+       "min": 0,
+       "max": 0,
+       "multiMax": 0,
+       "products": [
+        {
+         "id": "KXn6X",
+         "name": "Chicken Popcorn",
+         "price": 31,
+         "status": "ENABLED"
+        },
+        {
+         "id": "Qznde",
+         "name": "Chicken Strips",
+         "price": 37,
+         "status": "ENABLED"
+        }
+       ]
+      },
+      {
+       "id": "OKzAQ",
+       "name": "Remove:",
+       "status": "ENABLED",
+       "multiMax": 1,
+       "products": [
+        {
+         "id": "B8Koq",
+         "name": "No Kewpie Mayo",
+         "price": 0,
+         "status": "ENABLED"
+        },
+        {
+         "id": "8MJLW",
+         "name": "No Lettuce Shredded",
+         "price": 0,
+         "status": "ENABLED"
+        },
+        {
+         "id": "rz050",
+         "name": "No Butter",
+         "price": 0,
+         "status": "ENABLED"
+        }
+       ]
+      }
+     ]
+    },
+    "4kgKl": {
+     "id": "4kgKl",
+     "name": "Truffle Beef Slider",
+     "price": 54,
+     "status": "ENABLED",
+     "description": "2 pcs. sliders with grilled beef, white cheese, mushrooms, Truffle Sauce.\n",
+     "tags": [
+      {
+       "name": "Fish",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Sesame",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Mustard",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Gluten",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Egg",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Dairy",
+       "group": "ALLERGEN"
+      }
+     ],
+     "modifierGroups": [
+      {
+       "id": "JybQB",
+       "name": "Add Extra:",
+       "status": "ENABLED",
+       "products": [
+        {
+         "id": "WwLKJ",
+         "name": "Extra Truffle Aioli",
+         "price": 5,
+         "status": "ENABLED"
+        },
+        {
+         "id": "NoGxg",
+         "name": "Extra Mushroom Sauce",
+         "price": 5,
+         "status": "ENABLED"
+        },
+        {
+         "id": "zGYD3",
+         "name": "Extra Sliced Cheese-White ",
+         "price": 5,
+         "status": "ENABLED"
+        }
+       ]
+      },
+      {
+       "id": "jlrwq",
+       "name": "Add Fries:",
+       "status": "ENABLED",
+       "min": 0,
+       "max": 1,
+       "multiMax": 0,
+       "products": [
+        {
+         "id": "zGYMB",
+         "name": "Flaming Cheetos Fries",
+         "price": 31,
+         "status": "ENABLED"
+        },
+        {
+         "id": "ZbDMj",
+         "name": "Salt & Vinegar Fries",
+         "price": 31,
+         "status": "ENABLED"
+        },
+        {
+         "id": "AGb3Z",
+         "name": "Fire Fries",
+         "price": 31,
+         "status": "ENABLED"
+        },
+        {
+         "id": "7PWBO",
+         "name": "Sweet Potato Fries",
+         "price": 27,
+         "status": "ENABLED"
+        },
+        {
+         "id": "0Bg44",
+         "name": "Cheese Fries",
+         "price": 25,
+         "status": "ENABLED"
+        },
+        {
+         "id": "Vk3bL",
+         "name": "Original Fries",
+         "price": 17,
+         "status": "ENABLED"
+        }
+       ]
+      },
+      {
+       "id": "WrbwR",
+       "name": "Add Drinks:",
+       "status": "ENABLED",
+       "min": 0,
+       "max": 1,
+       "multiMax": 0,
+       "products": [
+        {
+         "id": "5KOBK",
+         "name": "Mint Lemonade",
+         "price": 18,
+         "status": "ENABLED"
+        },
+        {
+         "id": "GkZxR",
+         "name": "Pink Lemonade",
+         "price": 18,
+         "status": "ENABLED"
+        }
+       ]
+      },
+      {
+       "id": "gDzzr",
+       "name": "Hungry? Go all the way!",
+       "status": "ENABLED",
+       "min": 0,
+       "max": 0,
+       "multiMax": 0,
+       "products": [
+        {
+         "id": "KXn6X",
+         "name": "Chicken Popcorn",
+         "price": 31,
+         "status": "ENABLED"
+        },
+        {
+         "id": "Qznde",
+         "name": "Chicken Strips",
+         "price": 37,
+         "status": "ENABLED"
+        }
+       ]
+      },
+      {
+       "id": "ko04P",
+       "name": "Remove:",
+       "status": "ENABLED",
+       "multiMax": 1,
+       "products": [
+        {
+         "id": "0Bgkg",
+         "name": "No Mushroom Sauce",
+         "price": 0,
+         "status": "ENABLED"
+        },
+        {
+         "id": "4b2kV",
+         "name": "No Truffle Aioli",
+         "price": 0,
+         "status": "ENABLED"
+        },
+        {
+         "id": "Vk34N",
+         "name": "No Sliced Cheese - White ",
+         "price": 0,
+         "status": "ENABLED"
+        },
+        {
+         "id": "rz050",
+         "name": "No Butter",
+         "price": 0,
+         "status": "ENABLED"
+        }
+       ]
+      }
+     ]
+    },
+    "V4nPO": {
+     "id": "V4nPO",
+     "name": "Original Beef Slider",
+     "price": 40,
+     "status": "ENABLED",
+     "description": "2pc. classic SALT sliders made with grilled beef, cheese, pickles and our famous original sauce\n",
+     "tags": [
+      {
+       "name": "Dairy",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Egg",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Gluten",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Mustard",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Sesame",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Soya",
+       "group": "ALLERGEN"
+      }
+     ],
+     "modifierGroups": [
+      {
+       "id": "LdQQo",
+       "name": "Add Extra:",
+       "status": "ENABLED",
+       "products": [
+        {
+         "id": "xVBQY",
+         "name": "Extra Original Sauce",
+         "price": 5,
+         "status": "ENABLED"
+        },
+        {
+         "id": "2dD52",
+         "name": "Extra Cheese Slice-Yellow",
+         "price": 5,
+         "status": "ENABLED"
+        },
+        {
+         "id": "Ok817",
+         "name": "Extra Pickle",
+         "price": 2,
+         "status": "ENABLED"
+        },
+        {
+         "id": "RyYRb",
+         "name": "Extra Lettuce",
+         "price": 2,
+         "status": "ENABLED"
+        },
+        {
+         "id": "jwKMz",
+         "name": "Extra Jalapeno Sliced",
+         "price": 2,
+         "status": "ENABLED"
+        },
+        {
+         "id": "WwLKJ",
+         "name": "Extra Truffle Aioli",
+         "price": 5,
+         "status": "ENABLED"
+        }
+       ]
+      },
+      {
+       "id": "jlrwq",
+       "name": "Add Fries:",
+       "status": "ENABLED",
+       "min": 0,
+       "max": 1,
+       "multiMax": 0,
+       "products": [
+        {
+         "id": "zGYMB",
+         "name": "Flaming Cheetos Fries",
+         "price": 31,
+         "status": "ENABLED"
+        },
+        {
+         "id": "ZbDMj",
+         "name": "Salt & Vinegar Fries",
+         "price": 31,
+         "status": "ENABLED"
+        },
+        {
+         "id": "AGb3Z",
+         "name": "Fire Fries",
+         "price": 31,
+         "status": "ENABLED"
+        },
+        {
+         "id": "7PWBO",
+         "name": "Sweet Potato Fries",
+         "price": 27,
+         "status": "ENABLED"
+        },
+        {
+         "id": "0Bg44",
+         "name": "Cheese Fries",
+         "price": 25,
+         "status": "ENABLED"
+        },
+        {
+         "id": "Vk3bL",
+         "name": "Original Fries",
+         "price": 17,
+         "status": "ENABLED"
+        }
+       ]
+      },
+      {
+       "id": "WrbwR",
+       "name": "Add Drinks:",
+       "status": "ENABLED",
+       "min": 0,
+       "max": 1,
+       "multiMax": 0,
+       "products": [
+        {
+         "id": "5KOBK",
+         "name": "Mint Lemonade",
+         "price": 18,
+         "status": "ENABLED"
+        },
+        {
+         "id": "GkZxR",
+         "name": "Pink Lemonade",
+         "price": 18,
+         "status": "ENABLED"
+        }
+       ]
+      },
+      {
+       "id": "gDzzr",
+       "name": "Hungry? Go all the way!",
+       "status": "ENABLED",
+       "min": 0,
+       "max": 0,
+       "multiMax": 0,
+       "products": [
+        {
+         "id": "KXn6X",
+         "name": "Chicken Popcorn",
+         "price": 31,
+         "status": "ENABLED"
+        },
+        {
+         "id": "Qznde",
+         "name": "Chicken Strips",
+         "price": 37,
+         "status": "ENABLED"
+        }
+       ]
+      },
+      {
+       "id": "6myyv",
+       "name": "Remove:",
+       "status": "ENABLED",
+       "min": 0,
+       "max": 0,
+       "multiMax": 1,
+       "products": [
+        {
+         "id": "kdQzq",
+         "name": "No Pickle",
+         "price": 0,
+         "status": "ENABLED"
+        },
+        {
+         "id": "Jk0xO",
+         "name": "No Original Sauce",
+         "price": 0,
+         "status": "ENABLED"
+        },
+        {
+         "id": "Xdg5O",
+         "name": "No Cheese Slice - Yellow",
+         "price": 0,
+         "status": "ENABLED"
+        },
+        {
+         "id": "rz050",
+         "name": "No Butter",
+         "price": 0,
+         "status": "ENABLED"
+        },
+        {
+         "id": "RyYRb",
+         "name": "Extra Lettuce",
+         "price": 2,
+         "status": "ENABLED"
+        },
+        {
+         "id": "jwKMz",
+         "name": "Extra Jalapeno Sliced",
+         "price": 2,
+         "status": "ENABLED"
+        }
+       ]
+      }
+     ]
+    },
+    "qM1Pr": {
+     "id": "qM1Pr",
+     "name": "Salt Burger",
+     "price": 48,
+     "status": "ENABLED",
+     "description": "Double-beef patty, cheese, onions, secret sauce\n\n",
+     "tags": [
+      {
+       "name": "Soya",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Mustard",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Gluten",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Dairy",
+       "group": "ALLERGEN"
+      }
+     ],
+     "modifierGroups": [
+      {
+       "id": "KwlXw",
+       "name": "Add Extra:",
+       "status": "ENABLED",
+       "max": 0,
+       "products": [
+        {
+         "id": "DkPxY",
+         "name": "Extra Beef Patty",
+         "price": 25,
+         "status": "ENABLED"
+        },
+        {
+         "id": "m1MGB",
+         "name": "Extra Special Sauce",
+         "price": 5,
+         "status": "ENABLED"
+        },
+        {
+         "id": "YX61B",
+         "name": "Extra Cheese Sauce",
+         "price": 8,
+         "status": "ENABLED"
+        },
+        {
+         "id": "Ok817",
+         "name": "Extra Pickle",
+         "price": 2,
+         "status": "ENABLED"
+        },
+        {
+         "id": "jwKMz",
+         "name": "Extra Jalapeno Sliced",
+         "price": 2,
+         "status": "ENABLED"
+        },
+        {
+         "id": "1w6k4",
+         "name": "Extra Iceburg Lettuce",
+         "price": 2,
+         "status": "ENABLED"
+        },
+        {
+         "id": "2dD52",
+         "name": "Extra Cheese Slice-Yellow",
+         "price": 5,
+         "status": "ENABLED"
+        },
+        {
+         "id": "WwLKJ",
+         "name": "Extra Truffle Aioli",
+         "price": 5,
+         "status": "ENABLED"
+        }
+       ]
+      },
+      {
+       "id": "jlrwq",
+       "name": "Add Fries:",
+       "status": "ENABLED",
+       "min": 0,
+       "max": 1,
+       "multiMax": 0,
+       "products": [
+        {
+         "id": "zGYMB",
+         "name": "Flaming Cheetos Fries",
+         "price": 31,
+         "status": "ENABLED"
+        },
+        {
+         "id": "ZbDMj",
+         "name": "Salt & Vinegar Fries",
+         "price": 31,
+         "status": "ENABLED"
+        },
+        {
+         "id": "AGb3Z",
+         "name": "Fire Fries",
+         "price": 31,
+         "status": "ENABLED"
+        },
+        {
+         "id": "7PWBO",
+         "name": "Sweet Potato Fries",
+         "price": 27,
+         "status": "ENABLED"
+        },
+        {
+         "id": "0Bg44",
+         "name": "Cheese Fries",
+         "price": 25,
+         "status": "ENABLED"
+        },
+        {
+         "id": "Vk3bL",
+         "name": "Original Fries",
+         "price": 17,
+         "status": "ENABLED"
+        }
+       ]
+      },
+      {
+       "id": "WrbwR",
+       "name": "Add Drinks:",
+       "status": "ENABLED",
+       "min": 0,
+       "max": 1,
+       "multiMax": 0,
+       "products": [
+        {
+         "id": "5KOBK",
+         "name": "Mint Lemonade",
+         "price": 18,
+         "status": "ENABLED"
+        },
+        {
+         "id": "GkZxR",
+         "name": "Pink Lemonade",
+         "price": 18,
+         "status": "ENABLED"
+        }
+       ]
+      },
+      {
+       "id": "QP2zj",
+       "name": "Remove:",
+       "status": "ENABLED",
+       "multiMax": 1,
+       "products": [
+        {
+         "id": "w48DP",
+         "name": "No Onion White Fresh",
+         "price": 0,
+         "status": "ENABLED"
+        },
+        {
+         "id": "d4oMK",
+         "name": "No Special Sauce",
+         "price": 0,
+         "status": "ENABLED"
+        },
+        {
+         "id": "Xdg5O",
+         "name": "No Cheese Slice - Yellow",
+         "price": 0,
+         "status": "ENABLED"
+        }
+       ]
+      }
+     ]
+    },
+    "YX6xn": {
+     "id": "YX6xn",
+     "name": "Original Fries",
+     "price": 17,
+     "status": "ENABLED",
+     "description": "Original skin-on crispy French fries\n\n",
+     "tags": [
+      {
+       "name": "Soya",
+       "group": "ALLERGEN"
+      }
+     ],
+     "modifierGroups": [
+      {
+       "id": "Jyvko",
+       "name": "Add Sauces:",
+       "status": "ENABLED",
+       "min": 0,
+       "max": 0,
+       "multiMax": 0,
+       "products": [
+        {
+         "id": "8MJxL",
+         "name": "Extra Jalapeno Sauce",
+         "price": 5,
+         "status": "ENABLED"
+        },
+        {
+         "id": "B8KLk",
+         "name": "Extra Kewpie Mayo",
+         "price": 5,
+         "status": "ENABLED"
+        },
+        {
+         "id": "NoGxg",
+         "name": "Extra Mushroom Sauce",
+         "price": 5,
+         "status": "ENABLED"
+        },
+        {
+         "id": "YX61B",
+         "name": "Extra Cheese Sauce",
+         "price": 8,
+         "status": "ENABLED"
+        },
+        {
+         "id": "qM1VN",
+         "name": "Extra Cheetos Sauce ",
+         "price": 5,
+         "status": "ENABLED"
+        },
+        {
+         "id": "v0Gb6",
+         "name": "Extra Honey Mustard Sauce",
+         "price": 5,
+         "status": "ENABLED"
+        }
+       ]
+      },
+      {
+       "id": "WrbwR",
+       "name": "Add Drinks:",
+       "status": "ENABLED",
+       "min": 0,
+       "max": 1,
+       "multiMax": 0,
+       "products": [
+        {
+         "id": "5KOBK",
+         "name": "Mint Lemonade",
+         "price": 18,
+         "status": "ENABLED"
+        },
+        {
+         "id": "GkZxR",
+         "name": "Pink Lemonade",
+         "price": 18,
+         "status": "ENABLED"
+        }
+       ]
+      }
+     ]
+    },
+    "3Xxwx": {
+     "id": "3Xxwx",
+     "name": "Truffle Fries",
+     "price": 31,
+     "status": "ENABLED",
+     "description": "Skin-on fries, parmesan cheese, parsley, truffle oil and truffle cream sauce\n\n",
+     "tags": [
+      {
+       "name": "Soya",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Mustard",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Gluten",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Dairy",
+       "group": "ALLERGEN"
+      }
+     ],
+     "modifierGroups": [
+      {
+       "id": "WrbwR",
+       "name": "Add Drinks:",
+       "status": "ENABLED",
+       "min": 0,
+       "max": 1,
+       "multiMax": 0,
+       "products": [
+        {
+         "id": "5KOBK",
+         "name": "Mint Lemonade",
+         "price": 18,
+         "status": "ENABLED"
+        },
+        {
+         "id": "GkZxR",
+         "name": "Pink Lemonade",
+         "price": 18,
+         "status": "ENABLED"
+        }
+       ]
+      }
+     ]
+    },
+    "7PWoN": {
+     "id": "7PWoN",
+     "name": "Chicken Strips",
+     "price": 37,
+     "status": "DISABLED",
+     "description": "6pcs Crispy Chicken Strips served with our signature Chic Sauce\n\n",
+     "tags": [
+      {
+       "name": "Soya",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Gluten",
+       "group": "ALLERGEN"
+      },
+      {
+       "name": "Dairy",
+       "group": "ALLERGEN"
+      }
+     ],
+     "modifierGroups": [
+      {
+       "id": "jlrwq",
+       "name": "Add Fries:",
+       "status": "ENABLED",
+       "min": 0,
+       "max": 1,
+       "multiMax": 0,
+       "products": [
+        {
+         "id": "zGYMB",
+         "name": "Flaming Cheetos Fries",
+         "price": 31,
+         "status": "ENABLED"
+        },
+        {
+         "id": "ZbDMj",
+         "name": "Salt & Vinegar Fries",
+         "price": 31,
+         "status": "ENABLED"
+        },
+        {
+         "id": "AGb3Z",
+         "name": "Fire Fries",
+         "price": 31,
+         "status": "ENABLED"
+        },
+        {
+         "id": "7PWBO",
+         "name": "Sweet Potato Fries",
+         "price": 27,
+         "status": "ENABLED"
+        },
+        {
+         "id": "0Bg44",
+         "name": "Cheese Fries",
+         "price": 25,
+         "status": "ENABLED"
+        },
+        {
+         "id": "Vk3bL",
+         "name": "Original Fries",
+         "price": 17,
+         "status": "ENABLED"
+        }
+       ]
+      },
+      {
+       "id": "WrbwR",
+       "name": "Add Drinks:",
+       "status": "ENABLED",
+       "min": 0,
+       "max": 1,
+       "multiMax": 0,
+       "products": [
+        {
+         "id": "5KOBK",
+         "name": "Mint Lemonade",
+         "price": 18,
+         "status": "ENABLED"
+        },
+        {
+         "id": "GkZxR",
+         "name": "Pink Lemonade",
+         "price": 18,
+         "status": "ENABLED"
+        }
+       ]
+      },
+      {
+       "id": "Jyvko",
+       "name": "Add Sauces:",
+       "status": "ENABLED",
+       "min": 0,
+       "max": 0,
+       "multiMax": 0,
+       "products": [
+        {
+         "id": "8MJxL",
+         "name": "Extra Jalapeno Sauce",
+         "price": 5,
+         "status": "ENABLED"
+        },
+        {
+         "id": "B8KLk",
+         "name": "Extra Kewpie Mayo",
+         "price": 5,
+         "status": "ENABLED"
+        },
+        {
+         "id": "NoGxg",
+         "name": "Extra Mushroom Sauce",
+         "price": 5,
+         "status": "ENABLED"
+        },
+        {
+         "id": "YX61B",
+         "name": "Extra Cheese Sauce",
+         "price": 8,
+         "status": "ENABLED"
+        },
+        {
+         "id": "qM1VN",
+         "name": "Extra Cheetos Sauce ",
+         "price": 5,
+         "status": "ENABLED"
+        },
+        {
+         "id": "v0Gb6",
+         "name": "Extra Honey Mustard Sauce",
+         "price": 5,
+         "status": "ENABLED"
+        }
+       ]
+      }
+     ]
+    }
+   }
+  }
+ ]
+}

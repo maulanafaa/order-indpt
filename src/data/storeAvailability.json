@@ -1,0 +1,44 @@
+[
+  {
+    "storeId": "store-3",
+    "itemId": "item-20000002",
+    "available": false,
+    "reason": "Sold out today"
+  },
+  {
+    "storeId": "store-3",
+    "itemId": "item-20000037",
+    "available": false,
+    "reason": "Sold out today"
+  },
+  {
+    "storeId": "store-3",
+    "modifierId": "mod-20000003-add-extra-extra-jalapeno-sliced",
+    "available": false,
+    "reason": "Unavailable"
+  },
+  {
+    "storeId": "store-3",
+    "modifierId": "mod-20000001-add-fries-fire-fries",
+    "available": false,
+    "reason": "Unavailable"
+  },
+  {
+    "storeId": "store-2",
+    "itemId": "item-20001052",
+    "available": false,
+    "reason": "Sold out today"
+  },
+  {
+    "storeId": "store-1",
+    "itemId": "item-20000005",
+    "available": false,
+    "reason": "Sold out today"
+  },
+  {
+    "storeId": "store-1",
+    "modifierId": "mod-20000009-add-extra-extra-kewpie-mayo",
+    "available": false,
+    "reason": "Unavailable"
+  }
+]

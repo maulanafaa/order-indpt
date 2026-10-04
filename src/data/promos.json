@@ -1,0 +1,35 @@
+[
+  {
+    "code": "SALT15",
+    "title": "15% off your order",
+    "type": "percent",
+    "value": 15,
+    "maxDiscount": 30,
+    "minOrder": 100,
+    "validFrom": "2026-09-01",
+    "validUntil": "2026-10-31",
+    "methods": ["pickup", "carhop", "dineIn"]
+  },
+  {
+    "code": "SUMMER20",
+    "title": "20% off summer treats",
+    "type": "percent",
+    "value": 20,
+    "maxDiscount": 25,
+    "minOrder": 60,
+    "validFrom": "2026-06-01",
+    "validUntil": "2026-08-31",
+    "methods": ["pickup", "carhop", "dineIn"]
+  },
+  {
+    "code": "CARHOP10",
+    "title": "Save on Carhop orders",
+    "type": "amount",
+    "value": 10,
+    "maxDiscount": null,
+    "minOrder": 50,
+    "validFrom": "2026-09-15",
+    "validUntil": "2026-12-31",
+    "methods": ["carhop"]
+  }
+]

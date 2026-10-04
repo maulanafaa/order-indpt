@@ -1,0 +1,1496 @@
+[
+  {
+    "id": "item-20000003",
+    "slug": "original-beef-slider",
+    "categoryId": "cat-35",
+    "name": "Original Beef Slider",
+    "description": "2pc. classic SALT sliders made with grilled beef, cheese, pickles and our famous original sauce",
+    "price": 37,
+    "calories": null,
+    "isBestSeller": true,
+    "allergens": [
+      "Dairy",
+      "Egg",
+      "Gluten",
+      "Mustard",
+      "Sesame",
+      "Soya"
+    ]
+  },
+  {
+    "id": "item-20000004",
+    "slug": "jalapeno-beef-slider",
+    "categoryId": "cat-35",
+    "name": "Jalapeno Beef Slider",
+    "description": "2 pc. sliders with grilled beef, white cheese, jalapeño slices, shredded lettuce and Jalapeño Sauce.",
+    "price": 45,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": [
+      "Dairy",
+      "Egg",
+      "Gluten",
+      "Mustard",
+      "Sesame"
+    ]
+  },
+  {
+    "id": "item-20000007",
+    "slug": "jalapeno-beef-slider-double",
+    "categoryId": "cat-35",
+    "name": "Jalapeno Beef Slider - Double",
+    "description": "2 pcs. sliders with double grilled beef patty, white cheese, jalapeño slices, shredded lettuce and Jalapeño Sauce.",
+    "price": 61,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": [
+      "Dairy",
+      "Egg",
+      "Gluten",
+      "Mustard",
+      "Sesame"
+    ]
+  },
+  {
+    "id": "item-20000005",
+    "slug": "truffle-beef-slider",
+    "categoryId": "cat-35",
+    "name": "Truffle Beef Slider",
+    "description": "2 pcs. sliders with grilled beef, white cheese, mushrooms, Truffle Sauce.",
+    "price": 47,
+    "calories": null,
+    "isBestSeller": true,
+    "allergens": [
+      "Dairy",
+      "Egg",
+      "Fish",
+      "Gluten",
+      "Mustard",
+      "Sesame"
+    ]
+  },
+  {
+    "id": "item-20000008",
+    "slug": "truffle-beef-slider-double",
+    "categoryId": "cat-35",
+    "name": "Truffle Beef Slider - Double",
+    "description": "2 pcs. sliders with double grilled beef patty, white cheese, mushrooms, Truffle Sauce.",
+    "price": 63,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": [
+      "Dairy",
+      "Egg",
+      "Fish",
+      "Gluten",
+      "Mustard",
+      "Sesame"
+    ]
+  },
+  {
+    "id": "item-20000006",
+    "slug": "original-beef-slider-double",
+    "categoryId": "cat-35",
+    "name": "Original Beef Slider - Double",
+    "description": "2 pcs. classic SALT sliders made with double grilled beef patty, cheese, pickles and our famous original sauce",
+    "price": 53,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": [
+      "Dairy",
+      "Egg",
+      "Gluten",
+      "Mustard",
+      "Sesame",
+      "Soya"
+    ]
+  },
+  {
+    "id": "item-20000009",
+    "slug": "original-chicken-slider",
+    "categoryId": "cat-35",
+    "name": "Original Chicken Slider",
+    "description": "2 pcs. sliders with crispy chicken, pickles, lettuce and Japanese mayo sauce",
+    "price": 43,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": [
+      "Dairy",
+      "Egg",
+      "Gluten",
+      "Mustard",
+      "Sesame",
+      "Soya"
+    ]
+  },
+  {
+    "id": "item-20000010",
+    "slug": "crispy-chicken-slider",
+    "categoryId": "cat-35",
+    "name": "Crispy Chicken Slider",
+    "description": "2 pcs. sliders with crispy chicken strips, pickles, lettuce and Chic Sauce.",
+    "price": 43,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": [
+      "Dairy",
+      "Egg",
+      "Fish",
+      "Gluten",
+      "Mustard",
+      "Sesame",
+      "Soya"
+    ]
+  },
+  {
+    "id": "item-20000011",
+    "slug": "chicken-cheetos-slider",
+    "categoryId": "cat-35",
+    "name": "Chicken Cheetos Slider",
+    "description": "2 pcs. classic SALT sliders with chicken fillet, crunchy cheetos crumbs, cheese, lettuce and Cheetos sauce.",
+    "price": 45,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": [
+      "Dairy",
+      "Egg",
+      "Gluten",
+      "Mustard",
+      "Sesame",
+      "Soya"
+    ]
+  },
+  {
+    "id": "item-20000012",
+    "slug": "lettuce-beef-wrap",
+    "categoryId": "cat-35",
+    "name": "Lettuce Beef Wrap",
+    "description": "Go light! 2 pcs. iceberg lettuce wrap with grilled beef, tomato, pickles and light mustard sauce.",
+    "price": 33,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": [
+      "Dairy",
+      "Mustard"
+    ]
+  },
+  {
+    "id": "item-20000013",
+    "slug": "lettuce-beef-wrap-double",
+    "categoryId": "cat-35",
+    "name": "Lettuce Beef Wrap - Double",
+    "description": "Go light! 2 pcs. iceberg lettuce wrap with double grilled beef patty, tomato, pickles and light mustard sauce. Calories: 350, Protein: 34 g",
+    "price": 44,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": [
+      "Dairy",
+      "Mustard"
+    ]
+  },
+  {
+    "id": "item-20000001",
+    "slug": "salt-burger",
+    "categoryId": "cat-36",
+    "name": "Salt Burger",
+    "description": "Double-beef patty, cheese, onions, secret sauce",
+    "price": 43,
+    "calories": null,
+    "isBestSeller": true,
+    "allergens": [
+      "Dairy",
+      "Gluten",
+      "Mustard",
+      "Soya"
+    ]
+  },
+  {
+    "id": "item-20000002",
+    "slug": "campfire-burger",
+    "categoryId": "cat-36",
+    "name": "Campfire Burger",
+    "description": "",
+    "price": 48,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20000014",
+    "slug": "chicken-strips",
+    "categoryId": "cat-37",
+    "name": "Chicken Strips",
+    "description": "6pcs Crispy Chicken Strips served with our signature Chic Sauce",
+    "price": 35,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": [
+      "Dairy",
+      "Gluten",
+      "Soya"
+    ]
+  },
+  {
+    "id": "item-20000015",
+    "slug": "chicken-popcorn",
+    "categoryId": "cat-37",
+    "name": "Chicken Popcorn",
+    "description": "Chicken nuggets, honey mustard sauce",
+    "price": 30,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": [
+      "Dairy",
+      "Gluten",
+      "Mustard",
+      "Soya"
+    ]
+  },
+  {
+    "id": "item-20000017",
+    "slug": "cheese-fries",
+    "categoryId": "cat-38",
+    "name": "Cheese Fries",
+    "description": "Skin-on crispy fries and melted cheese.",
+    "price": 21,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": [
+      "Dairy",
+      "Gluten",
+      "Soya"
+    ]
+  },
+  {
+    "id": "item-20000016",
+    "slug": "original-fries",
+    "categoryId": "cat-38",
+    "name": "Original Fries",
+    "description": "Original skin-on crispy French fries",
+    "price": 15,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": [
+      "Soya"
+    ]
+  },
+  {
+    "id": "item-20000018",
+    "slug": "fire-fries",
+    "categoryId": "cat-38",
+    "name": "Fire Fries",
+    "description": "Skin-on fries, melted cheese, jalapeño slices, fire sauce",
+    "price": 30,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": [
+      "Dairy",
+      "Gluten",
+      "Mustard",
+      "Soya"
+    ]
+  },
+  {
+    "id": "item-20000019",
+    "slug": "salt-and-vinegar-fries",
+    "categoryId": "cat-38",
+    "name": "Salt & Vinegar Fries",
+    "description": "Skin-on fries, parmesan cheese, salt & vinegar sauce",
+    "price": 27,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": [
+      "Dairy",
+      "Gluten",
+      "Mustard",
+      "Soya"
+    ]
+  },
+  {
+    "id": "item-20000020",
+    "slug": "truffle-fries",
+    "categoryId": "cat-38",
+    "name": "Truffle Fries",
+    "description": "Skin-on fries, parmesan cheese, parsley, truffle oil and truffle cream sauce",
+    "price": 31,
+    "calories": null,
+    "isBestSeller": true,
+    "allergens": [
+      "Dairy",
+      "Gluten",
+      "Mustard",
+      "Soya"
+    ]
+  },
+  {
+    "id": "item-20000021",
+    "slug": "sweet-potato-fries",
+    "categoryId": "cat-38",
+    "name": "Sweet Potato Fries",
+    "description": "Original crispy sweet potato fries",
+    "price": 25,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": [
+      "Soya"
+    ]
+  },
+  {
+    "id": "item-20000022",
+    "slug": "salt-fries",
+    "categoryId": "cat-38",
+    "name": "Salt Fries",
+    "description": "",
+    "price": 21,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20000023",
+    "slug": "cheetos-fries",
+    "categoryId": "cat-38",
+    "name": "Cheetos Fries",
+    "description": "",
+    "price": 28,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20000057",
+    "slug": "salt-bbq-kit-big-beef",
+    "categoryId": "cat-11",
+    "name": "Salt Bbq Kit Big - Beef",
+    "description": "",
+    "price": 411,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20000058",
+    "slug": "salt-bbq-kit-mini-beef",
+    "categoryId": "cat-11",
+    "name": "Salt Bbq Kit Mini - Beef",
+    "description": "",
+    "price": 230,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20000059",
+    "slug": "salt-bbq-kit-big-mix",
+    "categoryId": "cat-11",
+    "name": "Salt Bbq Kit Big - Mix",
+    "description": "",
+    "price": 411,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20000060",
+    "slug": "salt-bbq-kit-mini-chicken",
+    "categoryId": "cat-11",
+    "name": "Salt Bbq Kit Mini - Chicken",
+    "description": "",
+    "price": 230,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20000122",
+    "slug": "salt-bbq-kit-big-chicken",
+    "categoryId": "cat-11",
+    "name": "Salt Bbq Kit big-Chicken",
+    "description": "",
+    "price": 411,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20000036",
+    "slug": "chicken-slider-meal",
+    "categoryId": "cat-40",
+    "name": "Chicken Slider Meal",
+    "description": "1 pc. Original Chicken Slider, Original Fries, and a Drink of your choice.",
+    "price": 27,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": [
+      "Dairy",
+      "Gluten",
+      "Mustard",
+      "Sesame",
+      "Soya"
+    ]
+  },
+  {
+    "id": "item-20000034",
+    "slug": "chicken-strips-meal",
+    "categoryId": "cat-40",
+    "name": "Chicken Strips Meal",
+    "description": "6 pcs. Chicken Strips, Original Fries, and a Drink of your choice.",
+    "price": 27,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": [
+      "Dairy",
+      "Gluten",
+      "Soya"
+    ]
+  },
+  {
+    "id": "item-20000035",
+    "slug": "beef-slider-meal",
+    "categoryId": "cat-40",
+    "name": "Beef Slider Meal",
+    "description": "1 pc. Original Beef Slider, Original Fries, and a Drink of your choice.",
+    "price": 32,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": [
+      "Dairy",
+      "Gluten",
+      "Mustard",
+      "Sesame",
+      "Soya"
+    ]
+  },
+  {
+    "id": "item-20000173",
+    "slug": "granola-yogurt-bowl",
+    "categoryId": "cat-41",
+    "name": "Granola yogurt Bowl",
+    "description": "Greek yogurt, granola, raspberries, berry compote, honey, chia seeds",
+    "price": 40,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20000174",
+    "slug": "acai-bowl",
+    "categoryId": "cat-41",
+    "name": "Acai Bowl",
+    "description": "Acai, granola, peanut butter, banana, blueberries, chia seeds",
+    "price": 40,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20001001",
+    "slug": "pink-lemonade",
+    "categoryId": "cat-42",
+    "name": "Pink Lemonade",
+    "description": "Freshly squeezed lemon juice with simple sugar syrup and strawberry puree",
+    "price": 18,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20001003",
+    "slug": "original-lemonade",
+    "categoryId": "cat-42",
+    "name": "Original Lemonade",
+    "description": "",
+    "price": 15,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20001049",
+    "slug": "mint-lemonade",
+    "categoryId": "cat-42",
+    "name": "Mint lemonade",
+    "description": "Freshly squeezed lemon juice with simple sugar syrup and fresh mint leaves",
+    "price": 18,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20001065",
+    "slug": "orange-juice",
+    "categoryId": "cat-43",
+    "name": "Orange Juice",
+    "description": "",
+    "price": 30,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20001083",
+    "slug": "watermelon-juice",
+    "categoryId": "cat-43",
+    "name": "Watermelon Juice",
+    "description": "",
+    "price": 30,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20001084",
+    "slug": "coconut-fresh-juice",
+    "categoryId": "cat-43",
+    "name": "Coconut Fresh Juice",
+    "description": "",
+    "price": 30,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20001085",
+    "slug": "pomegranate-fresh-juice",
+    "categoryId": "cat-43",
+    "name": "Pomegranate Fresh Juice",
+    "description": "Fresh Juice",
+    "price": 30,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20001086",
+    "slug": "green-apple-fresh-juice",
+    "categoryId": "cat-43",
+    "name": "Green Apple Fresh Juice",
+    "description": "",
+    "price": 30,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20001030",
+    "slug": "pepsi",
+    "categoryId": "cat-44",
+    "name": "Pepsi",
+    "description": "",
+    "price": 9,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20001031",
+    "slug": "diet-pepsi",
+    "categoryId": "cat-44",
+    "name": "Diet Pepsi",
+    "description": "",
+    "price": 9,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20001032",
+    "slug": "7up",
+    "categoryId": "cat-44",
+    "name": "7up",
+    "description": "",
+    "price": 9,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20001033",
+    "slug": "mirinda",
+    "categoryId": "cat-44",
+    "name": "Mirinda",
+    "description": "",
+    "price": 9,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20001050",
+    "slug": "sparkling-water-bottle",
+    "categoryId": "cat-45",
+    "name": "Sparkling Water bottle",
+    "description": "",
+    "price": 15,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20001073",
+    "slug": "aquafina-water",
+    "categoryId": "cat-45",
+    "name": "Aquafina Water",
+    "description": "500 ml",
+    "price": 5,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20001002",
+    "slug": "lemon-mint-mojito",
+    "categoryId": "cat-46",
+    "name": "Lemon Mint Mojito",
+    "description": "",
+    "price": 27,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20001058",
+    "slug": "passionfruit-mojito",
+    "categoryId": "cat-46",
+    "name": "Passionfruit - Mojito",
+    "description": "",
+    "price": 27,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20001076",
+    "slug": "beri-mojito",
+    "categoryId": "cat-46",
+    "name": "Beri Mojito",
+    "description": "",
+    "price": 27,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20001059",
+    "slug": "americano-cold",
+    "categoryId": "cat-16",
+    "name": "Americano - Cold",
+    "description": "",
+    "price": 17,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20001060",
+    "slug": "iced-latte",
+    "categoryId": "cat-16",
+    "name": "Iced Latte",
+    "description": "",
+    "price": 20,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20001063",
+    "slug": "cereal-matcha-latte-iced",
+    "categoryId": "cat-16",
+    "name": "Cereal Matcha Latte Iced",
+    "description": "",
+    "price": 29,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20001064",
+    "slug": "classic-iced-matcha-120z",
+    "categoryId": "cat-16",
+    "name": "Classic Iced Matcha 120z",
+    "description": "",
+    "price": 29,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20001066",
+    "slug": "salted-vanilla-matcha-latte",
+    "categoryId": "cat-16",
+    "name": "Salted Vanilla Matcha Latte",
+    "description": "",
+    "price": 29,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20001006",
+    "slug": "cereal-latte-cold",
+    "categoryId": "cat-16",
+    "name": "Cereal Latte - Cold",
+    "description": "",
+    "price": 29,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20001008",
+    "slug": "matcha-latte-cold",
+    "categoryId": "cat-16",
+    "name": "Matcha Latte - Cold",
+    "description": "",
+    "price": 29,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20001014",
+    "slug": "lotus-affogato-cold",
+    "categoryId": "cat-16",
+    "name": "Lotus Affogato - Cold",
+    "description": "",
+    "price": 35,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20001015",
+    "slug": "brownie-affogato-cold",
+    "categoryId": "cat-16",
+    "name": "Brownie Affogato - Cold",
+    "description": "",
+    "price": 37,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20001052",
+    "slug": "spanish-latte-cold",
+    "categoryId": "cat-16",
+    "name": "Spanish Latte - Cold",
+    "description": "",
+    "price": 25,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20001062",
+    "slug": "matcha-coconut-cloud",
+    "categoryId": "cat-16",
+    "name": "Matcha Coconut Cloud",
+    "description": "",
+    "price": 29,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20001005",
+    "slug": "pistachio-latte-hot",
+    "categoryId": "cat-17",
+    "name": "Pistachio Latte - Hot",
+    "description": "",
+    "price": 31,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20001007",
+    "slug": "cereal-latte-hot",
+    "categoryId": "cat-17",
+    "name": "Cereal Latte - Hot",
+    "description": "",
+    "price": 29,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20001009",
+    "slug": "matcha-latte-hot",
+    "categoryId": "cat-17",
+    "name": "Matcha Latte - Hot",
+    "description": "",
+    "price": 29,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20001051",
+    "slug": "spanish-latte-hot",
+    "categoryId": "cat-17",
+    "name": "Spanish Latte - Hot",
+    "description": "",
+    "price": 25,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20001053",
+    "slug": "espresso-hot",
+    "categoryId": "cat-17",
+    "name": "Espresso - Hot",
+    "description": "",
+    "price": 15,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20001054",
+    "slug": "americano-hot",
+    "categoryId": "cat-17",
+    "name": "Americano - Hot",
+    "description": "",
+    "price": 17,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20001056",
+    "slug": "cappuccino-hot",
+    "categoryId": "cat-17",
+    "name": "Cappuccino - Hot",
+    "description": "",
+    "price": 20,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20001057",
+    "slug": "flat-white-hot",
+    "categoryId": "cat-17",
+    "name": "Flat White - Hot",
+    "description": "",
+    "price": 20,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20001067",
+    "slug": "cereal-matcha-latte-hot-8oz",
+    "categoryId": "cat-17",
+    "name": "Cereal Matcha Latte Hot 8oz",
+    "description": "",
+    "price": 29,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20001068",
+    "slug": "classic-hot-matcha-lattte-8oz",
+    "categoryId": "cat-17",
+    "name": "Classic Hot Matcha Lattte 8oz",
+    "description": "",
+    "price": 29,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20001087",
+    "slug": "classic-hot-matcha-lattte-12-oz",
+    "categoryId": "cat-17",
+    "name": "Classic Hot Matcha Lattte 12 oz",
+    "description": "",
+    "price": 29,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20001023",
+    "slug": "brownie-shake",
+    "categoryId": "cat-47",
+    "name": "Brownie Shake",
+    "description": "",
+    "price": 30,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20001022",
+    "slug": "lotus-shake",
+    "categoryId": "cat-47",
+    "name": "Lotus Shake",
+    "description": "The Classic lotus ice cream blended with fresh milk",
+    "price": 30,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20001024",
+    "slug": "hybrid-shake",
+    "categoryId": "cat-47",
+    "name": "Hybrid Shake",
+    "description": "",
+    "price": 35,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20000037",
+    "slug": "mango-softie",
+    "categoryId": "cat-48",
+    "name": "Mango Softie",
+    "description": "",
+    "price": 25,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20000040",
+    "slug": "brownie-softie",
+    "categoryId": "cat-48",
+    "name": "Brownie Softie",
+    "description": "",
+    "price": 27,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": [
+      "Dairy",
+      "Egg",
+      "Gluten",
+      "Soya"
+    ]
+  },
+  {
+    "id": "item-20000039",
+    "slug": "lotus-softie",
+    "categoryId": "cat-48",
+    "name": "Lotus Softie",
+    "description": "Our homemade ice-cream mix of caramelized biscuits",
+    "price": 25,
+    "calories": null,
+    "isBestSeller": true,
+    "allergens": [
+      "Dairy",
+      "Gluten",
+      "Soya"
+    ]
+  },
+  {
+    "id": "item-20000041",
+    "slug": "hybrid-softie",
+    "categoryId": "cat-48",
+    "name": "Hybrid Softie",
+    "description": "",
+    "price": 28,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20000192",
+    "slug": "mango-coconut-softie",
+    "categoryId": "cat-48",
+    "name": "Mango Coconut Softie",
+    "description": "",
+    "price": 28,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20500252",
+    "slug": "mango-coconut-sticky-rice-softie",
+    "categoryId": "cat-48",
+    "name": "Mango Coconut Sticky Rice Softie",
+    "description": "",
+    "price": 28,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20000145",
+    "slug": "pint-pack-of-8",
+    "categoryId": "cat-49",
+    "name": "Pint Pack of 8",
+    "description": "",
+    "price": 150,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20000144",
+    "slug": "pints-pack-of-4",
+    "categoryId": "cat-49",
+    "name": "Pints Pack of 4",
+    "description": "",
+    "price": 80,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20000146",
+    "slug": "pint-pack-of-12",
+    "categoryId": "cat-49",
+    "name": "Pint Pack of 12",
+    "description": "",
+    "price": 210,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20000184",
+    "slug": "mango-lotus-pint",
+    "categoryId": "cat-49",
+    "name": "Mango Lotus Pint",
+    "description": "",
+    "price": 25,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20000183",
+    "slug": "mango-pint",
+    "categoryId": "cat-49",
+    "name": "Mango Pint",
+    "description": "",
+    "price": 25,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20000186",
+    "slug": "lotus-pint",
+    "categoryId": "cat-49",
+    "name": "Lotus Pint",
+    "description": "",
+    "price": 25,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20000185",
+    "slug": "mango-coconut-pint",
+    "categoryId": "cat-49",
+    "name": "Mango Coconut Pint",
+    "description": "",
+    "price": 25,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20000187",
+    "slug": "brownie-lotus-pint",
+    "categoryId": "cat-49",
+    "name": "Brownie Lotus Pint",
+    "description": "",
+    "price": 25,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20000188",
+    "slug": "brownie-pint",
+    "categoryId": "cat-49",
+    "name": "Brownie Pint",
+    "description": "",
+    "price": 25,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20000189",
+    "slug": "raspbeery-pint",
+    "categoryId": "cat-49",
+    "name": "Raspbeery Pint",
+    "description": "",
+    "price": 25,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20000193",
+    "slug": "pink-lemonade-popsicle",
+    "categoryId": "cat-50",
+    "name": "Pink Lemonade Popsicle",
+    "description": "",
+    "price": 20,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20000194",
+    "slug": "mango-lotus-popsicle",
+    "categoryId": "cat-50",
+    "name": "Mango Lotus Popsicle",
+    "description": "",
+    "price": 20,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20000196",
+    "slug": "lotus-popsicle",
+    "categoryId": "cat-50",
+    "name": "Lotus Popsicle",
+    "description": "",
+    "price": 20,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20000200",
+    "slug": "rasberyy-and-choc-popsicle",
+    "categoryId": "cat-50",
+    "name": "Rasberyy & Choc Popsicle",
+    "description": "",
+    "price": 20,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20000197",
+    "slug": "pinacolado-popsicle",
+    "categoryId": "cat-50",
+    "name": "Pinacolado Popsicle",
+    "description": "",
+    "price": 20,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20000199",
+    "slug": "cocktail-popsicle",
+    "categoryId": "cat-50",
+    "name": "Cocktail popsicle",
+    "description": "",
+    "price": 20,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20000203",
+    "slug": "popsicle-bag-of-4",
+    "categoryId": "cat-50",
+    "name": "Popsicle Bag of 4",
+    "description": "",
+    "price": 95,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20000201",
+    "slug": "popscile-bag-of-8",
+    "categoryId": "cat-50",
+    "name": "Popscile-Bag of 8",
+    "description": "",
+    "price": 175,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20000202",
+    "slug": "popscile-bag-of-12",
+    "categoryId": "cat-50",
+    "name": "Popscile bag of 12",
+    "description": "",
+    "price": 168,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20000198",
+    "slug": "lemon-mint-popscile",
+    "categoryId": "cat-50",
+    "name": "Lemon mint popscile",
+    "description": "",
+    "price": 20,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20000195",
+    "slug": "mango-popscile",
+    "categoryId": "cat-50",
+    "name": "Mango Popscile",
+    "description": "",
+    "price": 20,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20000177",
+    "slug": "lotus-cookie",
+    "categoryId": "cat-52",
+    "name": "Lotus Cookie",
+    "description": "",
+    "price": 35,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20000178",
+    "slug": "brownie-cookie",
+    "categoryId": "cat-52",
+    "name": "Brownie Cookie",
+    "description": "",
+    "price": 35,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20000045",
+    "slug": "bag-of-6-pushpop",
+    "categoryId": "cat-10",
+    "name": "Bag Of 6 - Pushpop",
+    "description": "",
+    "price": 120,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20000046",
+    "slug": "bag-of-12-pushpop",
+    "categoryId": "cat-10",
+    "name": "Bag Of 12 - Pushpop",
+    "description": "",
+    "price": 240,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20000052",
+    "slug": "brownie-pushpop",
+    "categoryId": "cat-10",
+    "name": "Brownie Pushpop",
+    "description": "",
+    "price": 20,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20000054",
+    "slug": "cocktail-pushpop",
+    "categoryId": "cat-10",
+    "name": "Cocktail Pushpop",
+    "description": "",
+    "price": 20,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20000049",
+    "slug": "mango-pushpop",
+    "categoryId": "cat-10",
+    "name": "Mango Pushpop",
+    "description": "",
+    "price": 20,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20000051",
+    "slug": "lotus-pushpop",
+    "categoryId": "cat-10",
+    "name": "Lotus Pushpop",
+    "description": "",
+    "price": 20,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20000053",
+    "slug": "hybrid-pushpop",
+    "categoryId": "cat-10",
+    "name": "Hybrid Pushpop",
+    "description": "",
+    "price": 20,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20000055",
+    "slug": "blueberry-cheesecake-pushpop",
+    "categoryId": "cat-10",
+    "name": "Blueberry Cheesecake Pushpop",
+    "description": "",
+    "price": 20,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20000056",
+    "slug": "raspberry-choco-cheesecake-pushpop",
+    "categoryId": "cat-10",
+    "name": "Raspberry Choco Cheesecake Pushpop",
+    "description": "",
+    "price": 20,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20000147",
+    "slug": "salted-caramel-pushpop",
+    "categoryId": "cat-10",
+    "name": "Salted Caramel Pushpop",
+    "description": "",
+    "price": 20,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20000148",
+    "slug": "mango-lotus-pushpop",
+    "categoryId": "cat-10",
+    "name": "Mango Lotus Pushpop",
+    "description": "",
+    "price": 20,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20000149",
+    "slug": "mango-matcha-pushpop",
+    "categoryId": "cat-10",
+    "name": "Mango Matcha Pushpop",
+    "description": "",
+    "price": 15,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20000150",
+    "slug": "mango-coconut-pushpop",
+    "categoryId": "cat-10",
+    "name": "Mango Coconut Pushpop",
+    "description": "",
+    "price": 20,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20001034",
+    "slug": "lemon-mint-pushpops",
+    "categoryId": "cat-10",
+    "name": "Lemon Mint Pushpops",
+    "description": "",
+    "price": 20,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20000207",
+    "slug": "mango-lotus-pushpops",
+    "categoryId": "cat-10",
+    "name": "Mango Lotus Pushpops",
+    "description": "",
+    "price": 20,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20001070",
+    "slug": "salt-vanilla-protien-shake",
+    "categoryId": "cat-53",
+    "name": "Salt Vanilla Protien Shake",
+    "description": "",
+    "price": 40,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20001072",
+    "slug": "dates-and-banana-protien-shake",
+    "categoryId": "cat-53",
+    "name": "Dates & Banana Protien Shake",
+    "description": "",
+    "price": 45,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20001069",
+    "slug": "acai-smoothie",
+    "categoryId": "cat-53",
+    "name": "Acai Smoothie",
+    "description": "Frozen Açaí, fresh bananas, peanut butter, almond milk",
+    "price": 40,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20000209",
+    "slug": "milk-softie-salt-x-brooki",
+    "categoryId": "cat-34",
+    "name": "Milk Softie- Salt x Brooki",
+    "description": "",
+    "price": 35,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  },
+  {
+    "id": "item-20000210",
+    "slug": "choc-softie-salt-x-brooki",
+    "categoryId": "cat-34",
+    "name": "Choc Softie-Salt x Brooki",
+    "description": "",
+    "price": 35,
+    "calories": null,
+    "isBestSeller": false,
+    "allergens": []
+  }
+]

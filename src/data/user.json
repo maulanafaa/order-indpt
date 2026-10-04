@@ -1,0 +1,49 @@
+{
+  "existing": {
+    "id": "user-noura",
+    "name": "Noura Al Qahtani",
+    "mobile": "551234567",
+    "email": "noura@example.com",
+    "emailVerified": true,
+    "city": "Riyadh",
+    "memberSince": "2025-03-12",
+    "favouriteStoreId": "store-3",
+    "cars": [
+      {
+        "id": "car-land-cruiser",
+        "make": "Toyota",
+        "model": "Land Cruiser",
+        "colour": "White",
+        "plate": "RKD 4821",
+        "isDefault": true
+      }
+    ],
+    "paymentMethods": [
+      {
+        "id": "pm-mada-4417",
+        "brand": "mada",
+        "last4": "4417",
+        "bank": "Al Rajhi Bank",
+        "expiry": "08/28",
+        "isDefault": true
+      },
+      {
+        "id": "pm-apple-pay",
+        "brand": "applePay",
+        "isDefault": false
+      }
+    ]
+  },
+  "new": {
+    "id": "user-new",
+    "name": "",
+    "mobile": "559876543",
+    "email": null,
+    "emailVerified": false,
+    "city": null,
+    "memberSince": "2026-10-04",
+    "favouriteStoreId": null,
+    "cars": [],
+    "paymentMethods": []
+  }
+}

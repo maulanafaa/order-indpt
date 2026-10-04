@@ -1,0 +1,776 @@
+[
+  {
+    "storeId": "store-129",
+    "method": "pickup",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-129",
+    "method": "carhop",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-129",
+    "method": "dineIn",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-128",
+    "method": "pickup",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-128",
+    "method": "carhop",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-128",
+    "method": "dineIn",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-117",
+    "method": "pickup",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-117",
+    "method": "carhop",
+    "supported": false,
+    "availableNow": false
+  },
+  {
+    "storeId": "store-117",
+    "method": "dineIn",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-79",
+    "method": "pickup",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-79",
+    "method": "carhop",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-79",
+    "method": "dineIn",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-7",
+    "method": "pickup",
+    "supported": true,
+    "availableNow": false
+  },
+  {
+    "storeId": "store-7",
+    "method": "carhop",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-7",
+    "method": "dineIn",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-6",
+    "method": "pickup",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-6",
+    "method": "carhop",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-6",
+    "method": "dineIn",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-5",
+    "method": "pickup",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-5",
+    "method": "carhop",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-5",
+    "method": "dineIn",
+    "supported": false,
+    "availableNow": false
+  },
+  {
+    "storeId": "store-4",
+    "method": "pickup",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-4",
+    "method": "carhop",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-4",
+    "method": "dineIn",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-3",
+    "method": "pickup",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-3",
+    "method": "carhop",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-3",
+    "method": "dineIn",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-2",
+    "method": "pickup",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-2",
+    "method": "carhop",
+    "supported": true,
+    "availableNow": false
+  },
+  {
+    "storeId": "store-2",
+    "method": "dineIn",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-1",
+    "method": "pickup",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-1",
+    "method": "carhop",
+    "supported": false,
+    "availableNow": false
+  },
+  {
+    "storeId": "store-1",
+    "method": "dineIn",
+    "supported": false,
+    "availableNow": false
+  },
+  {
+    "storeId": "store-76",
+    "method": "pickup",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-76",
+    "method": "carhop",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-76",
+    "method": "dineIn",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-116",
+    "method": "pickup",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-116",
+    "method": "carhop",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-116",
+    "method": "dineIn",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-115",
+    "method": "pickup",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-115",
+    "method": "carhop",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-115",
+    "method": "dineIn",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-114",
+    "method": "pickup",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-114",
+    "method": "carhop",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-114",
+    "method": "dineIn",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-113",
+    "method": "pickup",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-113",
+    "method": "carhop",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-113",
+    "method": "dineIn",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-112",
+    "method": "pickup",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-112",
+    "method": "carhop",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-112",
+    "method": "dineIn",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-124",
+    "method": "pickup",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-124",
+    "method": "carhop",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-124",
+    "method": "dineIn",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-123",
+    "method": "pickup",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-123",
+    "method": "carhop",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-123",
+    "method": "dineIn",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-122",
+    "method": "pickup",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-122",
+    "method": "carhop",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-122",
+    "method": "dineIn",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-120",
+    "method": "pickup",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-120",
+    "method": "carhop",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-120",
+    "method": "dineIn",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-119",
+    "method": "pickup",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-119",
+    "method": "carhop",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-119",
+    "method": "dineIn",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-118",
+    "method": "pickup",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-118",
+    "method": "carhop",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-118",
+    "method": "dineIn",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-111",
+    "method": "pickup",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-111",
+    "method": "carhop",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-111",
+    "method": "dineIn",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-110",
+    "method": "pickup",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-110",
+    "method": "carhop",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-110",
+    "method": "dineIn",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-108",
+    "method": "pickup",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-108",
+    "method": "carhop",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-108",
+    "method": "dineIn",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-107",
+    "method": "pickup",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-107",
+    "method": "carhop",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-107",
+    "method": "dineIn",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-106",
+    "method": "pickup",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-106",
+    "method": "carhop",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-106",
+    "method": "dineIn",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-77",
+    "method": "pickup",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-77",
+    "method": "carhop",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-77",
+    "method": "dineIn",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-27",
+    "method": "pickup",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-27",
+    "method": "carhop",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-27",
+    "method": "dineIn",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-26",
+    "method": "pickup",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-26",
+    "method": "carhop",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-26",
+    "method": "dineIn",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-25",
+    "method": "pickup",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-25",
+    "method": "carhop",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-25",
+    "method": "dineIn",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-21",
+    "method": "pickup",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-21",
+    "method": "carhop",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-21",
+    "method": "dineIn",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-18",
+    "method": "pickup",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-18",
+    "method": "carhop",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-18",
+    "method": "dineIn",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-17",
+    "method": "pickup",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-17",
+    "method": "carhop",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-17",
+    "method": "dineIn",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-16",
+    "method": "pickup",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-16",
+    "method": "carhop",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-16",
+    "method": "dineIn",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-15",
+    "method": "pickup",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-15",
+    "method": "carhop",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-15",
+    "method": "dineIn",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-14",
+    "method": "pickup",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-14",
+    "method": "carhop",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-14",
+    "method": "dineIn",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-13",
+    "method": "pickup",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-13",
+    "method": "carhop",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-13",
+    "method": "dineIn",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-12",
+    "method": "pickup",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-12",
+    "method": "carhop",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-12",
+    "method": "dineIn",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-11",
+    "method": "pickup",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-11",
+    "method": "carhop",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-11",
+    "method": "dineIn",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-10",
+    "method": "pickup",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-10",
+    "method": "carhop",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-10",
+    "method": "dineIn",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-9",
+    "method": "pickup",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-9",
+    "method": "carhop",
+    "supported": true,
+    "availableNow": true
+  },
+  {
+    "storeId": "store-9",
+    "method": "dineIn",
+    "supported": true,
+    "availableNow": true
+  }
+]
