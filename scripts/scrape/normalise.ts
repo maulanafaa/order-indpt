@@ -19,6 +19,7 @@ import {
   bestSellers,
   categoryNames,
   defaultHours,
+  groupRules,
   qlubAliases,
   storeNames,
   storeServices,
@@ -123,6 +124,7 @@ export function normalise(raw: RawBundle): NormaliseResult {
       lat: Number(loc.latitude),
       lng: Number(loc.longitude),
       phone: (loc.phone ?? branch?.phone_number ?? '').replace(/\D/g, ''),
+      email: loc.email?.trim() || null,
       coverImage: `/images/stores/${slug}.webp`,
     })
     storeIdByLoc.set(loc.id, id)
@@ -314,13 +316,18 @@ export function normalise(raw: RawBundle): NormaliseResult {
     if (groups.length) withAddOns++
     const groupSlugs = new Set<string>()
     groups.forEach((g: QlubModifierGroup) => {
-      const groupName = cleanGroupName(g.name)
+      const rule = groupRules[cleanGroupName(g.name)] ?? {}
+      const groupName = rule.name ?? cleanGroupName(g.name)
       const groupSlug = uniqueSlug(slugify(groupName), groupSlugs, g.id.toLowerCase())
       const groupId = `grp-${oracleId}-${groupSlug}`
       const n = g.products.length
       const qMax = g.max ?? 0
-      const multiMax = g.multiMax ?? 0
-      const type: ModifierGroupType = qMax === 1 ? 'single' : multiMax > 1 ? 'stepper' : 'multi'
+      let multiMax = g.multiMax ?? 0
+      let type: ModifierGroupType = qMax === 1 ? 'single' : multiMax > 1 ? 'stepper' : 'multi'
+      if (rule.stepperMaxQty) {
+        type = 'stepper'
+        multiMax = rule.stepperMaxQty
+      }
       // qlub max 0 means "no limit": cap at every option (times the per-option max for steppers).
       const max = qMax > 0 ? qMax : type === 'stepper' ? n * multiMax : n
       const min = Math.min(g.min ?? 0, max)

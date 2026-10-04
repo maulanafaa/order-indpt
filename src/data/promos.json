@@ -8,7 +8,28 @@
     "minOrder": 100,
     "validFrom": "2026-09-01",
     "validUntil": "2026-10-31",
-    "methods": ["pickup", "carhop", "dineIn"]
+    "methods": [
+      "pickup",
+      "carhop",
+      "dineIn"
+    ]
+  },
+  {
+    "code": "FRIESONUS",
+    "title": "Free Original Fries with any burger",
+    "type": "freeItem",
+    "value": 15,
+    "maxDiscount": null,
+    "minOrder": 0,
+    "validFrom": "2026-09-20",
+    "validUntil": "2026-10-15",
+    "methods": [
+      "pickup",
+      "dineIn"
+    ],
+    "freeItemId": "item-20000016",
+    "requiresCategoryId": "cat-36",
+    "oncePerCustomer": true
   },
   {
     "code": "SUMMER20",
@@ -19,17 +40,23 @@
     "minOrder": 60,
     "validFrom": "2026-06-01",
     "validUntil": "2026-08-31",
-    "methods": ["pickup", "carhop", "dineIn"]
+    "methods": [
+      "pickup",
+      "carhop",
+      "dineIn"
+    ]
   },
   {
     "code": "CARHOP10",
-    "title": "Save on Carhop orders",
-    "type": "amount",
+    "title": "10% off Carhop orders",
+    "type": "percent",
     "value": 10,
     "maxDiscount": null,
     "minOrder": 50,
     "validFrom": "2026-09-15",
     "validUntil": "2026-12-31",
-    "methods": ["carhop"]
+    "methods": [
+      "carhop"
+    ]
   }
 ]

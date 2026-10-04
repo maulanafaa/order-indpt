@@ -3,9 +3,9 @@
     "id": "grp-20000003-add-extra",
     "itemId": "item-20000003",
     "name": "Add extra",
-    "type": "multi",
+    "type": "stepper",
     "min": 0,
-    "max": 6,
+    "max": 18,
     "required": false
   },
   {
@@ -18,9 +18,9 @@
     "required": false
   },
   {
-    "id": "grp-20000003-add-drinks",
+    "id": "grp-20000003-add-a-drink",
     "itemId": "item-20000003",
-    "name": "Add drinks",
+    "name": "Add a drink",
     "type": "single",
     "min": 0,
     "max": 1,
@@ -48,9 +48,9 @@
     "id": "grp-20000004-add-extra",
     "itemId": "item-20000004",
     "name": "Add extra",
-    "type": "multi",
+    "type": "stepper",
     "min": 0,
-    "max": 5,
+    "max": 15,
     "required": false
   },
   {
@@ -63,9 +63,9 @@
     "required": false
   },
   {
-    "id": "grp-20000004-add-drinks",
+    "id": "grp-20000004-add-a-drink",
     "itemId": "item-20000004",
-    "name": "Add drinks",
+    "name": "Add a drink",
     "type": "single",
     "min": 0,
     "max": 1,
@@ -93,9 +93,9 @@
     "id": "grp-20000007-add-extra",
     "itemId": "item-20000007",
     "name": "Add extra",
-    "type": "multi",
+    "type": "stepper",
     "min": 0,
-    "max": 5,
+    "max": 15,
     "required": false
   },
   {
@@ -108,9 +108,9 @@
     "required": false
   },
   {
-    "id": "grp-20000007-add-drinks",
+    "id": "grp-20000007-add-a-drink",
     "itemId": "item-20000007",
-    "name": "Add drinks",
+    "name": "Add a drink",
     "type": "single",
     "min": 0,
     "max": 1,
@@ -138,9 +138,9 @@
     "id": "grp-20000005-add-extra",
     "itemId": "item-20000005",
     "name": "Add extra",
-    "type": "multi",
+    "type": "stepper",
     "min": 0,
-    "max": 3,
+    "max": 9,
     "required": false
   },
   {
@@ -153,9 +153,9 @@
     "required": false
   },
   {
-    "id": "grp-20000005-add-drinks",
+    "id": "grp-20000005-add-a-drink",
     "itemId": "item-20000005",
-    "name": "Add drinks",
+    "name": "Add a drink",
     "type": "single",
     "min": 0,
     "max": 1,
@@ -183,9 +183,9 @@
     "id": "grp-20000008-add-extra",
     "itemId": "item-20000008",
     "name": "Add extra",
-    "type": "multi",
+    "type": "stepper",
     "min": 0,
-    "max": 3,
+    "max": 9,
     "required": false
   },
   {
@@ -198,9 +198,9 @@
     "required": false
   },
   {
-    "id": "grp-20000008-add-drinks",
+    "id": "grp-20000008-add-a-drink",
     "itemId": "item-20000008",
-    "name": "Add drinks",
+    "name": "Add a drink",
     "type": "single",
     "min": 0,
     "max": 1,
@@ -228,9 +228,9 @@
     "id": "grp-20000006-add-extra",
     "itemId": "item-20000006",
     "name": "Add extra",
-    "type": "multi",
+    "type": "stepper",
     "min": 0,
-    "max": 6,
+    "max": 18,
     "required": false
   },
   {
@@ -243,9 +243,9 @@
     "required": false
   },
   {
-    "id": "grp-20000006-add-drinks",
+    "id": "grp-20000006-add-a-drink",
     "itemId": "item-20000006",
-    "name": "Add drinks",
+    "name": "Add a drink",
     "type": "single",
     "min": 0,
     "max": 1,
@@ -273,9 +273,9 @@
     "id": "grp-20000009-add-extra",
     "itemId": "item-20000009",
     "name": "Add extra",
-    "type": "multi",
+    "type": "stepper",
     "min": 0,
-    "max": 5,
+    "max": 15,
     "required": false
   },
   {
@@ -288,9 +288,9 @@
     "required": false
   },
   {
-    "id": "grp-20000009-add-drinks",
+    "id": "grp-20000009-add-a-drink",
     "itemId": "item-20000009",
-    "name": "Add drinks",
+    "name": "Add a drink",
     "type": "single",
     "min": 0,
     "max": 1,
@@ -318,9 +318,9 @@
     "id": "grp-20000010-add-extra",
     "itemId": "item-20000010",
     "name": "Add extra",
-    "type": "multi",
+    "type": "stepper",
     "min": 0,
-    "max": 5,
+    "max": 15,
     "required": false
   },
   {
@@ -333,9 +333,9 @@
     "required": false
   },
   {
-    "id": "grp-20000010-add-drinks",
+    "id": "grp-20000010-add-a-drink",
     "itemId": "item-20000010",
-    "name": "Add drinks",
+    "name": "Add a drink",
     "type": "single",
     "min": 0,
     "max": 1,
@@ -363,9 +363,9 @@
     "id": "grp-20000011-add-extra",
     "itemId": "item-20000011",
     "name": "Add extra",
-    "type": "multi",
+    "type": "stepper",
     "min": 0,
-    "max": 6,
+    "max": 18,
     "required": false
   },
   {
@@ -378,9 +378,9 @@
     "required": false
   },
   {
-    "id": "grp-20000011-add-drinks",
+    "id": "grp-20000011-add-a-drink",
     "itemId": "item-20000011",
-    "name": "Add drinks",
+    "name": "Add a drink",
     "type": "single",
     "min": 0,
     "max": 1,
@@ -408,9 +408,9 @@
     "id": "grp-20000012-add-extra",
     "itemId": "item-20000012",
     "name": "Add extra",
-    "type": "multi",
+    "type": "stepper",
     "min": 0,
-    "max": 6,
+    "max": 18,
     "required": false
   },
   {
@@ -423,9 +423,9 @@
     "required": false
   },
   {
-    "id": "grp-20000012-add-drinks",
+    "id": "grp-20000012-add-a-drink",
     "itemId": "item-20000012",
-    "name": "Add drinks",
+    "name": "Add a drink",
     "type": "single",
     "min": 0,
     "max": 1,
@@ -453,9 +453,9 @@
     "id": "grp-20000013-add-extra",
     "itemId": "item-20000013",
     "name": "Add extra",
-    "type": "multi",
+    "type": "stepper",
     "min": 0,
-    "max": 6,
+    "max": 18,
     "required": false
   },
   {
@@ -468,9 +468,9 @@
     "required": false
   },
   {
-    "id": "grp-20000013-add-drinks",
+    "id": "grp-20000013-add-a-drink",
     "itemId": "item-20000013",
-    "name": "Add drinks",
+    "name": "Add a drink",
     "type": "single",
     "min": 0,
     "max": 1,
@@ -498,9 +498,9 @@
     "id": "grp-20000001-add-extra",
     "itemId": "item-20000001",
     "name": "Add extra",
-    "type": "multi",
+    "type": "stepper",
     "min": 0,
-    "max": 8,
+    "max": 24,
     "required": false
   },
   {
@@ -513,9 +513,9 @@
     "required": false
   },
   {
-    "id": "grp-20000001-add-drinks",
+    "id": "grp-20000001-add-a-drink",
     "itemId": "item-20000001",
-    "name": "Add drinks",
+    "name": "Add a drink",
     "type": "single",
     "min": 0,
     "max": 1,
@@ -540,9 +540,9 @@
     "required": false
   },
   {
-    "id": "grp-20000014-add-drinks",
+    "id": "grp-20000014-add-a-drink",
     "itemId": "item-20000014",
-    "name": "Add drinks",
+    "name": "Add a drink",
     "type": "single",
     "min": 0,
     "max": 1,
@@ -567,9 +567,9 @@
     "required": false
   },
   {
-    "id": "grp-20000015-add-drinks",
+    "id": "grp-20000015-add-a-drink",
     "itemId": "item-20000015",
-    "name": "Add drinks",
+    "name": "Add a drink",
     "type": "single",
     "min": 0,
     "max": 1,
@@ -579,9 +579,9 @@
     "id": "grp-20000015-add-extra",
     "itemId": "item-20000015",
     "name": "Add extra",
-    "type": "multi",
+    "type": "stepper",
     "min": 0,
-    "max": 1,
+    "max": 3,
     "required": false
   },
   {
@@ -594,9 +594,9 @@
     "required": false
   },
   {
-    "id": "grp-20000017-add-drinks",
+    "id": "grp-20000017-add-a-drink",
     "itemId": "item-20000017",
-    "name": "Add drinks",
+    "name": "Add a drink",
     "type": "single",
     "min": 0,
     "max": 1,
@@ -606,9 +606,9 @@
     "id": "grp-20000017-add-extra",
     "itemId": "item-20000017",
     "name": "Add extra",
-    "type": "multi",
+    "type": "stepper",
     "min": 0,
-    "max": 2,
+    "max": 6,
     "required": false
   },
   {
@@ -621,9 +621,9 @@
     "required": false
   },
   {
-    "id": "grp-20000016-add-drinks",
+    "id": "grp-20000016-add-a-drink",
     "itemId": "item-20000016",
-    "name": "Add drinks",
+    "name": "Add a drink",
     "type": "single",
     "min": 0,
     "max": 1,
@@ -639,9 +639,9 @@
     "required": false
   },
   {
-    "id": "grp-20000018-add-drinks",
+    "id": "grp-20000018-add-a-drink",
     "itemId": "item-20000018",
-    "name": "Add drinks",
+    "name": "Add a drink",
     "type": "single",
     "min": 0,
     "max": 1,
@@ -651,9 +651,9 @@
     "id": "grp-20000018-add-extra",
     "itemId": "item-20000018",
     "name": "Add extra",
-    "type": "multi",
+    "type": "stepper",
     "min": 0,
-    "max": 1,
+    "max": 3,
     "required": false
   },
   {
@@ -675,18 +675,18 @@
     "required": false
   },
   {
-    "id": "grp-20000019-add-drinks",
+    "id": "grp-20000019-add-a-drink",
     "itemId": "item-20000019",
-    "name": "Add drinks",
+    "name": "Add a drink",
     "type": "single",
     "min": 0,
     "max": 1,
     "required": false
   },
   {
-    "id": "grp-20000020-add-drinks",
+    "id": "grp-20000020-add-a-drink",
     "itemId": "item-20000020",
-    "name": "Add drinks",
+    "name": "Add a drink",
     "type": "single",
     "min": 0,
     "max": 1,
@@ -702,9 +702,9 @@
     "required": false
   },
   {
-    "id": "grp-20000021-add-drinks",
+    "id": "grp-20000021-add-a-drink",
     "itemId": "item-20000021",
-    "name": "Add drinks",
+    "name": "Add a drink",
     "type": "single",
     "min": 0,
     "max": 1,
@@ -723,9 +723,9 @@
     "id": "grp-20000036-add-extra",
     "itemId": "item-20000036",
     "name": "Add extra",
-    "type": "multi",
+    "type": "stepper",
     "min": 0,
-    "max": 5,
+    "max": 15,
     "required": false
   },
   {
@@ -759,9 +759,9 @@
     "id": "grp-20000035-add-extra",
     "itemId": "item-20000035",
     "name": "Add extra",
-    "type": "multi",
+    "type": "stepper",
     "min": 0,
-    "max": 6,
+    "max": 18,
     "required": false
   },
   {

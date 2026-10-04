@@ -15,6 +15,7 @@ export const locationSchema = z.looseObject({
   latitude: num,
   longitude: num,
   phone: z.string().nullable(),
+  email: z.string().nullable().optional(),
   order_url: z.string().nullable(),
   is_active: z.boolean(),
 })

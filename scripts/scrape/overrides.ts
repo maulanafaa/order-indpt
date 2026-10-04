@@ -64,6 +64,15 @@ export const qlubAliases: Record<string, string> = {
   'Aquafina Water': 'Water Btl',
 }
 
+/**
+ * Add-on group adjustments, keyed by the cleaned group name. qlub sends
+ * "Add extra" as plain checkboxes; Figma shows it as steppers (up to 3 of each).
+ */
+export const groupRules: Record<string, { name?: string; stepperMaxQty?: number }> = {
+  'Add extra': { stepperMaxQty: 3 },
+  'Add drinks': { name: 'Add a drink' },
+}
+
 /** No source marks best sellers, so these are picked by hand. */
 export const bestSellers = [
   'Original Beef Slider',

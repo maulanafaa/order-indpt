@@ -1,6 +1,6 @@
 import { cn } from '../../lib/cn'
 import { Icon, type IconName } from './Icon'
-import type { ToastOptions, ToastType } from './toast'
+import type { ToastOptions, ToastType } from './toastContext'
 
 const icons: Record<ToastType, IconName> = { success: 'check', info: 'info', error: 'alert' }
 

@@ -19,11 +19,16 @@ type BottomSheetProps = {
   dismissible?: boolean
   /** Accessible name when there is no visible title. */
   ariaLabel?: string
+  /**
+   * Render only the panel: no header, handle or padding. The children own
+   * their scrolling and close button (used by the item sheet).
+   */
+  bare?: boolean
   className?: string
   children: ReactNode
 }
 
-const EXIT_MS = 200
+const EXIT_MS = 450
 
 /**
  * Bottom sheet from the Figma screens: no corner radius, black 55% overlay,
@@ -38,6 +43,7 @@ export function BottomSheet({
   footer,
   dismissible = true,
   ariaLabel,
+  bare = false,
   className,
   children,
 }: BottomSheetProps) {
@@ -92,7 +98,7 @@ export function BottomSheet({
         aria-hidden
         onClick={dismissible ? onClose : undefined}
         className={cn(
-          'absolute inset-0 bg-overlay transition-opacity duration-200',
+          'absolute inset-0 bg-overlay transition-opacity duration-[450ms] ease-sheet',
           leaving ? 'opacity-0' : 'animate-fade-in',
         )}
       />
@@ -105,12 +111,14 @@ export function BottomSheet({
         tabIndex={-1}
         className={cn(
           'absolute inset-x-0 bottom-0 flex max-h-[92%] flex-col bg-surface-base outline-none',
-          'transition-transform duration-200 ease-in',
+          'transition-transform duration-[450ms] ease-sheet motion-reduce:transition-none',
           leaving ? 'translate-y-full' : 'animate-sheet-in',
           className,
         )}
       >
-        {hasHeader ? (
+        {bare ? (
+          children
+        ) : hasHeader ? (
           <div className="flex h-14 shrink-0 items-center gap-1 border-b border-border-default px-6">
             {onBack ? (
               <IconButton icon="back" label="Back" variant="ghost" size={32} onClick={onBack} />
@@ -141,10 +149,12 @@ export function BottomSheet({
             />
           </div>
         )}
-        <div className={cn('min-h-0 flex-1 overflow-y-auto px-4', hasHeader ? 'pt-4' : 'pt-2', footer ? 'pb-4' : 'pb-8')}>
-          {children}
-        </div>
-        {footer && <div className="shrink-0 bg-surface-base px-4 pt-3 pb-[max(2rem,env(safe-area-inset-bottom))] shadow-bar">{footer}</div>}
+        {!bare && (
+          <div className={cn('min-h-0 flex-1 overflow-y-auto px-4', hasHeader ? 'pt-4' : 'pt-2', footer ? 'pb-4' : 'pb-8')}>
+            {children}
+          </div>
+        )}
+        {!bare && footer && <div className="shrink-0 bg-surface-base px-4 pt-3 pb-[max(2rem,env(safe-area-inset-bottom))] shadow-bar">{footer}</div>}
       </div>
     </div>,
     overlay,

@@ -9,6 +9,8 @@ import OrderPage from './routes/Order'
 import OrdersPage from './routes/Orders'
 import ProfilePage from './routes/Profile'
 import StorePage from './routes/Store'
+import StoreInfoPage from './routes/StoreInfo'
+import StoreSearchPage from './routes/StoreSearch'
 
 export const router = createBrowserRouter([
   {
@@ -16,6 +18,8 @@ export const router = createBrowserRouter([
     children: [
       { path: '/', element: <FindStorePage /> },
       { path: '/store/:slug', element: <StorePage /> },
+      { path: '/store/:slug/info', element: <StoreInfoPage /> },
+      { path: '/store/:slug/search', element: <StoreSearchPage /> },
       { path: '/checkout', element: <CheckoutPage /> },
       { path: '/order/:id', element: <OrderPage /> },
       { path: '/orders', element: <OrdersPage /> },

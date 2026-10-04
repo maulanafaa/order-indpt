@@ -52,6 +52,8 @@ import UserIcon from './user.svg?react'
 import WalletIcon from './wallet.svg?react'
 import WhatsappIcon from './whatsapp.svg?react'
 import WifiIcon from './wifi.svg?react'
+import WifiOffIcon from './wifi-off.svg?react'
+import FlagSaIcon from './flag-sa.svg?react'
 import XIcon from './x.svg?react'
 
 export const icons = {
@@ -107,6 +109,9 @@ export const icons = {
   'wallet': WalletIcon,
   'whatsapp': WhatsappIcon,
   'wifi': WifiIcon,
+  'wifi-off': WifiOffIcon,
+  /** Saudi flag, full colour (phone prefix). */
+  'flag-sa': FlagSaIcon,
   'x': XIcon,
 } satisfies Record<string, ComponentType<SVGProps<SVGSVGElement>>>
 

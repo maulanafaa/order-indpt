@@ -107,6 +107,49 @@ Hand-written seed files, checked by every scrape run:
 - `orders.json`: one picked-up order and one cancelled and refunded order
 - `promos.json`: `SALT15` (valid), `SUMMER20` (expired), `CARHOP10` (Carhop only)
 
+## Screens and demo flags
+
+| Route | Screen |
+| --- | --- |
+| `/` | Find a store: location permission, map with pins, list view, search |
+| `/store/:slug` | Branch menu (`?item=salt-burger` opens the item sheet), cart sheet, login sheet, Leave store |
+| `/store/:slug/info` | Store info: Details and Opening hours tabs |
+| `/store/:slug/search` | Menu search |
+| `/checkout` | Checkout for Pickup, Carhop and Dine-in, payment, car, schedule and promo sheets, order placed and payment result screens |
+
+Scenario flags are read from the URL until the demo panel (Stage 6) sets them:
+
+- `location=prompt|denied|granted` permission state on Find a store
+- `near=riyadh|khobar|dubai|hail` where the demo user is (`hail` has no store nearby)
+- `store=closed` forces the branch closed (Schedule order)
+- `menu=error` shows the menu failed state with Try again
+- `cart=demo` on a branch page fills the cart with the Figma items and opens it (at `/store/salt-u-walk` one item is sold out and two add-ons get removed)
+- `user=new` logging in gives a user with nothing saved
+- `payment=success|declined|insufficient|gateway|pending` result of paying by card or Apple Pay on the first try (cash always goes through; Try again and Check payment status then succeed)
+- `checkout=soldout|paused|timefull|promo` what the store says when you tap Place order (`promo` needs a promo applied)
+
+Put `payment=` and `checkout=` on the branch page URL (they are carried to checkout) or straight on `/checkout`.
+
+Promo codes (seeds in `src/data/promos.json`): `SALT15` 15% off over 100, up to 30 off; `FRIESONUS` free Original Fries with a burger (Pickup and Dine-in); `CARHOP10` 10% off Carhop only; `SUMMER20` expired; anything else is not found.
+
+Every fake network call (send code, verify, apply promo, save card or car, place order) waits 1 second so loading states show. Placed orders are saved to localStorage (`src/lib/orders.ts`) for order tracking.
+
+Fake login (any +966 5X XXX XXXX number):
+
+| Input | Result |
+| --- | --- |
+| `50 000 0000` | The code can't be sent |
+| `59 999 9999` | Too many code requests |
+| Code `000000` | Incorrect (3 tries, then code entry pauses) |
+| Code `111111` | Expired |
+| Any other 6 digits | Logged in, continue to checkout |
+
+Try `/store/salt-u-walk`: Campfire Burger is sold out there, Fire Fries (on Salt Burger) and Extra Jalapeno (on Original Beef Slider) are unavailable add-ons.
+
+The cart lives in `src/lib/cart.ts` and the signed-in user in `src/lib/auth.ts` (Zustand, saved to localStorage, so both survive a refresh). Cart lines hold item, quantity, chosen add-ons and kitchen note; sold out lines stay in the cart but are left out of the total.
+
+The Find a store map uses OpenStreetMap standard tiles and its own drag, pinch, wheel and double-tap zoom (keyless, no map SDK, attribution shown on the map; check the OSM tile usage policy before real traffic). If tiles can’t load you see a plain grid with the pins.
+
 ## Design tokens
 
 Colours are CSS variables in `src/index.css` (`@theme`), named after the

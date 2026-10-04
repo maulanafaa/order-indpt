@@ -8,6 +8,7 @@
     "lat": 18.21589562,
     "lng": 42.64947535,
     "phone": "920024788",
+    "email": "care@indpt.com",
     "coverImage": "/images/stores/salt-talgah-mall-abha.webp"
   },
   {
@@ -19,6 +20,7 @@
     "lat": 24.77336511,
     "lng": 46.53757278,
     "phone": "920024788",
+    "email": "care@indpt.com",
     "coverImage": "/images/stores/salt-jaks-riyadh.webp"
   },
   {
@@ -30,6 +32,7 @@
     "lat": 21.42243326,
     "lng": 39.82348752,
     "phone": "920024788",
+    "email": "care@indpt.com",
     "coverImage": "/images/stores/salt-al-haram-makkah.webp"
   },
   {
@@ -41,6 +44,7 @@
     "lat": 26.33533314,
     "lng": 50.22583897,
     "phone": "920024788",
+    "email": "care@indpt.com",
     "coverImage": "/images/stores/salt-al-bahar-resort-khobar.webp"
   },
   {
@@ -52,6 +56,7 @@
     "lat": 24.76789695,
     "lng": 46.57759094,
     "phone": "920024788",
+    "email": "care@indpt.com",
     "coverImage": "/images/stores/salt-saad-square.webp"
   },
   {
@@ -63,6 +68,7 @@
     "lat": 26.39185221,
     "lng": 50.03644622,
     "phone": "920024788",
+    "email": "care@indpt.com",
     "coverImage": "/images/stores/salt-west-field.webp"
   },
   {
@@ -74,6 +80,7 @@
     "lat": 24.7656788,
     "lng": 46.71534403,
     "phone": "920024788",
+    "email": "care@indpt.com",
     "coverImage": "/images/stores/salt-nakheel-mall-riyadh.webp"
   },
   {
@@ -85,6 +92,7 @@
     "lat": 26.68872079,
     "lng": 37.97996563,
     "phone": "920024788",
+    "email": "care@indpt.com",
     "coverImage": "/images/stores/salt-al-ula.webp"
   },
   {
@@ -96,6 +104,7 @@
     "lat": 24.73626058,
     "lng": 46.6314874,
     "phone": "920024788",
+    "email": "care@indpt.com",
     "coverImage": "/images/stores/salt-u-walk.webp"
   },
   {
@@ -107,6 +116,7 @@
     "lat": 26.30749458,
     "lng": 50.17828597,
     "phone": "920024788",
+    "email": "care@indpt.com",
     "coverImage": "/images/stores/salt-olaya-khobar.webp"
   },
   {
@@ -118,6 +128,7 @@
     "lat": 24.75604953,
     "lng": 46.63145437,
     "phone": "920024788",
+    "email": "care@indpt.com",
     "coverImage": "/images/stores/salt-riyadh-park-mall.webp"
   },
   {
@@ -129,6 +140,7 @@
     "lat": 25.29095796,
     "lng": 51.52626397,
     "phone": "920024788",
+    "email": "care@indpt.com",
     "coverImage": "/images/stores/salt-doha.webp"
   },
   {
@@ -140,6 +152,7 @@
     "lat": 26.30284011,
     "lng": 50.64424983,
     "phone": "",
+    "email": null,
     "coverImage": "/images/stores/salt-marassi.webp"
   },
   {
@@ -151,6 +164,7 @@
     "lat": 29.34089163,
     "lng": 47.94146164,
     "phone": "",
+    "email": null,
     "coverImage": "/images/stores/salt-shuwaikh.webp"
   },
   {
@@ -162,6 +176,7 @@
     "lat": 28.67671403,
     "lng": 48.34941922,
     "phone": "",
+    "email": null,
     "coverImage": "/images/stores/salt-khiran.webp"
   },
   {
@@ -173,6 +188,7 @@
     "lat": 29.33055071,
     "lng": 48.0933296,
     "phone": "",
+    "email": null,
     "coverImage": "/images/stores/salt-blajat.webp"
   },
   {
@@ -184,6 +200,7 @@
     "lat": 29.30332992,
     "lng": 47.93702953,
     "phone": "",
+    "email": null,
     "coverImage": "/images/stores/salt-avenues.webp"
   },
   {
@@ -195,6 +212,7 @@
     "lat": 24.24891768,
     "lng": 55.67614143,
     "phone": "",
+    "email": null,
     "coverImage": "/images/stores/salt-al-ain-syde.webp"
   },
   {
@@ -206,6 +224,7 @@
     "lat": 25.66845721,
     "lng": 55.74195698,
     "phone": "",
+    "email": null,
     "coverImage": "/images/stores/salt-marjan-island.webp"
   },
   {
@@ -217,6 +236,7 @@
     "lat": 24.2186268,
     "lng": 55.7741472,
     "phone": "",
+    "email": null,
     "coverImage": "/images/stores/salt-al-ain-oasis.webp"
   },
   {
@@ -228,6 +248,7 @@
     "lat": 25.15879222,
     "lng": 55.37068976,
     "phone": "",
+    "email": null,
     "coverImage": "/images/stores/salt-nad-al-sheba.webp"
   },
   {
@@ -239,6 +260,7 @@
     "lat": 25.14483243,
     "lng": 55.19036387,
     "phone": "920024788",
+    "email": "care@indpt.com",
     "coverImage": "/images/stores/salt-marsa-al-arab.webp"
   },
   {
@@ -250,6 +272,7 @@
     "lat": 24.41320199,
     "lng": 54.35114136,
     "phone": "",
+    "email": null,
     "coverImage": "/images/stores/salt-marsana-beach.webp"
   },
   {
@@ -261,6 +284,7 @@
     "lat": 25.17162493,
     "lng": 55.21112041,
     "phone": "",
+    "email": null,
     "coverImage": "/images/stores/salt-kite-beach.webp"
   },
   {
@@ -272,6 +296,7 @@
     "lat": 25.19484534,
     "lng": 55.27923774,
     "phone": "",
+    "email": null,
     "coverImage": "/images/stores/salt-dubai-mall.webp"
   },
   {
@@ -283,6 +308,7 @@
     "lat": 24.45437819,
     "lng": 54.3806511,
     "phone": "",
+    "email": null,
     "coverImage": "/images/stores/salt-umm-al-emarat.webp"
   },
   {
@@ -294,6 +320,7 @@
     "lat": 24.44114013,
     "lng": 54.71801758,
     "phone": "",
+    "email": "care@indpt.com",
     "coverImage": "/images/stores/salt-shamkha.webp"
   },
   {
@@ -305,6 +332,7 @@
     "lat": 24.36442034,
     "lng": 54.56024524,
     "phone": "",
+    "email": "care@indpt.com",
     "coverImage": "/images/stores/salt-mbz.webp"
   },
   {
@@ -316,6 +344,7 @@
     "lat": 25.2101951,
     "lng": 55.24380269,
     "phone": "920024788",
+    "email": "care@indpt.com",
     "coverImage": "/images/stores/salt-jumeirah-2.webp"
   },
   {
@@ -327,6 +356,7 @@
     "lat": 25.31666536,
     "lng": 55.45630014,
     "phone": "600555551",
+    "email": "Care@indpt.com",
     "coverImage": "/images/stores/salt-zero-6.webp"
   },
   {
@@ -338,6 +368,7 @@
     "lat": 25.31666536,
     "lng": 55.45630014,
     "phone": "600555551",
+    "email": "care@indpt.com",
     "coverImage": "/images/stores/salt-al-zahia-city-centre.webp"
   },
   {
@@ -349,6 +380,7 @@
     "lat": 24.48756772,
     "lng": 54.60782751,
     "phone": "600555551",
+    "email": "Care@indpt.com",
     "coverImage": "/images/stores/salt-yas-mall.webp"
   },
   {
@@ -360,6 +392,7 @@
     "lat": 25.21932479,
     "lng": 55.28183227,
     "phone": "600555551",
+    "email": "care@indpt.com",
     "coverImage": "/images/stores/salt-museum-of-the-future.webp"
   },
   {
@@ -371,6 +404,7 @@
     "lat": 25.23355055,
     "lng": 55.47494913,
     "phone": "600555551",
+    "email": "care@indpt.com",
     "coverImage": "/images/stores/salt-khawaneej.webp"
   },
   {
@@ -382,6 +416,7 @@
     "lat": 25.16577742,
     "lng": 55.21108754,
     "phone": "600555551",
+    "email": "Care@indpt.com",
     "coverImage": "/images/stores/salt-jumeirah-3.webp"
   },
   {
@@ -393,6 +428,7 @@
     "lat": 24.50017062,
     "lng": 54.39001238,
     "phone": "600555551",
+    "email": "Care@indpt.com",
     "coverImage": "/images/stores/salt-galleria-mall.webp"
   },
   {
@@ -404,6 +440,7 @@
     "lat": 25.04661246,
     "lng": 55.24136614,
     "phone": "600555551",
+    "email": "care@indpt.com",
     "coverImage": "/images/stores/salt-motor-city.webp"
   },
   {
@@ -415,6 +452,7 @@
     "lat": 25.15002614,
     "lng": 55.2860625,
     "phone": "600555551",
+    "email": "care@indpt.com",
     "coverImage": "/images/stores/salt-dxbike.webp"
   },
   {
@@ -426,6 +464,7 @@
     "lat": 25.07706968,
     "lng": 55.13960957,
     "phone": "600555551",
+    "email": "care@indpt.com",
     "coverImage": "/images/stores/salt-marina-mall.webp"
   },
   {
@@ -437,6 +476,7 @@
     "lat": 25.09893633,
     "lng": 55.2010343,
     "phone": "600555551",
+    "email": "Care@indpt.com",
     "coverImage": "/images/stores/salt-barsha.webp"
   },
   {
@@ -448,6 +488,7 @@
     "lat": 25.38278778,
     "lng": 55.40217159,
     "phone": "600555551",
+    "email": "care@indpt.com",
     "coverImage": "/images/stores/salt-heera-beach.webp"
   },
   {
@@ -459,6 +500,7 @@
     "lat": 25.68463475,
     "lng": 55.7839441,
     "phone": "600555551",
+    "email": "care@indpt.com",
     "coverImage": "/images/stores/salt-hamra.webp"
   },
   {
@@ -470,6 +512,7 @@
     "lat": 24.10594388,
     "lng": 55.71797362,
     "phone": "600555551",
+    "email": "care@indpt.com",
     "coverImage": "/images/stores/salt-al-ain-spot.webp"
   }
 ]

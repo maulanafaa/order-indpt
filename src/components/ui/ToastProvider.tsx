@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } fro
 import { createPortal } from 'react-dom'
 import { useOverlayRoot } from '../layout/overlay'
 import { Toast } from './Toast'
-import { ToastContext, type ToastApi, type ToastOptions } from './toast'
+import { ToastContext, type ToastApi, type ToastOptions } from './toastContext'
 
 /** Renders one toast at a time in the frame's overlay layer. */
 export function ToastProvider({ children }: { children: ReactNode }) {

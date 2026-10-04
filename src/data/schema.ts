@@ -31,6 +31,7 @@ export const storeSchema = z.object({
   lat: z.number().min(-90).max(90),
   lng: z.number().min(-180).max(180),
   phone: z.string(),
+  email: z.string().nullable(),
   /** /images/stores/{slug}.webp. The file may not exist yet. */
   coverImage: z.string().startsWith('/images/stores/'),
 })
@@ -194,7 +195,15 @@ export const orderSchema = z.object({
   total: sar,
   promoCode: z.string().nullable(),
   paymentMethodId: id,
+  /** "mada •••• 4417", "Apple Pay", "Cash". Optional in older seeds. */
+  paymentLabel: z.string().optional(),
   carId: id.nullable(),
+  /** When the order should be ready (pickup, carhop) or the table time (dine-in). */
+  readyAt: z.string().datetime({ offset: true }).optional(),
+  /** Scheduled for later rather than as soon as possible. */
+  scheduled: z.boolean().optional(),
+  /** Note for the store. */
+  note: z.string().optional(),
   refund: z
     .object({
       amount: sar,
@@ -213,8 +222,9 @@ export const orderSchema = z.object({
 export const promoSchema = z.object({
   code: z.string().regex(/^[A-Z0-9]+$/),
   title: z.string(),
-  type: z.enum(['percent', 'amount']),
-  /** Percent (15 = 15%) or SAR amount. */
+  /** freeItem: one `freeItemId` free when the cart has an item from `requiresCategoryId`. */
+  type: z.enum(['percent', 'amount', 'freeItem']),
+  /** Percent (15 = 15%), SAR amount, or the free item's value for freeItem. */
   value: z.number().positive(),
   /** Cap on the discount for percent promos, SAR. */
   maxDiscount: sar.nullable(),
@@ -222,6 +232,9 @@ export const promoSchema = z.object({
   validFrom: z.string().date(),
   validUntil: z.string().date(),
   methods: z.array(orderMethodSchema).min(1),
+  freeItemId: id.optional(),
+  requiresCategoryId: id.optional(),
+  oncePerCustomer: z.boolean().optional(),
 })
 
 /* ---------------------------------------------------------------- */

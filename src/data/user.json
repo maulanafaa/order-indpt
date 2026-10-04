@@ -16,6 +16,14 @@
         "colour": "White",
         "plate": "RKD 4821",
         "isDefault": true
+      },
+      {
+        "id": "car-sonata",
+        "make": "Hyundai",
+        "model": "Sonata",
+        "colour": "Silver",
+        "plate": "SLM 2260",
+        "isDefault": false
       }
     ],
     "paymentMethods": [
@@ -26,6 +34,14 @@
         "bank": "Al Rajhi Bank",
         "expiry": "08/28",
         "isDefault": true
+      },
+      {
+        "id": "pm-visa-0921",
+        "brand": "visa",
+        "last4": "0921",
+        "bank": "Saudi National Bank",
+        "expiry": "02/27",
+        "isDefault": false
       },
       {
         "id": "pm-apple-pay",

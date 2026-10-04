@@ -11,6 +11,8 @@ type Base = {
   surcharge?: number
   /** Shown disabled with "Unavailable", never hidden. */
   unavailable?: boolean
+  /** Temporarily not selectable (the group's max is reached). */
+  disabled?: boolean
   className?: string
 }
 
@@ -37,7 +39,7 @@ export type OptionRowProps = ChoiceRow | StepperRow
  */
 export function OptionRow(props: OptionRowProps) {
   const id = useId()
-  const { label, surcharge, unavailable, className } = props
+  const { label, surcharge, unavailable, disabled, className } = props
   const selected = props.control === 'stepper' ? props.quantity > 0 : props.selected
 
   const text = (
@@ -85,7 +87,7 @@ export function OptionRow(props: OptionRowProps) {
             label={`Add ${label}`}
             variant="outline"
             size={32}
-            disabled={unavailable}
+            disabled={unavailable || disabled}
             onClick={() => props.onQuantityChange(1)}
           />
         )}
@@ -94,22 +96,23 @@ export function OptionRow(props: OptionRowProps) {
   }
 
   const { control, onChange, name } = props
+  const off = unavailable || disabled
   return (
-    <label htmlFor={id} className={cn(row, unavailable ? 'cursor-default' : 'cursor-pointer')}>
+    <label htmlFor={id} className={cn(row, off ? 'cursor-default' : 'cursor-pointer')}>
       <input
         id={id}
         type={control}
         name={name}
         className="peer sr-only"
         checked={props.selected}
-        disabled={unavailable}
+        disabled={off}
         onChange={(e) => onChange(control === 'radio' ? true : e.target.checked)}
       />
       {text}
       <span
         className={cn(
           'flex size-8 shrink-0 items-center justify-center rounded-full peer-focus-visible:outline-2 peer-focus-visible:outline-border-strong',
-          unavailable && 'opacity-35',
+          off && 'opacity-35',
         )}
       >
         {control === 'radio' ? <RadioMark checked={props.selected} /> : <CheckboxMark checked={props.selected} />}

@@ -43,7 +43,7 @@ export function Notice({ tone = 'neutral', size = 'default', title, icon = 'info
         className={cn('shrink-0', neutralCompact ? 'text-text-secondary' : t.icon, compact && 'self-start mt-px')}
       />
       <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-        {title && !compact && <p className="label-m text-text-primary">{title}</p>}
+        {title && !compact && <p className={cn('label-m', tone === 'error' ? 'text-state-error' : 'text-text-primary')}>{title}</p>}
         <div className={cn('body-s', neutralCompact ? 'text-text-secondary' : 'text-text-primary')}>{children}</div>
       </div>
     </div>

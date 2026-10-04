@@ -31,7 +31,8 @@ public/images/menu/{item-slug}.webp, public/images/stores/{store-slug}.webp
   every async button has a Loading state (spinner, same width).
 - Quantity stepper shows a trash icon at 1 (red on outline, white on solid).
 - Unavailable things are disabled, never hidden, unless the branch does not
-  support them at all.
+  support them at all. Exception: the Best Seller section only shows items
+  the branch can sell today (sold out items stay, disabled, in their category).
 - Copy: plain and short. Never use the em dash character.
 
 ## Data rules

@@ -40,6 +40,8 @@ export type ButtonProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'childre
   /** Async state: spinner in place of the content, same width. */
   loading?: boolean
   fullWidth?: boolean
+  /** Label at the start, price at the end (e.g. "Add to cart ... 60.00"). */
+  spread?: boolean
   children: ReactNode
 }
 
@@ -54,6 +56,7 @@ export function Button({
   price,
   loading = false,
   fullWidth,
+  spread,
   disabled,
   className,
   children,
@@ -78,7 +81,7 @@ export function Button({
       )}
       {...rest}
     >
-      <span className={cn('inline-flex items-center gap-2', loading && 'invisible')}>
+      <span className={cn('inline-flex items-center gap-2', spread && 'w-full justify-between', loading && 'invisible')}>
         {leadingIcon && <Icon name={leadingIcon} size={s.icon} />}
         <span>{children}</span>
         {price !== undefined && <Price amount={price} size="cta" tone={priceTone[v]} />}
