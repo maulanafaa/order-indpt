@@ -63,7 +63,7 @@ export const branchBadge: Record<BranchKind, 'success' | 'warning' | 'subtle'> =
 export const branchAction: Record<BranchKind, string> = {
   open: 'Order',
   soon: 'Order ahead',
-  closed: 'Schedule',
+  closed: 'Schedule order',
   paused: 'See menu',
 }
 

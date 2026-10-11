@@ -19,6 +19,7 @@ import { distanceKm, directionsUrl } from '../lib/geo'
 import { heroFor, stageOf, stepsFor, useOrder } from '../lib/orderDetail'
 import { moveTo, useOrderUpdates } from '../lib/orderUpdates'
 import { useScenario } from '../lib/scenarios'
+import { callSupport } from '../lib/support'
 import { useNow } from '../lib/useNow'
 
 /** I'm here counts as at the store within this distance. */
@@ -52,7 +53,6 @@ export default function OrderPage() {
 }
 
 function OrderDetail({ order, store }: { order: Order; store: Store }) {
-  const navigate = useNavigate()
   const toast = useToast()
   const now = useNow()
   const scenario = useScenario()
@@ -92,7 +92,7 @@ function OrderDetail({ order, store }: { order: Order; store: Store }) {
           <Button fullWidth variant="secondary" leadingIcon="receipt" loading={downloading} onClick={() => void download()}>
             Download invoice
           </Button>
-          <Button fullWidth variant="tertiary" leadingIcon="help-circle" onClick={() => navigate('/help')}>
+          <Button fullWidth variant="tertiary" leadingIcon="help-circle" onClick={callSupport}>
             Get help
           </Button>
         </div>
