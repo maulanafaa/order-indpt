@@ -1,3 +1,4 @@
+import { imageUrl } from './supabase'
 /**
  * Prices are numbers in SAR. Always render them with <Price/> (which draws
  * the riyal sign as an SVG); this only formats the number part.
@@ -24,5 +25,6 @@ export function slugify(name: string): string {
     .replace(/^-+|-+$/g, '')
 }
 
-export const menuImage = (slug: string) => `/images/menu/${slug}.webp`
-export const storeImage = (slug: string) => `/images/stores/${slug}.webp`
+/** Photos live in the Supabase Storage bucket `images` (upload with npm run images:upload). */
+export const menuImage = (slug: string) => imageUrl(`menu/${slug}.webp`)
+export const storeImage = (slug: string) => imageUrl(`stores/${slug}.webp`)

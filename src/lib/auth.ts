@@ -1,18 +1,24 @@
 /**
- * Signed-in user, persisted so a refresh keeps you logged in. Login is fake:
- * see lib/otp.ts for the rules. The scenario flag user=new signs you in as a
- * user with nothing saved (no name, cars or cards).
+ * Signed-in user, persisted so a refresh keeps you logged in. The code check is
+ * fake (lib/otp.ts), but with Supabase each number gets a real account and the
+ * profile, cars and cards are saved there (lib/login.ts, lib/account.ts).
+ * The scenario flag user=new gives a first-time number nothing saved.
  */
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import usersJson from '../data/user.json'
 import type { User } from '../data/schema'
+import { remoteSignOut, saveUser } from './account'
 
 const users = usersJson as { existing: User; new: User }
 
 type AuthState = {
   user: User | null
+  /** The user lives in Supabase: changes are written there too. */
+  remote: boolean
+  /** Local only sign-in (no Supabase, or it could not be reached). */
   signIn: (mobile: string, kind: 'existing' | 'new') => void
+  setUser: (user: User, remote: boolean) => void
   signOut: () => void
   /** Saves profile changes made at checkout (name, cars, cards). */
   updateUser: (patch: Partial<User> | ((u: User) => Partial<User>)) => void
@@ -20,14 +26,29 @@ type AuthState = {
 
 export const useAuth = create<AuthState>()(
   persist(
-    (set) => ({
+    (set, get) => ({
       user: null,
-      signIn: (mobile, kind) => set({ user: { ...users[kind], mobile } }),
-      signOut: () => set({ user: null }),
-      updateUser: (patch) =>
-        set((s) => (s.user ? { user: { ...s.user, ...(typeof patch === 'function' ? patch(s.user) : patch) } } : s)),
+      remote: false,
+      signIn: (mobile, kind) => set({ user: { ...users[kind], mobile }, remote: false }),
+      setUser: (user, remote) => set({ user, remote }),
+      signOut: () => {
+        if (get().remote) void remoteSignOut()
+        set({ user: null, remote: false })
+      },
+      updateUser: (patch) => {
+        const { user: prev, remote } = get()
+        if (!prev) return
+        const next = { ...prev, ...(typeof patch === 'function' ? patch(prev) : patch) }
+        set({ user: next })
+        if (remote) void saveUser(prev, next)
+      },
     }),
-    { name: 'order-indpt-auth', version: 1 },
+    {
+      name: 'order-indpt-auth',
+      version: 2,
+      // v1 had no `remote`: those sessions were local.
+      migrate: (state) => ({ ...(state as object), remote: false }) as AuthState,
+    },
   ),
 )
 

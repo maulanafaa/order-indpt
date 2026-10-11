@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Navigate, useNavigate, useParams } from 'react-router'
-import { ServiceChips } from '../components/flows/ServiceChips'
+import { OrderMethods } from '../components/flows/OrderMethods'
 import { StaticMap } from '../components/flows/StaticMap'
 import { Button, Icon, IconButton, Tabs, TopBar, useToast, type IconName } from '../components/ui'
 import { cn } from '../lib/cn'
@@ -39,9 +39,9 @@ export default function StoreInfoPage() {
   return (
     <div className="min-h-full bg-surface-base">
       <TopBar title="Store info" onLeading={() => navigate(`/store/${store.slug}`)} />
-      <header className="flex flex-col gap-3 px-4 pt-4 pb-4">
+      <header className="flex flex-col gap-2 p-4">
         <h1 className="title-xl">{store.name}</h1>
-        <ServiceChips storeId={store.id} />
+        <OrderMethods storeId={store.id} />
       </header>
       <Tabs
         fill
@@ -55,20 +55,20 @@ export default function StoreInfoPage() {
       />
 
       {tab === 'details' ? (
-        <div className="flex flex-col gap-5 px-4 pt-4 pb-10">
+        <div className="flex flex-col gap-5 px-4 pt-5 pb-8">
           <StaticMap
             center={point}
             zoom={14}
             pins={[{ id: store.id, point, label: store.name }]}
             selectedId={store.id}
             user={located ? near.point : null}
-            className="h-40 rounded-8 inset-ring inset-ring-border-default"
+            className="h-30 rounded-8 bg-surface-muted"
           />
           <div className="flex gap-3">
-            <Icon name="pin" size={20} className="mt-0.5 shrink-0" />
-            <div className="flex flex-col gap-1">
-              <p className="body-m text-text-primary">{store.address || store.country}</p>
-              {km != null && <p className="caption text-text-tertiary">{formatDistance(km)} away</p>}
+            <Icon name="pin" size={20} className="shrink-0" />
+            <div className="flex flex-col gap-0.5">
+              <p className="label-m text-text-primary">{store.address || store.country}</p>
+              {km != null && <p className="body-s text-text-secondary">{formatDistance(km)} away</p>}
             </div>
           </div>
           <Button variant="secondary" fullWidth leadingIcon="nav" onClick={() => window.open(directionsUrl(point), '_blank', 'noopener')}>
@@ -76,7 +76,7 @@ export default function StoreInfoPage() {
           </Button>
 
           {(phone || store.email) && (
-            <section className="flex flex-col gap-3 pt-2">
+            <section className="flex flex-col gap-2">
               <h2 className="title-s">Contact</h2>
               <div className="rounded-8 inset-ring inset-ring-border-default">
                 {phone && (
@@ -145,11 +145,11 @@ function ContactRow({
   divider?: boolean
 }) {
   return (
-    <div className={cn('flex items-center gap-3 px-4 py-3', divider && 'border-t border-border-default')}>
+    <div className={cn('flex items-center gap-3 px-3.5 py-3', divider && 'border-t border-border-default')}>
       <Icon name={icon} size={20} className="shrink-0" />
       <a href={href} className="flex min-w-0 flex-1 flex-col">
-        <span className="caption text-text-tertiary">{caption}</span>
-        <span className="truncate body-m text-text-primary">{value}</span>
+        <span className="caption text-text-secondary">{caption}</span>
+        <span className="truncate label-m text-text-primary">{value}</span>
       </a>
       <IconButton icon="copy" label={copyLabel} variant="outline" size={32} onClick={onCopy} />
     </div>

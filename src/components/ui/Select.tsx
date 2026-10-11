@@ -9,8 +9,10 @@ export type SelectOption = {
   label: string
   /** Small line above the label, e.g. "Today, Tue 29 Sep" (Arrival select). */
   caption?: string
-  /** Shown disabled with "Unavailable", never hidden. */
+  /** Shown disabled with "Unavailable" (or `note`), never hidden. */
   disabled?: boolean
+  /** Text next to a disabled option, e.g. "Fully booked". */
+  note?: string
 }
 
 type SelectProps = {
@@ -200,7 +202,7 @@ export function Select({
                     </span>
                   </span>
                   {o.disabled ? (
-                    <span className="caption text-text-tertiary">Unavailable</span>
+                    <span className="caption text-text-tertiary">{o.note ?? 'Unavailable'}</span>
                   ) : (
                     isSel && <Icon name="check" size={18} className="shrink-0 text-text-primary" />
                   )}

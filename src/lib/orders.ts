@@ -5,19 +5,27 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import type { Order } from '../data/schema'
+import { saveOrder } from './account'
+import { useAuth } from './auth'
 import { seedOrders } from './data'
 
 type OrdersState = {
   /** Orders placed in this browser, newest first. */
   placed: Order[]
   add: (order: Order) => void
+  /** Orders loaded from Supabase at login. */
+  setPlaced: (orders: Order[]) => void
 }
 
 export const useOrders = create<OrdersState>()(
   persist(
     (set) => ({
       placed: [],
-      add: (order) => set((s) => ({ placed: [order, ...s.placed.filter((o) => o.id !== order.id)] })),
+      add: (order) => {
+        set((s) => ({ placed: [order, ...s.placed.filter((o) => o.id !== order.id)] }))
+        if (useAuth.getState().remote) void saveOrder(order)
+      },
+      setPlaced: (placed) => set({ placed }),
     }),
     { name: 'order-indpt-orders', version: 1 },
   ),

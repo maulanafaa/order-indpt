@@ -75,6 +75,8 @@ export const itemSchema = z.object({
   price: sar,
   calories: z.number().int().nonnegative().nullable(),
   isBestSeller: z.boolean(),
+  /** "New" badge; joins Best sellers in the For you grid. */
+  isNew: z.boolean().default(false),
   allergens: z.array(z.string()),
 })
 
@@ -198,6 +200,13 @@ export const orderSchema = z.object({
   /** "mada •••• 4417", "Apple Pay", "Cash". Optional in older seeds. */
   paymentLabel: z.string().optional(),
   carId: id.nullable(),
+  /** Carhop: the car as typed at checkout. */
+  carDetails: z.string().optional(),
+  /** Carhop: when the customer tapped I'm here, and where they parked. */
+  arrivedAt: z.string().datetime({ offset: true }).optional(),
+  parkingSpot: z.string().optional(),
+  /** INDPT balance used on this order (the rest was paid by paymentMethodId). */
+  balanceUsed: sar.optional(),
   /** When the order should be ready (pickup, carhop) or the table time (dine-in). */
   readyAt: z.string().datetime({ offset: true }).optional(),
   /** Scheduled for later rather than as soon as possible. */

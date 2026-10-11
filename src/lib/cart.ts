@@ -116,7 +116,7 @@ export const cartSubtotal = (lines: CartLine[], soldOut?: Set<string>) =>
 export const quantityOfItem = (lines: CartLine[], itemId: string) =>
   lines.filter((l) => l.itemId === itemId).reduce((n, l) => n + l.quantity, 0)
 
-/** "No onion · Extra jalapeño · + Original Fries", or "No options". */
+/** "No onion · Extra jalapeño · + Original Fries", or empty when there are no options or note. */
 export function optionsSummary(line: Pick<CartLine, 'modifiers' | 'note'>) {
   const parts = line.modifiers.map((m) => {
     const name = modifierById.get(m.modifierId)?.name ?? ''
@@ -124,6 +124,6 @@ export function optionsSummary(line: Pick<CartLine, 'modifiers' | 'note'>) {
     return m.quantity > 1 ? `${m.quantity}× ${label}` : label
   })
   if (line.note) parts.push(`“${line.note}”`)
-  return parts.length ? parts.join(' · ') : 'No options'
+  return parts.join(' · ')
 }
 

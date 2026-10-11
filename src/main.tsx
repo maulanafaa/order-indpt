@@ -8,10 +8,15 @@ import './index.css'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { RouterProvider } from 'react-router/dom'
-import { router } from './router'
+import { loadCatalog } from './lib/catalog'
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <RouterProvider router={router} />
-  </StrictMode>,
-)
+// Stores and menu come from Supabase when it is set up and seeded, else from src/data.
+// The router is imported after, so nothing reads the catalog before it is in place.
+void loadCatalog().then(async () => {
+  const { router } = await import('./router')
+  createRoot(document.getElementById('root')!).render(
+    <StrictMode>
+      <RouterProvider router={router} />
+    </StrictMode>,
+  )
+})

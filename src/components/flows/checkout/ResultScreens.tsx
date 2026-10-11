@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
 import type { Order } from '../../../data/schema'
 import { methodLabels } from '../../../lib/data'
-import type { PaymentResult } from '../../../lib/scenarios'
+import { BottomSheet } from '../../ui/BottomSheet'
 import { Button } from '../../ui/Button'
+import { IconButton } from '../../ui/IconButton'
 import { StatusScreen } from '../../ui/StatusScreen'
 
 export const SPLASH_MS = 3000
@@ -47,104 +48,87 @@ export function OrderPlacedSplash({ order, storeName, readyText, onDone }: { ord
   )
 }
 
-type FailedResult = Exclude<PaymentResult, 'success'>
-
-type PaymentFailedProps = {
-  result: FailedResult
-  /** Retrying (Try again, Check payment status): loading on that button. */
-  retrying: boolean
-  onRetry: () => void
-  onOtherMethod: () => void
-  onBack: () => void
-  onHelp: () => void
+/** Figma "Checkout / Payment pending": blocked, full screen until the payment settles. */
+export function PaymentPending({ checking, onCheck, onBack, onHelp }: { checking: boolean; onCheck: () => void; onBack: () => void; onHelp: () => void }) {
+  return (
+    <StatusScreen
+      tone="warning"
+      icon="clock"
+      title="Still confirming your payment"
+      onHelp={onHelp}
+      actions={
+        <>
+          <Button fullWidth loading={checking} onClick={onCheck}>
+            Check payment status
+          </Button>
+          <Button fullWidth variant="tertiary" onClick={onBack}>
+            Back to checkout
+          </Button>
+        </>
+      }
+    >
+      This is taking longer than usual. Please don’t pay again. If it goes through we’ll place your order, and if not you won’t be charged.
+    </StatusScreen>
+  )
 }
 
-/** Figma payment result screens: Card declined, Not enough balance, Card payments are down, Still confirming. */
-export function PaymentFailed({ result, retrying, onRetry, onOtherMethod, onBack, onHelp }: PaymentFailedProps) {
-  switch (result) {
-    case 'declined':
-      return (
-        <StatusScreen
-          tone="error"
-          icon="x"
-          title="Card declined"
-          onHelp={onHelp}
-          actions={
-            <>
-              <Button fullWidth loading={retrying} onClick={onRetry}>
-                Try again
+/** Figma "Checkout / Store paused orders": blocked, full screen. */
+export function StorePaused({ storeName, onOtherStore, onMenu, onHelp }: { storeName: string; onOtherStore: () => void; onMenu: () => void; onHelp: () => void }) {
+  return (
+    <StatusScreen
+      tone="neutral"
+      icon="store"
+      title={`${storeName} paused orders`}
+      onHelp={onHelp}
+      actions={
+        <>
+          <Button fullWidth onClick={onOtherStore}>
+            Choose another store
+          </Button>
+          <Button fullWidth variant="tertiary" onClick={onMenu}>
+            Back to menu
+          </Button>
+        </>
+      }
+    >
+      The store isn’t taking online orders right now. You haven’t been charged, and your cart is saved for another store.
+    </StatusScreen>
+  )
+}
+
+export type SheetAction = { label: string; onClick: () => void; loading?: boolean }
+export type RecoverableError = { title: string; body: string; primary: SheetAction; secondary?: SheetAction }
+
+/**
+ * Figma checkout error sheets (card declined, offline, items sold out...): recoverable,
+ * the checkout stays behind. The parent keeps `error` while `open` turns false so it animates out.
+ */
+export function CheckoutErrorSheet({ error, open, onClose }: { error: RecoverableError | null; open: boolean; onClose: () => void }) {
+  const e = error
+  return (
+    <BottomSheet open={open && Boolean(error)} onClose={onClose} ariaLabel={e?.title ?? 'Error'} bare>
+      {e && (
+        <div className="flex flex-col gap-6 px-4 pt-2.5 pb-[max(32px,env(safe-area-inset-bottom))]">
+          <span aria-hidden className="mx-auto h-1 w-9 rounded-2 bg-border-default" />
+          <div className="flex flex-col gap-2">
+            <div className="flex items-start gap-2">
+              <h2 className="min-w-0 flex-1 title-l text-text-primary">{e.title}</h2>
+              <IconButton icon="x" label="Close" variant="outline" size={32} onClick={onClose} />
+            </div>
+            <p className="body-m text-text-secondary">{e.body}</p>
+          </div>
+          <div className="flex flex-col gap-3">
+            <Button fullWidth loading={e.primary.loading} onClick={e.primary.onClick}>
+              {e.primary.label}
+            </Button>
+            {e.secondary && (
+              <Button fullWidth variant="ghost" loading={e.secondary.loading} onClick={e.secondary.onClick}>
+                {e.secondary.label}
               </Button>
-              <Button fullWidth variant="tertiary" onClick={onOtherMethod}>
-                Use another payment method
-              </Button>
-            </>
-          }
-        >
-          Your bank declined this card, so we haven’t placed your order or charged you. Try again or use another payment method.
-        </StatusScreen>
-      )
-    case 'insufficient':
-      return (
-        <StatusScreen
-          tone="error"
-          icon="wallet"
-          title="Not enough balance"
-          onHelp={onHelp}
-          actions={
-            <>
-              <Button fullWidth onClick={onOtherMethod}>
-                Use another payment method
-              </Button>
-              <Button fullWidth variant="tertiary" onClick={onBack}>
-                Back to checkout
-              </Button>
-            </>
-          }
-        >
-          Your bank says this card doesn’t have enough balance for this order. You haven’t been charged. Use another card or payment method.
-        </StatusScreen>
-      )
-    case 'gateway':
-      return (
-        <StatusScreen
-          tone="warning"
-          icon="card"
-          title="Card payments are down"
-          onHelp={onHelp}
-          actions={
-            <>
-              <Button fullWidth onClick={onOtherMethod}>
-                Use another payment method
-              </Button>
-              <Button fullWidth variant="tertiary" loading={retrying} onClick={onRetry}>
-                Try again
-              </Button>
-            </>
-          }
-        >
-          We can’t reach our payment provider right now. You haven’t been charged. Pay with Apple Pay or cash, or try your card again in a few minutes.
-        </StatusScreen>
-      )
-    case 'pending':
-      return (
-        <StatusScreen
-          tone="warning"
-          icon="clock"
-          title="Still confirming your payment"
-          onHelp={onHelp}
-          actions={
-            <>
-              <Button fullWidth loading={retrying} onClick={onRetry}>
-                Check payment status
-              </Button>
-              <Button fullWidth variant="tertiary" onClick={onBack}>
-                Back to checkout
-              </Button>
-            </>
-          }
-        >
-          This is taking longer than usual. Please don’t pay again. If it goes through we’ll place your order, and if not you won’t be charged.
-        </StatusScreen>
-      )
-  }
+            )}
+          </div>
+        </div>
+      )}
+    </BottomSheet>
+  )
 }

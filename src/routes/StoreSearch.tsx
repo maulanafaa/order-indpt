@@ -8,7 +8,8 @@ import { useStoreCart } from '../components/flows/useStoreCart'
 import { Chip, EmptyState, IconButton, SearchField } from '../components/ui'
 import type { Store } from '../data/schema'
 import { availabilityFor, categories, items, itemsByCategory, storeBySlug } from '../lib/data'
-import { openStatus } from '../lib/hours'
+import { branchState } from '../lib/branch'
+import { upsellItems } from '../lib/upsell'
 import { useScenario } from '../lib/scenarios'
 import { useNow } from '../lib/useNow'
 
@@ -24,7 +25,7 @@ const norm = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim()
 
 function MenuSearch({ store }: { store: Store }) {
   const navigate = useNavigate()
-  const { storeClosed } = useScenario()
+  const { store: storeFlag, demo } = useScenario()
   const [query, setQuery] = useState('')
   const availability = useMemo(() => availabilityFor(store.id), [store.id])
   const { item, lastItem, openItem, closeItem } = useItemParam()
@@ -32,7 +33,9 @@ function MenuSearch({ store }: { store: Store }) {
   const q = norm(query)
   const results = q ? items.filter((i) => norm(`${i.name} ${i.description}`).includes(q)) : []
   const now = useNow()
-  const status = openStatus(store, now, storeClosed)
+  const branch = branchState(store, now, storeFlag, demo)
+  const status = { open: branch.kind === 'open' }
+  const paused = branch.kind === 'paused'
 
   return (
     <div className="flex min-h-full flex-col bg-surface-base">
@@ -63,6 +66,7 @@ function MenuSearch({ store }: { store: Store }) {
                 onOpen={() => openItem(it)}
                 onAdd={() => cart.quickAdd(it)}
                 onDecrease={() => cart.decrease(it)}
+                disabled={paused}
               />
             ))}
           </div>
@@ -92,12 +96,12 @@ function MenuSearch({ store }: { store: Store }) {
       )}
 
       <div className="mt-auto">
-        <CartBar
+        {!paused && <CartBar
           storeSlug={store.slug}
           closed={!status.open}
           soldOutItems={availabilityFor(store.id).soldOutItems}
           onOpen={() => navigate(`/store/${store.slug}`, { state: { openCart: true } })}
-        />
+        />}
       </div>
 
       <ItemSheet
@@ -107,6 +111,9 @@ function MenuSearch({ store }: { store: Store }) {
         soldOut={lastItem ? availability.soldOutItems.has(lastItem.id) : false}
         unavailableModifiers={availability.unavailableModifiers}
         onAdd={(line, done) => cart.add(line, done)}
+        upsell={paused ? [] : upsellItems(new Set(), availability.soldOutItems)}
+        onUpsellAdd={(it) => cart.add({ itemId: it.id, quantity: 1, modifiers: [], note: '' }, undefined, true)}
+        ordersPaused={paused}
       />
       {cart.leaveSheet}
     </div>

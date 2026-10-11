@@ -1,20 +1,22 @@
 import type { ReactNode } from 'react'
 import { cn } from '../../lib/cn'
 
-export type BadgeVariant = 'solid' | 'subtle' | 'outline' | 'success' | 'promo' | 'error'
+export type BadgeVariant = 'solid' | 'subtle' | 'outline' | 'success' | 'warning' | 'promo' | 'error'
 
 const variants: Record<BadgeVariant, string> = {
   solid: 'bg-surface-inverse text-text-on-inverse',
   subtle: 'bg-surface-muted text-text-primary',
   outline: 'inset-ring inset-ring-border-default text-text-primary',
   success: 'bg-state-success-subtle text-state-success',
+  warning: 'bg-state-warning-subtle text-state-warning',
   promo: 'bg-accent-promo text-text-on-inverse',
   error: 'bg-state-error-subtle text-state-error',
 }
 
 /**
- * Figma "Badge". Solid = emphasis (Best seller, Closed), Subtle = neutral
- * status, Outline = optional.
+ * Figma "Badge". Solid = emphasis (New, Sold out), Subtle = neutral status
+ * (Closed), Outline = optional, Success = open, Warning = opening soon,
+ * Promo = Best seller.
  */
 export function Badge({
   variant = 'solid',

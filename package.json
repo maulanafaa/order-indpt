@@ -9,11 +9,14 @@
     "preview": "vite preview",
     "lint": "oxlint --deny-warnings && tsc -b --noEmit",
     "check:images": "tsx scripts/check-images.ts",
-    "scrape": "tsx scripts/scrape/index.ts"
+    "scrape": "tsx scripts/scrape/index.ts",
+    "db:seed-sql": "tsx scripts/supabase-seed.ts",
+    "images:upload": "tsx scripts/images-upload.ts"
   },
   "dependencies": {
     "@fontsource/barlow-semi-condensed": "^5.3.0",
     "@fontsource/figtree": "^5.3.0",
+    "@supabase/supabase-js": "^2.117.2",
     "lucide-react": "^1.52.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",

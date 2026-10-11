@@ -8,12 +8,13 @@ import { Badge } from '../ui/Badge'
 import { BottomSheet } from '../ui/BottomSheet'
 import { Button } from '../ui/Button'
 import { IconButton } from '../ui/IconButton'
-import { Notice } from '../ui/Notice'
 import { OptionRow } from '../ui/OptionRow'
 import { Price } from '../ui/Price'
 import { ProductImage } from '../ui/ProductImage'
 import { QuantityStepper } from '../ui/QuantityStepper'
 import { Textarea } from '../ui/Textarea'
+import { ItemBadge } from './MenuItemRow'
+import { UpsellRow } from './UpsellRow'
 
 type NewLine = Omit<CartLine, 'id'>
 
@@ -27,10 +28,15 @@ type ItemSheetProps = {
   onAdd: (line: NewLine, done: () => void) => void
   /** Edit from the cart: start from these choices and save instead of add. */
   editing?: { lineId: string; line: NewLine } | null
+  /** "Goes well with this" items; "+" adds one straight to the cart. */
+  upsell?: Item[]
+  onUpsellAdd?: (item: Item) => void
+  /** Branch not taking online orders: browse only, nothing can be added. */
+  ordersPaused?: boolean
 }
 
 /** Item page as a bottom sheet: Figma "Item · Food / Drink (customizable)" and "Item · Fixed". */
-export function ItemSheet({ item, open, onClose, soldOut, unavailableModifiers, onAdd, editing }: ItemSheetProps) {
+export function ItemSheet({ item, open, onClose, soldOut, unavailableModifiers, onAdd, editing, upsell, onUpsellAdd, ordersPaused }: ItemSheetProps) {
   return (
     <BottomSheet open={open} onClose={onClose} bare ariaLabel={item?.name ?? 'Item'}>
       {item && (
@@ -42,6 +48,9 @@ export function ItemSheet({ item, open, onClose, soldOut, unavailableModifiers, 
           soldOut={soldOut}
           unavailableModifiers={unavailableModifiers}
           onAdd={onAdd}
+          upsell={upsell}
+          onUpsellAdd={onUpsellAdd}
+          ordersPaused={ordersPaused}
         />
       )}
     </BottomSheet>
@@ -50,7 +59,17 @@ export function ItemSheet({ item, open, onClose, soldOut, unavailableModifiers, 
 
 type Selections = Record<string, number>
 
-function ItemSheetBody({ item, onClose, soldOut, unavailableModifiers, onAdd, editing }: Omit<ItemSheetProps, 'open' | 'item'> & { item: Item }) {
+function ItemSheetBody({
+  item,
+  onClose,
+  soldOut,
+  unavailableModifiers,
+  onAdd,
+  editing,
+  upsell = [],
+  onUpsellAdd,
+  ordersPaused = false,
+}: Omit<ItemSheetProps, 'open' | 'item'> & { item: Item }) {
   const groups = useMemo(() => groupsByItem.get(item.id) ?? [], [item.id])
   const [picked, setPicked] = useState<Selections>(() =>
     Object.fromEntries((editing?.line.modifiers ?? []).filter((m) => !unavailableModifiers.has(m.modifierId)).map((m) => [m.modifierId, m.quantity])),
@@ -138,7 +157,7 @@ function ItemSheetBody({ item, onClose, soldOut, unavailableModifiers, onAdd, ed
 
           <div className="flex flex-col gap-4">
             <div className="flex flex-col items-start gap-1">
-              {item.isBestSeller && <Badge variant="promo">Best seller</Badge>}
+              <ItemBadge item={item} />
               <h2 className="title-xl text-text-primary">{item.name}</h2>
               {item.description && <p className="body-m text-text-secondary">{item.description}</p>}
             </div>
@@ -191,18 +210,19 @@ function ItemSheetBody({ item, onClose, soldOut, unavailableModifiers, onAdd, ed
                 aria-label="Note for the kitchen"
                 disabled={soldOut}
               />
-              <Notice size="compact">
-                Allergies can’t be handled through notes. Please speak to our staff when you collect your order.
-              </Notice>
             </section>
+          )}
+
+          {!editing && !soldOut && !ordersPaused && onUpsellAdd && (
+            <UpsellRow items={upsell.filter((u) => u.id !== item.id)} onAdd={onUpsellAdd} />
           )}
         </div>
       </div>
 
       <footer className="flex shrink-0 items-center gap-3 bg-surface-base px-4 pt-3 pb-[max(28px,env(safe-area-inset-bottom))] shadow-bar">
-        {soldOut ? (
+        {soldOut || ordersPaused ? (
           <Button fullWidth disabled>
-            Unavailable today
+            {soldOut ? 'Unavailable today' : 'Online ordering unavailable'}
           </Button>
         ) : (
           <>

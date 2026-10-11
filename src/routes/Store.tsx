@@ -6,16 +6,19 @@ import { CartBar } from '../components/flows/CartBar'
 import { ItemSheet } from '../components/flows/ItemSheet'
 import { MenuItemRow } from '../components/flows/MenuItemRow'
 import { MenuTile } from '../components/flows/MenuTile'
-import { ServiceChips } from '../components/flows/ServiceChips'
+import { ActiveOrderBanner, ActiveOrderPill, ActiveOrdersSheet } from '../components/flows/ActiveOrders'
+import { OrderMethods } from '../components/flows/OrderMethods'
 import { useItemParam } from '../components/flows/useItemParam'
 import { useStoreCart } from '../components/flows/useStoreCart'
 import { useCartFlow } from '../components/flows/useCartFlow'
-import { Badge, Button, EmptyState, Icon, IconButton, Notice, ProductImage, Tabs, TopBar } from '../components/ui'
+import { Badge, Button, EmptyState, Icon, IconButton, Tabs, TopBar } from '../components/ui'
 import type { Item, Store } from '../data/schema'
 import { cn } from '../lib/cn'
-import { availabilityFor, categories, isCustomisable, items, itemsByCategory, storeBySlug } from '../lib/data'
-import { storeImage } from '../lib/format'
-import { openStatus } from '../lib/hours'
+import { useActiveOrders, type ActiveOrder } from '../lib/activeOrders'
+import { useCart } from '../lib/cart'
+import { upsellItems } from '../lib/upsell'
+import { branchBadge, branchState } from '../lib/branch'
+import { availabilityFor, categories, items, itemsByCategory, storeBySlug } from '../lib/data'
 import { useScenario } from '../lib/scenarios'
 import { useNow } from '../lib/useNow'
 
@@ -53,7 +56,16 @@ function StoreMenu({ store }: { store: Store }) {
   const [, setParams] = useSearchParams()
   const overlay = useOverlayRoot()
   const now = useNow()
-  const status = openStatus(store, now, scenario.storeClosed)
+  const branch = branchState(store, now, scenario.store, scenario.demo)
+  const status = { open: branch.kind === 'open' }
+  const paused = branch.kind === 'paused'
+  const activeOrders = useActiveOrders(store.id)
+  const cartCount = useCart((c) => (c.storeSlug === store.slug ? c.lines.length : 0))
+  const [ordersSheet, setOrdersSheet] = useState(false)
+  const openOrder = (o: ActiveOrder) => {
+    setOrdersSheet(false)
+    navigate(`/order/${o.id}`)
+  }
   const availability = useMemo(() => availabilityFor(store.id), [store.id])
   const { item, lastItem, openItem, closeItem } = useItemParam()
   const cart = useStoreCart(store, openItem)
@@ -62,18 +74,20 @@ function StoreMenu({ store }: { store: Store }) {
     closed: !status.open,
     soldOutItems: availability.soldOutItems,
     unavailableModifiers: availability.unavailableModifiers,
-    openItem,
     closeItem,
-    quickAdd: cart.quickAdd,
-    isCustomisable: (it) => isCustomisable(it.id),
   })
   const [retrying, setRetrying] = useState(false)
 
   const sections: Section[] = useMemo(() => {
-    // Best Seller only shows items this branch can sell today; sold out ones stay (disabled) in their category.
-    const best = items.filter((i) => i.isBestSeller && !availability.soldOutItems.has(i.id))
+    // For you: two Best sellers and two New items this branch can sell today (sold out ones stay, disabled, in their category).
+    const sellable = items.filter((i) => !availability.soldOutItems.has(i.id))
+    const best = sellable.filter((i) => i.isBestSeller && !i.isNew)
+    const fresh = sellable.filter((i) => i.isNew)
+    const pick = [...best.slice(0, 2), ...fresh.slice(0, 2)]
+    // Fewer than two of either: fill up to four from the other list.
+    for (const i of [...best, ...fresh]) if (pick.length < 4 && !pick.includes(i)) pick.push(i)
     return [
-      ...(best.length ? [{ id: 'best', label: 'Best Seller', items: best, grid: true }] : []),
+      ...(pick.length ? [{ id: 'for-you', label: 'For you', items: pick.slice(0, 4), grid: true }] : []),
       ...categories
         .map((c) => ({ id: c.id, label: c.name, items: itemsByCategory.get(c.id) ?? [] }))
         .filter((s) => s.items.length),
@@ -155,6 +169,7 @@ function StoreMenu({ store }: { store: Store }) {
     onOpen: () => openItem(it),
     onAdd: () => cart.quickAdd(it),
     onDecrease: () => cart.decrease(it),
+    disabled: paused,
   })
 
   const retry = () => {
@@ -173,32 +188,28 @@ function StoreMenu({ store }: { store: Store }) {
 
   return (
     <div className="min-h-full bg-surface-base">
-      {/* Cover */}
-      <div className="relative">
-        <ProductImage src={storeImage(store.slug)} alt={store.name} iconSize={32} className="h-[200px] w-full" />
-        <div className="absolute inset-x-0 top-0 flex items-center justify-between px-4 py-3">
-          <IconButton icon="back" label="Back to stores" variant="elevated" onClick={flow.goBack} />
-          <div className="flex gap-2">
-            <IconButton icon="search" label="Search the menu" variant="elevated" onClick={() => navigate(`/store/${store.slug}/search`)} />
-            <IconButton icon="user" label="Profile" variant="elevated" onClick={() => navigate('/profile')} />
-          </div>
-        </div>
+      {/* Top actions (Figma Cover: back and search, no photo) */}
+      <div className="flex h-16 items-center justify-between px-4">
+        <IconButton icon="back" label="Back to stores" variant="outline" onClick={flow.goBack} />
+        <IconButton icon="search" label="Search the menu" variant="outline" onClick={() => navigate(`/store/${store.slug}/search`)} />
       </div>
 
-      {/* Branch header */}
-      <header className="flex flex-col items-start gap-2.5 p-4">
+      {/* Branch header: name, then the active order, or the status (when not open) and order methods. */}
+      <header className={cn('flex flex-col items-start gap-2.5 p-4', activeOrders.length > 0 && 'pb-4')}>
         <button type="button" onClick={() => navigate(`/store/${store.slug}/info`)} className="flex items-center gap-1 text-start">
-          <h1 className="title-l">{store.name}</h1>
+          <h1 className="title-xl">{store.name}</h1>
           <Icon name="chev" size={22} />
         </button>
-        <Badge variant={status.open ? 'success' : 'error'}>{status.label}</Badge>
-        {!status.open && (
-          <Notice tone="error" icon="cal" title="This store is closed right now">
-            You can browse the menu and schedule your order for {status.opensAt ?? 'later'} or later.
-          </Notice>
+        {activeOrders.length === 0 && (
+          <>
+            {branch.kind !== 'open' && <Badge variant={branchBadge[branch.kind]}>{branch.label}</Badge>}
+            <OrderMethods storeId={store.id} />
+          </>
         )}
-        <ServiceChips storeId={store.id} />
       </header>
+      {activeOrders.length > 0 && (
+        <ActiveOrderBanner orders={activeOrders} onOpen={openOrder} />
+      )}
 
       {scenario.menuError ? (
         <EmptyState
@@ -224,14 +235,11 @@ function StoreMenu({ store }: { store: Store }) {
           <div className="pb-6">
             {sections.map((s) => (
               <section key={s.id} id={`section-${s.id}`} aria-label={s.label}>
-                <div className="flex items-baseline gap-2 px-4 pt-6 pb-1">
+                <div className="px-4 pt-6 pb-1">
                   <h2 className="title-m">{s.label}</h2>
-                  <span className="caption text-text-tertiary">
-                    {s.items.length} {s.items.length === 1 ? 'item' : 'items'}
-                  </span>
                 </div>
                 {s.grid ? (
-                  <div className="mt-2 mb-4 grid grid-cols-2 gap-px border-y border-border-default bg-border-default">
+                  <div className="mt-2 mb-4 grid grid-cols-2 gap-px border-y border-border-default bg-border-default pb-px">
                     {s.items.map((it) => (
                       <MenuTile key={it.id} item={it} {...controls(it)} />
                     ))}
@@ -250,7 +258,30 @@ function StoreMenu({ store }: { store: Store }) {
         </>
       )}
 
-      <CartBar storeSlug={store.slug} closed={!status.open} soldOutItems={availability.soldOutItems} onOpen={flow.openCart} />
+      {!paused && <CartBar storeSlug={store.slug} closed={!status.open} soldOutItems={availability.soldOutItems} onOpen={flow.openCart} />}
+
+      {/* Floating active order pill once the header has scrolled away (Figma "Active order", Style = Pill). */}
+      {overlay &&
+        activeOrders.length > 0 &&
+        createPortal(
+          <div
+            aria-hidden={!stuck}
+            inert={!stuck}
+            className={cn(
+              'pointer-events-none absolute inset-x-0 z-30 flex justify-center transition-[opacity,translate] duration-[450ms] ease-sheet',
+              stuck ? 'opacity-100' : 'translate-y-3 opacity-0',
+            )}
+            style={{ bottom: cartCount > 0 && !paused ? 104 : 24 }}
+          >
+            <ActiveOrderPill
+              orders={activeOrders}
+              className="pointer-events-auto"
+              onClick={() => (activeOrders.length > 1 ? setOrdersSheet(true) : openOrder(activeOrders[0]))}
+            />
+          </div>,
+          overlay,
+        )}
+      <ActiveOrdersSheet open={ordersSheet} orders={activeOrders} onClose={() => setOrdersSheet(false)} onOpen={openOrder} />
 
       {/* Sticky bar: compact header (shown when scrolling up) + category tabs. */}
       {overlay &&
@@ -291,6 +322,9 @@ function StoreMenu({ store }: { store: Store }) {
         unavailableModifiers={availability.unavailableModifiers}
         onAdd={(line, done) => flow.onItemSave(line, done, cart.add)}
         editing={flow.editing}
+        upsell={paused ? [] : upsellItems(new Set(), availability.soldOutItems)}
+        onUpsellAdd={(it) => cart.add({ itemId: it.id, quantity: 1, modifiers: [], note: '' }, undefined, true)}
+        ordersPaused={paused}
       />
       {cart.leaveSheet}
       {flow.sheets}

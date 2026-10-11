@@ -20,93 +20,88 @@
     "sortOrder": 4
   },
   {
-    "id": "cat-11",
-    "name": "Boxes",
-    "sortOrder": 5
-  },
-  {
     "id": "cat-40",
     "name": "Little Salters",
-    "sortOrder": 6
+    "sortOrder": 5
   },
   {
     "id": "cat-41",
     "name": "Breakfast",
-    "sortOrder": 7
+    "sortOrder": 6
   },
   {
     "id": "cat-42",
     "name": "Lemonades",
-    "sortOrder": 8
+    "sortOrder": 7
   },
   {
     "id": "cat-43",
     "name": "Fresh juices",
-    "sortOrder": 9
+    "sortOrder": 8
   },
   {
     "id": "cat-44",
     "name": "Soft drinks",
-    "sortOrder": 10
+    "sortOrder": 9
   },
   {
     "id": "cat-45",
     "name": "Water",
-    "sortOrder": 11
+    "sortOrder": 10
   },
   {
     "id": "cat-46",
     "name": "Mojitos",
-    "sortOrder": 12
+    "sortOrder": 11
   },
   {
     "id": "cat-16",
     "name": "Iced coffee",
-    "sortOrder": 13
+    "sortOrder": 12
   },
   {
     "id": "cat-17",
     "name": "Hot coffee",
-    "sortOrder": 14
+    "sortOrder": 13
   },
   {
     "id": "cat-47",
     "name": "Shakes",
-    "sortOrder": 15
+    "sortOrder": 14
   },
   {
     "id": "cat-48",
     "name": "Softies",
-    "sortOrder": 16
+    "sortOrder": 15
   },
   {
     "id": "cat-49",
     "name": "Pints",
-    "sortOrder": 17
+    "sortOrder": 16
   },
   {
     "id": "cat-50",
     "name": "Popsicles",
-    "sortOrder": 18
+    "sortOrder": 17
   },
   {
     "id": "cat-52",
     "name": "Cookies",
-    "sortOrder": 19
+    "sortOrder": 18
   },
   {
     "id": "cat-10",
     "name": "Pushpops",
-    "sortOrder": 20
+    "sortOrder": 19
   },
   {
     "id": "cat-53",
     "name": "Energy boost",
-    "sortOrder": 21
+    "sortOrder": 20
   },
   {
     "id": "cat-34",
     "name": "Desserts",
-    "sortOrder": 22
+    "sortOrder": 21
   }
 ]

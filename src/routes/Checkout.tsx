@@ -1,29 +1,23 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { useNavigate } from 'react-router'
-import { CarSheet } from '../components/flows/checkout/CarSheet'
-import { PaymentSheet } from '../components/flows/checkout/PaymentSheet'
-import { PromoSheet } from '../components/flows/checkout/PromoSheet'
-import { PromoRow, TotalsRows } from '../components/flows/checkout/PromoSummary'
-import { OrderPlacedSplash, PaymentFailed } from '../components/flows/checkout/ResultScreens'
-import { ScheduleSheet } from '../components/flows/checkout/ScheduleSheet'
-import { ItemSheet } from '../components/flows/ItemSheet'
+import { OrderSummary, PlaceOrderBar } from '../components/flows/checkout/OrderSummary'
+import { BalanceRow, PaymentOptions } from '../components/flows/checkout/PaymentOptions'
+import {
+  CheckoutErrorSheet,
+  OrderPlacedSplash,
+  PaymentPending,
+  StorePaused,
+  type RecoverableError,
+} from '../components/flows/checkout/ResultScreens'
 import { LoginSheet } from '../components/flows/LoginSheet'
-import { useCartFlow } from '../components/flows/useCartFlow'
-import { useItemParam } from '../components/flows/useItemParam'
-import { useStoreCart } from '../components/flows/useStoreCart'
 import { useOverlayRoot } from '../components/layout/overlay'
 import {
-  BottomSheet,
   Button,
-  ChoiceCard,
   EmptyState,
-  Icon,
   Input,
-  ListRow,
   Notice,
   OrderTypeTile,
-  Price,
   SectionCard,
   Select,
   Textarea,
@@ -33,24 +27,16 @@ import {
 } from '../components/ui'
 import type { Order, OrderMethod, Store, User } from '../data/schema'
 import { formatMobile, useAuth } from '../lib/auth'
-import { lineTotal, unitPrice, useCart } from '../lib/cart'
-import {
-  CASH,
-  carTitle,
-  defaultPayment,
-  describePayment,
-  methodTiles,
-  resolveMethod,
-  useCheckout,
-  type TimeChoice,
-} from '../lib/checkout'
-import { availabilityFor, isCustomisable, itemById, methodLabels, modifierById, storeBySlug } from '../lib/data'
+import { balanceUsed } from '../lib/balance'
+import { branchState } from '../lib/branch'
+import { round2, unitPrice, useCart } from '../lib/cart'
+import { cardLabel, emptyCard, validateCard, type CardFields } from '../lib/card'
+import { APPLE_PAY, CARD, carText, methodTiles, resolveMethod, resolvePayment, useCheckout, type TimeChoice } from '../lib/checkout'
+import { availabilityFor, itemById, methodLabels, modifierById, storeBySlug } from '../lib/data'
 import { fakeRequest } from '../lib/fake'
-import { distanceKm, formatDistance } from '../lib/geo'
-import { openStatus } from '../lib/hours'
 import { newOrderId, useOrders } from '../lib/orders'
 import { useScenario, type CheckoutIssue, type PaymentResult } from '../lib/scenarios'
-import { ASAP_MINUTES, asapMinutes, clockTime, dayLabel, slotDate, slotsFor } from '../lib/slots'
+import { ASAP_MINUTES, asapMinutes, clockTime, slotDate, slotsFor } from '../lib/slots'
 import { useOrderTotals } from '../lib/totals'
 import { useNow } from '../lib/useNow'
 
@@ -97,7 +83,7 @@ export default function CheckoutPage() {
   if (!user)
     return (
       <>
-        <TopBar title="Checkout" onLeading={() => navigate(`/store/${store.slug}`)} />
+        <TopBar title="Checkout" subtitle={store.name} onLeading={() => navigate(`/store/${store.slug}`)} />
         <LoginSheet open onClose={() => navigate(`/store/${store.slug}`, { state: { openCart: true } })} onSuccess={() => {}} />
       </>
     )
@@ -107,7 +93,17 @@ export default function CheckoutPage() {
 
 /* ------------------------------------------------------------------------ */
 
-type Sheet = 'payment' | 'car' | 'schedule' | 'promo' | null
+/** What the checkout is showing after Place order: a recoverable sheet, or a blocking full screen. */
+type ErrorKind = Exclude<PaymentResult, 'success' | 'pending'> | Exclude<CheckoutIssue, 'paused'>
+type Blocked = 'pending' | 'paused'
+
+/** Pickup and carhop time: "asap" or "day:minutes". */
+const timeKey = (t: TimeChoice) => (t.kind === 'asap' ? 'asap' : `${t.dayOffset}:${t.minutes}`)
+const parseTime = (v: string): TimeChoice => {
+  if (v === 'asap') return { kind: 'asap' }
+  const [d, m] = v.split(':').map(Number)
+  return { kind: 'later', dayOffset: d === 1 ? 1 : 0, minutes: m }
+}
 
 function CheckoutForm({ store, user, onPlaced }: { store: Store; user: User; onPlaced: (p: Placed) => void }) {
   const navigate = useNavigate()
@@ -124,59 +120,87 @@ function CheckoutForm({ store, user, onPlaced }: { store: Store; user: User; onP
   const placedOrders = useOrders((s) => s.placed)
   const availability = useMemo(() => availabilityFor(store.id), [store.id])
   const totals = useOrderTotals(store, lines, availability.soldOutItems)
-  const status = openStatus(store, now, scenario.storeClosed)
+  // Open now, or (opening soon / closed, from a flag or a demo branch) schedule for tomorrow.
+  const status = { open: branchState(store, now, scenario.store, scenario.demo).kind === 'open' }
 
-  // Edit in the order summary opens the cart sheet (and item sheet) over this page.
-  const { item: sheetItem, lastItem, openItem, closeItem } = useItemParam()
-  const storeCart = useStoreCart(store, openItem)
-  const cartFlow = useCartFlow({
-    store,
-    closed: !status.open,
-    soldOutItems: availability.soldOutItems,
-    unavailableModifiers: availability.unavailableModifiers,
-    openItem,
-    closeItem,
-    quickAdd: storeCart.quickAdd,
-    isCustomisable: (it) => isCustomisable(it.id),
-    onCheckout: () => {},
-  })
-
-  // Start (or keep) this store's checkout; pick the default payment once.
+  // Start (or keep) this store's checkout.
   useEffect(() => {
     co.startFor(store.slug)
-    if (!useCheckout.getState().payment) setCo({ payment: defaultPayment(user) })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [store.slug])
 
   const tiles = methodTiles(store.id)
   const method = resolveMethod(store.id, co.storeSlug === store.slug ? co.method : null)
-  const [sheet, setSheet] = useState<Sheet>(null)
   const [tried, setTried] = useState(false)
+  /** Kept here so the item list stays open when the order method changes. */
+  const [summaryOpen, setSummaryOpen] = useState(false)
   const [placing, setPlacing] = useState(false)
-  const [failed, setFailed] = useState<Exclude<PaymentResult, 'success'> | null>(null)
   const [retrying, setRetrying] = useState(false)
-  const [issue, setIssue] = useState<CheckoutIssue | null>(null)
+  const [errorKind, setErrorKind] = useState<ErrorKind | null>(null)
+  const [errorOpen, setErrorOpen] = useState(false)
+  const [blocked, setBlocked] = useState<Blocked | null>(null)
   /** The checkout=... and payment=... flags apply to the first attempt; later attempts go through. */
   const attempts = useRef(0)
   const issueShown = useRef(false)
 
+  /* -------------------------------- choices ------------------------------- */
   const name = co.name ?? user.name
-  const cars = user.cars
-  const car = co.carId === 'car-once' ? co.oneOffCar : (cars.find((c) => c.id === co.carId) ?? cars.find((c) => c.isDefault) ?? cars[0] ?? null)
-  const payment = describePayment(co.payment, user, co.oneOffCard)
+  const savedCar = user.cars.find((c) => c.isDefault) ?? user.cars[0] ?? null
+  const car = co.carText ?? (savedCar ? carText(savedCar) : '')
+  const payment = resolvePayment(co.payment, scenario.applePay)
+  const [card, setCard] = useState<CardFields>(() => emptyCard(user.name))
 
-  const asap = asapMinutes(store, now)
-  const time: TimeChoice = co.time
+  const balance = balanceUsed(scenario.balance, totals.total)
+  const toPay = round2(Math.max(0, totals.total - balance))
+  const paysOnline = toPay > 0
+
+  // Pickup and carhop time: a dropdown of as soon as possible and today's / tomorrow's slots.
+  // As soon as possible, rounded up to the next 5 minutes ("19:15", not "19:09").
+  const nowMinutes = asapMinutes(store, now) - ASAP_MINUTES
+  const asap = Math.ceil((nowMinutes + ASAP_MINUTES) / 5) * 5
+  // Open: as soon as possible and the rest of today. Closed (schedule order): tomorrow only.
+  const timeOptions = useMemo<SelectOption[]>(() => {
+    const day = status.open ? 0 : 1
+    const opts: SelectOption[] = status.open ? [{ value: 'asap', label: clockTime(asap) }] : []
+    // Tomorrow: that day's own opening hours only (no after-midnight tail of tonight or tomorrow night).
+    const slots = slotsFor(store, day, now)
+    const firstOpen = day === 1 ? (slots.find((x) => x.minutes >= 6 * 60)?.minutes ?? 0) : 0
+    for (const s of day === 1 ? slots.filter((x) => x.minutes >= firstOpen && x.minutes < 1440) : slots)
+      opts.push({
+        value: `${day}:${s.minutes}`,
+        label: day === 1 ? `Tomorrow, ${clockTime(s.minutes)}` : clockTime(s.minutes),
+        disabled: s.full,
+        note: s.full ? 'Fully booked' : undefined,
+      })
+    return opts
+  }, [store, now, status.open, asap])
+  const storedTime = timeKey(co.time)
+  const timeValue = timeOptions.some((o) => o.value === storedTime && !o.disabled)
+    ? storedTime
+    : (timeOptions.find((o) => !o.disabled)?.value ?? null)
+  const time: TimeChoice = timeValue ? parseTime(timeValue) : { kind: 'asap' }
   const timeMinutes = time.kind === 'later' ? time.minutes : asap
+
+  // Dine-in arrival (today only).
   const dineSlots = useMemo(() => slotsFor(store, 0, now), [store, now])
   const dineValue = co.dineIn === 'asap' || dineSlots.some((s) => s.minutes === co.dineIn && !s.full) ? co.dineIn : 'asap'
   const dineMinutes = dineValue === 'asap' ? asap : dineValue
+  const dineOptions: SelectOption[] = [
+    { value: 'asap', label: `${clockTime(asap)} · in about ${asap - nowMinutes} min` },
+    ...dineSlots.map((s) => ({
+      value: String(s.minutes),
+      label: `${clockTime(s.minutes)} · in about ${s.minutes - nowMinutes} min`,
+      disabled: s.full,
+      note: s.full ? 'Fully booked' : undefined,
+    })),
+  ]
 
+  /* ------------------------------- validation ------------------------------ */
+  const cardErrors = paysOnline && payment === CARD ? validateCard(card, now) : {}
   const errors = {
-    name: !name.trim() ? 'Please enter your name' : null,
-    car: method === 'carhop' && !car ? 'Add your car so staff can find you.' : null,
-    payment: !payment ? 'Choose a payment method to place your order.' : null,
-    time: !status.open && time.kind === 'asap' && method !== 'dineIn' ? 'The store is closed now. Schedule a time for later.' : null,
+    name: method !== 'carhop' && !name.trim() ? 'Please enter your name' : null,
+    car: method === 'carhop' && !car.trim() ? 'Add your car details so staff can find you.' : null,
+    time: method !== 'dineIn' && !timeValue ? 'No times left. Try another store.' : null,
   }
   const show = (k: keyof typeof errors) => (tried ? (errors[k] ?? undefined) : undefined)
 
@@ -193,6 +217,7 @@ function CheckoutForm({ store, user, onPlaced }: { store: Store; user: User; onP
     const placedAt = new Date()
     const dayOffset = method !== 'dineIn' && time.kind === 'later' ? time.dayOffset : 0
     const minutes = method === 'dineIn' ? dineMinutes : timeMinutes
+    const payLabel = payment === APPLE_PAY ? 'Apple Pay' : cardLabel(card)
     const order: Order = {
       id: newOrderId(placedOrders),
       userId: user.id,
@@ -217,10 +242,12 @@ function CheckoutForm({ store, user, onPlaced }: { store: Store; user: User; onP
       subtotal: totals.subtotal,
       discount: totals.discount,
       total: totals.total,
-      promoCode: totals.promo?.ok ? totals.promo.promo.code : null,
-      paymentMethodId: co.payment ?? CASH,
-      paymentLabel: payment?.title,
-      carId: method === 'carhop' ? (car?.id ?? null) : null,
+      promoCode: null,
+      paymentMethodId: !paysOnline ? 'balance' : payment === APPLE_PAY ? APPLE_PAY : 'card-once',
+      paymentLabel: !paysOnline ? 'INDPT balance' : balance > 0 ? `INDPT balance + ${payLabel}` : payLabel,
+      ...(balance > 0 ? { balanceUsed: balance } : {}),
+      carId: method === 'carhop' && savedCar && car === carText(savedCar) ? savedCar.id : null,
+      ...(method === 'carhop' ? { carDetails: car.trim() } : {}),
       readyAt: slotDate(store, dayOffset, minutes, placedAt).toISOString(),
       scheduled: method === 'dineIn' ? dineValue !== 'asap' : time.kind === 'later',
       ...(co.note.trim() ? { note: co.note.trim() } : {}),
@@ -229,10 +256,19 @@ function CheckoutForm({ store, user, onPlaced }: { store: Store; user: User; onP
     }
     addOrder(order)
     if (!user.name && name.trim()) updateUser({ name: name.trim() })
+    // First carhop order: keep the car for next time.
+    if (method === 'carhop' && user.cars.length === 0 && car.trim())
+      updateUser({ cars: [{ id: `car-${Date.now()}`, make: car.trim(), model: '', colour: '', plate: '', isDefault: true }] })
     onPlaced({ order, storeName: store.name, readyText: readyText() })
     clearCart()
     useCheckout.getState().reset()
   }
+
+  const showError = (kind: ErrorKind) => {
+    setErrorKind(kind)
+    setErrorOpen(true)
+  }
+  const closeError = () => setErrorOpen(false)
 
   /** One fake network call: store checks first (checkout=...), then the payment (payment=...). */
   const submit = async ({ skipIssue = false } = {}) => {
@@ -242,25 +278,22 @@ function CheckoutForm({ store, user, onPlaced }: { store: Store; user: User; onP
     const first = attempts.current === 0
     attempts.current += 1
     if (!skipIssue && !issueShown.current && scenario.checkoutIssue) {
-      const relevant = scenario.checkoutIssue !== 'promo' || Boolean(co.promoCode)
-      if (relevant) {
-        issueShown.current = true
-        setIssue(scenario.checkoutIssue)
-        return
-      }
-    }
-    const paysOnline = co.payment !== CASH
-    const result: PaymentResult = first && paysOnline ? scenario.payment : 'success'
-    if (result !== 'success') {
-      setFailed(result)
+      issueShown.current = true
+      if (scenario.checkoutIssue === 'paused') setBlocked('paused')
+      else showError(scenario.checkoutIssue)
       return
     }
-    finish()
+    const result: PaymentResult = first && paysOnline ? scenario.payment : 'success'
+    if (result === 'success') finish()
+    else if (result === 'pending') setBlocked('pending')
+    else showError(result)
   }
 
   const place = () => {
     setTried(true)
-    const firstError = (['name', 'time', 'car', 'payment'] as const).find((k) => errors[k])
+    const firstError =
+      (['name', 'car', 'time'] as const).find((k) => errors[k]) ??
+      (cardErrors.number ? 'card-number' : cardErrors.expiry ? 'card-expiry' : cardErrors.cvv ? 'card-cvv' : cardErrors.name ? 'card-name' : null)
     if (firstError) {
       document.getElementById(`field-${firstError}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' })
       return
@@ -268,77 +301,154 @@ function CheckoutForm({ store, user, onPlaced }: { store: Store; user: User; onP
     void submit()
   }
 
+  /** Try again from a sheet or the pending screen: one more fake call, then it goes through. */
   const retry = async () => {
     setRetrying(true)
     await fakeRequest()
     setRetrying(false)
-    setFailed(null)
+    setErrorOpen(false)
+    setBlocked(null)
     finish()
   }
 
+  /** Use another payment method: switch to the other option and bring the payment section into view. */
+  const otherMethod = () => {
+    setErrorOpen(false)
+    if (scenario.applePay) setCo({ payment: payment === APPLE_PAY ? CARD : APPLE_PAY })
+    window.setTimeout(() => document.getElementById('field-payment')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 250)
+  }
+
+  const nextTime = () => {
+    const day = method !== 'dineIn' && time.kind === 'later' ? time.dayOffset : 0
+    const current = method === 'dineIn' ? dineMinutes : timeMinutes
+    const next = slotsFor(store, day, now).find((s) => !s.full && s.minutes > current)
+    return next ? { day, minutes: next.minutes } : null
+  }
+
+  const errorContent = (kind: ErrorKind | null): RecoverableError | null => {
+    const retryAction = { label: 'Try again', onClick: () => void retry(), loading: retrying }
+    const otherAction = { label: 'Use another payment method', onClick: otherMethod }
+    switch (kind) {
+      case null:
+        return null
+      case 'declined':
+        return {
+          title: 'Card declined',
+          body: 'Your bank declined this card, so you haven’t been charged. Try again or use another payment method.',
+          primary: retryAction,
+          secondary: otherAction,
+        }
+      case 'insufficient':
+        return {
+          title: 'Not enough balance',
+          body: 'Your bank says this card doesn’t have enough balance for this order. You haven’t been charged.',
+          primary: otherAction,
+          secondary: retryAction,
+        }
+      case 'gateway':
+        return {
+          title: 'Card payments are down',
+          body: 'We can’t reach our payment provider right now. You haven’t been charged. Try again in a few minutes or pay with Apple Pay.',
+          primary: retryAction,
+          secondary: otherAction,
+        }
+      case 'offline':
+        return { title: 'You’re offline', body: 'Check your internet connection and try again. Your order hasn’t been placed yet.', primary: retryAction }
+      case 'error':
+        return {
+          title: 'Something went wrong',
+          body: 'We couldn’t place your order and you haven’t been charged. Please try again in a moment.',
+          primary: retryAction,
+          secondary: { label: 'Get help', onClick: () => navigate('/help') },
+        }
+      case 'soldout': {
+        const l = totals.payable[totals.payable.length - 1]
+        const itemName = l ? (itemById.get(l.itemId)?.name ?? 'An item') : 'An item'
+        return {
+          title: 'Some items just sold out',
+          body: `${itemName}${l && l.quantity > 1 ? ` (×${l.quantity})` : ''} sold out while you were checking out. Remove it to continue, or go back and pick something else.`,
+          primary: {
+            label: 'Remove and continue',
+            onClick: () => {
+              if (l) removeLine(l.id)
+              setErrorOpen(false)
+              void submit({ skipIssue: true })
+            },
+          },
+          secondary: { label: 'Back to cart', onClick: () => navigate(`/store/${store.slug}`, { state: { openCart: true } }) },
+        }
+      }
+      case 'timefull': {
+        const current = clockTime(method === 'dineIn' ? dineMinutes : timeMinutes)
+        const next = nextTime()
+        const pick = {
+          label: 'Pick another time',
+          onClick: () => {
+            setErrorOpen(false)
+            window.setTimeout(() => document.getElementById('field-time')?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 250)
+          },
+        }
+        return {
+          title: 'That time just filled up',
+          body: next
+            ? `${current} is no longer available at ${store.name}. The next available time is ${clockTime(next.minutes)}.`
+            : `${current} is no longer available at ${store.name}. Pick another time.`,
+          primary: next
+            ? {
+                label: `Switch to ${clockTime(next.minutes)}`,
+                onClick: () => {
+                  if (method === 'dineIn') setCo({ dineIn: next.minutes })
+                  else setCo({ time: { kind: 'later', dayOffset: next.day, minutes: next.minutes } })
+                  setErrorOpen(false)
+                  void submit({ skipIssue: true })
+                },
+              }
+            : pick,
+          secondary: next ? pick : undefined,
+        }
+      }
+    }
+  }
+
   /* -------------------------------- sections ------------------------------- */
-  const distance = formatDistance(distanceKm(scenario.near.point, store))
-  const street = store.address.split(',')[0]?.trim() || store.address
   const onlyOne = tiles.length === 1
-  const methodName = method ? methodLabels[method] : 'Order'
-
-  const dineOptions: SelectOption[] = [
-    { value: 'asap', label: `${clockTime(asap)} · As soon as possible`, caption: dayLabel(store, 0, now) },
-    ...dineSlots.map((s) => ({
-      value: String(s.minutes),
-      label: s.full ? `${clockTime(s.minutes)} · Fully booked` : `${clockTime(s.minutes)} · in about ${s.minutes - (asap - ASAP_MINUTES)} min`,
-      caption: dayLabel(store, 0, now),
-      disabled: s.full,
-    })),
-  ]
-
-  const issueSheet = issue && <IssueSheet issue={issue} store={store} onClose={() => setIssue(null)} ctx={{
-    soldOut: () => {
-      const l = totals.payable[totals.payable.length - 1]
-      return l ? { name: itemById.get(l.itemId)?.name ?? 'An item', qty: l.quantity, id: l.id } : null
-    },
-    time: clockTime(method === 'dineIn' ? dineMinutes : timeMinutes),
-    nextTime: () => {
-      const day = method !== 'dineIn' && time.kind === 'later' ? time.dayOffset : 0
-      const next = slotsFor(store, day, now).find((s) => !s.full && s.minutes > (method === 'dineIn' ? dineMinutes : timeMinutes))
-      return next ? { day, minutes: next.minutes } : null
-    },
-    promoCode: co.promoCode,
-  }} actions={{
-    removeAndContinue: (id: string) => {
-      removeLine(id)
-      setIssue(null)
-      void submit({ skipIssue: true })
-    },
-    backToCart: () => navigate(`/store/${store.slug}`, { state: { openCart: true } }),
-    otherStore: () => navigate('/'),
-    backToMenu: () => navigate(`/store/${store.slug}`),
-    switchTime: (day: 0 | 1, minutes: number) => {
-      if (method === 'dineIn') setCo({ dineIn: minutes })
-      else setCo({ time: { kind: 'later', dayOffset: day, minutes } })
-      setIssue(null)
-      void submit({ skipIssue: true })
-    },
-    pickTime: () => {
-      setIssue(null)
-      if (method !== 'dineIn') setSheet('schedule')
-      else document.getElementById('field-dinein')?.scrollIntoView({ behavior: 'smooth', block: 'center' })
-    },
-    continueWithoutPromo: () => {
-      setCo({ promoCode: null })
-      setIssue(null)
-      void submit({ skipIssue: true })
-    },
-    tryAnotherCode: () => {
-      setCo({ promoCode: null })
-      setIssue(null)
-      setSheet('promo')
-    },
-  }} />
+  const contact = (
+    <SectionCard title="Contact">
+      <Input
+        id="field-name"
+        label="Name"
+        value={name}
+        onChange={(v) => setCo({ name: v })}
+        placeholder="Enter your name"
+        autoComplete="name"
+        error={show('name')}
+      />
+      <Input
+        label="Mobile number"
+        value={formatMobile(user.mobile)}
+        onChange={() => {}}
+        prefix="+966"
+        readOnly
+        helper="Verified · we’ll text you when it’s ready"
+      />
+    </SectionCard>
+  )
+  const timeSection = (
+    <SectionCard title="Pickup time" id="field-time" className="gap-2.5">
+      <Select
+        options={timeOptions}
+        value={timeValue}
+        onChange={(v) => setCo({ time: parseTime(v) })}
+        leadingIcon="clock"
+        placeholder="No times available"
+        error={show('time')}
+      />
+    </SectionCard>
+  )
 
   return (
     <div className="flex min-h-full flex-col bg-surface-muted">
-      <TopBar title="Checkout" onLeading={() => navigate(`/store/${store.slug}`, { state: { openCart: true } })} />
+      <TopBar title="Checkout" subtitle={store.name} onLeading={() => navigate(`/store/${store.slug}`)} />
 
       <main className="flex flex-col gap-4 px-4 pt-4 pb-6">
         {!onlyOne && (
@@ -362,298 +472,121 @@ function CheckoutForm({ store, user, onPlaced }: { store: Store; user: User; onP
           </section>
         )}
 
-        {/* Store */}
-        <section className="flex items-center gap-3 rounded-8 bg-surface-base p-4">
-          <span className="flex size-11 shrink-0 items-center justify-center rounded-full bg-surface-muted">
-            <Icon name="store" size={20} />
-          </span>
-          <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-            <p className="label-l text-text-primary">
-              {methodName} at {store.name}
-            </p>
-            <p className="truncate body-s text-text-secondary">{onlyOne ? `${methodName} only · ${distance} away` : `${street} · ${distance}`}</p>
-          </div>
-          <button type="button" className="cta-m text-text-primary underline" onClick={() => navigate('/')}>
-            Change
-          </button>
-        </section>
-
         {!status.open && (
           <Notice tone="warning" icon="clock" title="This store is closed right now">
-            Schedule your order for {status.opensAt ?? 'later'} or later.
+            Schedule your order for tomorrow.
           </Notice>
         )}
 
-        {/* Carhop: car first */}
-        {method === 'carhop' && (
-          <SectionCard title="Your car" id="field-car">
-            {car ? (
-              <ListRow icon="car" title={carTitle(car)} subtitle={`Plate ${car.plate}`} onClick={() => setSheet('car')} />
-            ) : (
-              <ListRow
-                icon="car"
-                title="Add your car"
-                subtitle="So staff can find you in the carhop bays"
-                trailing="plus"
-                placeholder
-                error={show('car')}
-                onClick={() => setSheet('car')}
-              />
-            )}
-          </SectionCard>
-        )}
-
-        {/* Dine-in: arrival */}
-        {method === 'dineIn' && (
-          <SectionCard title="When will you arrive?" id="field-dinein">
-            <Select
-              options={dineOptions}
-              value={String(dineValue)}
-              onChange={(v) => setCo({ dineIn: v === 'asap' ? 'asap' : Number(v) })}
-              leadingIcon="clock"
-            />
-            <Notice tone="neutral" icon="clock" size="compact">
-              We’ll start preparing at {clockTime(Math.max(dineMinutes - 10, asap - ASAP_MINUTES))} so it’s hot when you sit down at{' '}
-              {clockTime(dineMinutes)}. Show your order number at the counter.
-            </Notice>
-          </SectionCard>
-        )}
-
-        {/* Contact */}
-        <SectionCard title="Contact">
-          <Input
-            id="field-name"
-            label="Name"
-            value={name}
-            onChange={(v) => setCo({ name: v })}
-            placeholder="Enter your name"
-            autoComplete="name"
-            error={show('name')}
-          />
-          <Input
-            label="Mobile number"
-            value={formatMobile(user.mobile)}
-            onChange={() => {}}
-            prefix="+966"
-            readOnly
-            helper="Verified · we’ll text you when it’s ready"
-          />
-        </SectionCard>
-
-        {/* Pickup and carhop time */}
-        {method !== 'dineIn' && (
-          <SectionCard title={method === 'carhop' ? 'Arrival time' : 'Pickup time'} id="field-time">
-            <div role="radiogroup" className="flex flex-col gap-2.5">
-              <ChoiceCard
-                title="As soon as possible"
-                subtitle={status.open ? `Ready around ${clockTime(asap)}` : 'The store is closed now'}
-                selected={time.kind === 'asap' && status.open}
-                disabled={!status.open}
-                onSelect={() => setCo({ time: { kind: 'asap' } })}
-              />
-              <ChoiceCard
-                title="Schedule for later"
-                subtitle={time.kind === 'later' ? `${dayLabel(store, time.dayOffset, now)}, ${clockTime(time.minutes)}` : 'Pick a day and time that suits you'}
-                selected={time.kind === 'later'}
-                chevron
-                onSelect={() => setSheet('schedule')}
-              />
-            </div>
-            {show('time') && (
-              <p role="alert" className="flex items-start gap-1.5 caption text-state-error">
-                <Icon name="alert" size={14} className="mt-px shrink-0" />
-                {show('time')}
-              </p>
-            )}
-          </SectionCard>
-        )}
-
-        <SectionCard title="Note for the store">
-          <Textarea value={co.note} onChange={(v) => setCo({ note: v })} placeholder="e.g. sauces on the side" maxLength={140} aria-label="Note for the store" />
-        </SectionCard>
-
-        <SectionCard title="Payment method" id="field-payment">
-          {payment ? (
-            <ListRow icon={payment.icon} title={payment.title} subtitle={payment.subtitle} onClick={() => setSheet('payment')} />
-          ) : (
-            <ListRow
-              icon="card"
-              title="Choose a payment method"
-              subtitle="Apple Pay, cash or debit/credit card"
-              placeholder
-              error={show('payment')}
-              onClick={() => setSheet('payment')}
-            />
-          )}
-        </SectionCard>
-
-        <PromoRow totals={totals} onOpen={() => setSheet('promo')} />
-
-        <SectionCard
-          title="Order summary"
-          action={
-            <button type="button" className="cta-m text-text-primary underline" onClick={cartFlow.openCart}>
-              Edit
-            </button>
-          }
-          className="gap-2.5"
+        {/* Keyed by method: switching remounts every section below so they fade up in turn. */}
+        <div
+          key={method ?? 'none'}
+          className="flex flex-col gap-4 *:animate-content-in *:motion-reduce:animate-none [&>*:nth-child(2)]:[animation-delay:60ms] [&>*:nth-child(3)]:[animation-delay:120ms] [&>*:nth-child(4)]:[animation-delay:180ms]"
         >
-          {totals.payable.map((l) => (
-            <div key={l.id} className="flex items-start justify-between gap-3">
-              <span className="body-m text-text-primary">
-                {l.quantity}×&nbsp; {itemById.get(l.itemId)?.name}
-              </span>
-              <Price amount={lineTotal(l)} size="md" />
-            </div>
-          ))}
-          <span aria-hidden className="h-px bg-border-default" />
-          <TotalsRows totals={totals} />
-          <p className="caption text-text-tertiary">Menu prices include 15% VAT. No service charge.</p>
-        </SectionCard>
+          {method === 'pickup' && (
+            <>
+              {contact}
+              {timeSection}
+            </>
+          )}
+
+          {method === 'carhop' && (
+            <>
+              <SectionCard title="Your car" id="field-car" className="gap-2.5">
+                <Textarea
+                  value={car}
+                  onChange={(v) => setCo({ carText: v })}
+                  placeholder="e.g. White Toyota Land Cruiser, plate RKD 4821"
+                  aria-label="Your car"
+                  maxLength={80}
+                  error={show('car')}
+                  helper={
+                    co.carText === null && savedCar
+                      ? 'Saved from your last carhop order'
+                      : user.cars.length === 0
+                        ? 'We’ll save this for your next carhop order.'
+                        : undefined
+                  }
+                />
+              </SectionCard>
+              {timeSection}
+            </>
+          )}
+
+          {method === 'dineIn' && (
+            <>
+              <SectionCard title="When will you arrive?" id="field-time">
+                <Select
+                  options={dineOptions}
+                  value={String(dineValue)}
+                  onChange={(v) => setCo({ dineIn: v === 'asap' ? 'asap' : Number(v) })}
+                  leadingIcon="clock"
+                />
+                <Notice tone="neutral" icon="clock" size="compact">
+                  We’ll start preparing at {clockTime(Math.max(dineMinutes - 10, nowMinutes))} so it’s hot when you sit down at{' '}
+                  {clockTime(dineMinutes)}. Show your order number at the counter.
+                </Notice>
+              </SectionCard>
+              {contact}
+            </>
+          )}
+
+          <SectionCard title={balance > 0 ? 'Payment' : 'Payment method'} id="field-payment">
+            {balance > 0 && <BalanceRow amount={balance} />}
+            {paysOnline && (
+              <>
+                {balance > 0 && <p className="body-s text-text-secondary">Pay the rest with</p>}
+                <PaymentOptions
+                  applePay={scenario.applePay}
+                  value={payment}
+                  onChange={(v) => setCo({ payment: v })}
+                  card={card}
+                  onCard={(patch) => setCard((c) => ({ ...c, ...patch }))}
+                  errors={tried ? cardErrors : {}}
+                />
+              </>
+            )}
+          </SectionCard>
+
+          <OrderSummary
+            lines={totals.payable}
+            count={totals.count}
+            subtotal={totals.subtotal}
+            vat={totals.vat}
+            total={totals.total}
+            note={co.note}
+            balance={balance}
+            open={summaryOpen}
+            onToggle={() => setSummaryOpen((o) => !o)}
+          />
+        </div>
       </main>
 
-      <div className="sticky bottom-0 z-20 mt-auto flex flex-col gap-2 bg-surface-base px-4 pt-3 pb-[max(28px,env(safe-area-inset-bottom))] shadow-bar">
-        <Button fullWidth spread price={totals.total} loading={placing} onClick={place}>
-          {status.open || time.kind === 'later' ? 'Place order' : 'Schedule order'}
-        </Button>
-        <p className="text-center caption text-text-tertiary">Free cancellation until the store accepts your order.</p>
-      </div>
+      <PlaceOrderBar
+        applePay={paysOnline && payment === APPLE_PAY}
+        label="Place order"
+        amount={paysOnline ? toPay : null}
+        loading={placing}
+        onPlace={place}
+      />
 
-      <PaymentSheet
-        open={sheet === 'payment'}
-        onClose={() => setSheet(null)}
-        user={user}
-        value={co.payment}
-        oneOffCard={co.oneOffCard}
-        onChoose={(choice, oneOff) => setCo({ payment: choice, ...(oneOff !== undefined ? { oneOffCard: oneOff } : {}) })}
-      />
-      <CarSheet
-        open={sheet === 'car'}
-        onClose={() => setSheet(null)}
-        user={user}
-        value={car?.id ?? null}
-        onChoose={(carId, oneOff) => setCo({ carId, ...(oneOff !== undefined ? { oneOffCar: oneOff } : {}) })}
-      />
-      <ScheduleSheet
-        open={sheet === 'schedule'}
-        onClose={() => setSheet(null)}
-        store={store}
-        title={method === 'carhop' ? 'Arrival time' : 'Pickup time'}
-        value={time.kind === 'later' ? time : null}
-        onConfirm={(dayOffset, minutes) => setCo({ time: { kind: 'later', dayOffset, minutes } })}
-      />
-      <PromoSheet open={sheet === 'promo'} onClose={() => setSheet(null)} lines={totals.payable} subtotal={totals.subtotal} method={method} />
-      {issueSheet}
+      <CheckoutErrorSheet error={errorContent(errorKind)} open={errorOpen} onClose={closeError} />
 
-      <ItemSheet
-        item={lastItem}
-        open={Boolean(sheetItem)}
-        onClose={cartFlow.onItemClose}
-        soldOut={lastItem ? availability.soldOutItems.has(lastItem.id) : false}
-        unavailableModifiers={availability.unavailableModifiers}
-        onAdd={(line, done) => cartFlow.onItemSave(line, done, storeCart.add)}
-        editing={cartFlow.editing}
-      />
-      {cartFlow.sheets}
-
-      {failed &&
+      {blocked &&
         overlay &&
         createPortal(
-          <PaymentFailed
-            result={failed}
-            retrying={retrying}
-            onRetry={retry}
-            onOtherMethod={() => {
-              setFailed(null)
-              setSheet('payment')
-            }}
-            onBack={() => setFailed(null)}
-            onHelp={() => navigate('/help')}
-          />,
+          blocked === 'pending' ? (
+            <PaymentPending checking={retrying} onCheck={() => void retry()} onBack={() => setBlocked(null)} onHelp={() => navigate('/help')} />
+          ) : (
+            <StorePaused
+              storeName={store.name}
+              onOtherStore={() => navigate('/')}
+              onMenu={() => navigate(`/store/${store.slug}`)}
+              onHelp={() => navigate('/help')}
+            />
+          ),
           overlay,
         )}
     </div>
-  )
-}
-
-/* ------------------------------------------------------------------------ */
-
-type IssueCtx = {
-  soldOut: () => { name: string; qty: number; id: string } | null
-  time: string
-  nextTime: () => { day: 0 | 1; minutes: number } | null
-  promoCode: string | null
-}
-type IssueActions = {
-  removeAndContinue: (lineId: string) => void
-  backToCart: () => void
-  otherStore: () => void
-  backToMenu: () => void
-  switchTime: (day: 0 | 1, minutes: number) => void
-  pickTime: () => void
-  continueWithoutPromo: () => void
-  tryAnotherCode: () => void
-}
-
-/** Figma checkout sheets shown when the store says no on Place order (scenario checkout=...). */
-function IssueSheet({ issue, store, ctx, actions, onClose }: { issue: CheckoutIssue; store: Store; ctx: IssueCtx; actions: IssueActions; onClose: () => void }) {
-  // Snapshot the details when the sheet opens, so the copy does not change while it animates out.
-  const [snap] = useState(() => ({ soldOut: ctx.soldOut(), next: ctx.nextTime(), time: ctx.time, promo: ctx.promoCode }))
-  const content = (() => {
-    switch (issue) {
-      case 'soldout':
-        return {
-          title: 'Some items just sold out',
-          body: `${snap.soldOut?.name ?? 'An item'}${snap.soldOut && snap.soldOut.qty > 1 ? ` (×${snap.soldOut.qty})` : ''} sold out while you were checking out. Remove it to continue, or go back and pick something else.`,
-          primary: ['Remove and continue', () => snap.soldOut && actions.removeAndContinue(snap.soldOut.id)] as const,
-          secondary: ['Back to cart', actions.backToCart] as const,
-        }
-      case 'paused':
-        return {
-          title: 'Store paused orders',
-          body: `${store.name} just stopped taking online orders. You haven’t been charged. Try another store nearby and your cart comes with you.`,
-          primary: ['Choose another store', actions.otherStore] as const,
-          secondary: ['Back to menu', actions.backToMenu] as const,
-        }
-      case 'timefull':
-        return {
-          title: 'That time just filled up',
-          body: snap.next
-            ? `${snap.time} is no longer available at ${store.name}. The next available time is ${clockTime(snap.next.minutes)}.`
-            : `${snap.time} is no longer available at ${store.name}. Pick another time.`,
-          primary: snap.next
-            ? ([`Switch to ${clockTime(snap.next.minutes)}`, () => actions.switchTime(snap.next!.day, snap.next!.minutes)] as const)
-            : (['Pick another time', actions.pickTime] as const),
-          secondary: snap.next ? (['Pick another time', actions.pickTime] as const) : null,
-        }
-      case 'promo':
-        return {
-          title: 'Promo code no longer valid',
-          body: `${snap.promo ?? 'Your code'} expired before your order went through. We’ve removed it and updated your total.`,
-          primary: ['Continue without promo', actions.continueWithoutPromo] as const,
-          secondary: ['Try another code', actions.tryAnotherCode] as const,
-        }
-    }
-  })()
-
-  return (
-    <BottomSheet open onClose={onClose} ariaLabel={content.title}>
-      <div className="flex flex-col gap-6">
-        <div className="flex flex-col gap-2">
-          <h2 className="title-l pe-10">{content.title}</h2>
-          <p className="body-m text-text-secondary">{content.body}</p>
-        </div>
-        <div className="flex flex-col gap-3">
-          <Button fullWidth onClick={content.primary[1]}>
-            {content.primary[0]}
-          </Button>
-          {content.secondary && (
-            <Button fullWidth variant="ghost" onClick={content.secondary[1]}>
-              {content.secondary[0]}
-            </Button>
-          )}
-        </div>
-      </div>
-    </BottomSheet>
   )
 }

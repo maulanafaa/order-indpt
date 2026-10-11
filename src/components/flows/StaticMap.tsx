@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { CARD_GLIDE_MS, easeCard } from '../../lib/motion'
 import { cn } from '../../lib/cn'
 import type { LatLng } from '../../lib/geo'
 import { Icon } from '../ui/Icon'
@@ -9,7 +10,7 @@ import { Icon } from '../ui/Icon'
  * (pinch, trackpad, mouse wheel, double tap) and stays put otherwise. If tiles
  * cannot load, a muted grid shows instead.
  */
-export type MapPinData = { id: string; point: LatLng; label?: string }
+export type MapPinData = { id: string; point: LatLng; label?: string; /** Green dot: an active order at this store. */ activeOrder?: boolean }
 
 type StaticMapProps = {
   /** Where the map looks. Changing it recentres the map (zoom is kept). */
@@ -65,6 +66,9 @@ const tileUrl = (x: number, y: number, z: number) => `https://tile.openstreetmap
 
 type View = { center: LatLng; zoom: number }
 
+/** Same motion as the store cards (--ease-card). */
+const FLY_MS = CARD_GLIDE_MS
+
 export function StaticMap({
   center,
   zoom,
@@ -87,11 +91,13 @@ export function StaticMap({
   // Follow the props: new centre recentres, new zoom or resetKey resets both.
   const propKey = `${center.lat},${center.lng},${recenterKey}|${zoom}|${resetKey}`
   const [prevKey, setPrevKey] = useState(propKey)
+  // The move itself is animated (see the fly effect below).
+  const [flight, setFlight] = useState<{ center: LatLng; zoom: number | null; n: number } | null>(null)
   if (propKey !== prevKey) {
     const [prevCenter, prevZoom, prevReset] = prevKey.split('|')
     const reset = prevZoom !== String(zoom) || prevReset !== String(resetKey)
     if (reset || prevCenter !== `${center.lat},${center.lng},${recenterKey}`) {
-      setView((v) => ({ center, zoom: reset ? zoom : v.zoom }))
+      setFlight((f) => ({ center, zoom: reset ? zoom : null, n: (f?.n ?? 0) + 1 }))
     }
     setPrevKey(propKey)
   }
@@ -112,6 +118,36 @@ export function StaticMap({
     sizeRef.current = size
   })
   const draggedRef = useRef(false)
+
+  /* ------------------------- animated recentring ------------------------- */
+  const frame = useRef(0)
+  const stopFlight = useCallback(() => cancelAnimationFrame(frame.current), [])
+  useEffect(() => {
+    if (!flight) return
+    const from = viewRef.current
+    const toZoom = flight.zoom ?? from.zoom
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (reduce) {
+      setView({ center: flight.center, zoom: toZoom })
+      return
+    }
+    // Interpolate in world pixels at zoom 0, so the path is a straight line on screen.
+    const a = project(from.center, 0)
+    const b = project(flight.center, 0)
+    const start = performance.now()
+    const step = (now: number) => {
+      const t = Math.min(1, (now - start) / FLY_MS)
+      const k = easeCard(t)
+      setView({
+        zoom: from.zoom + (toZoom - from.zoom) * k,
+        center: unproject({ x: a.x + (b.x - a.x) * k, y: a.y + (b.y - a.y) * k }, 0),
+      })
+      if (t < 1) frame.current = requestAnimationFrame(step)
+    }
+    cancelAnimationFrame(frame.current)
+    frame.current = requestAnimationFrame(step)
+    return () => cancelAnimationFrame(frame.current)
+  }, [flight])
 
   // Tell the parent where the map settled, once the gesture is over.
   const onMoveEndRef = useRef(onMoveEnd)
@@ -160,6 +196,7 @@ export function StaticMap({
     // Wheel and trackpad pinch (ctrlKey wheel). Non-passive so the page does not zoom.
     const onWheel = (e: WheelEvent) => {
       e.preventDefault()
+      stopFlight()
       const pt = local(e)
       const factor = e.ctrlKey ? 0.01 : 0.002
       zoomAround(toLatLng(pt), pt, viewRef.current.zoom - e.deltaY * factor)
@@ -167,7 +204,7 @@ export function StaticMap({
     }
     el.addEventListener('wheel', onWheel, { passive: false })
     return () => el.removeEventListener('wheel', onWheel)
-  }, [interactive, toLatLng, zoomAround, notifyMoved])
+  }, [interactive, toLatLng, zoomAround, notifyMoved, stopFlight])
 
   const pointers = useRef(new Map<number, Point>())
   const gesture = useRef<{
@@ -192,6 +229,7 @@ export function StaticMap({
     if (!interactive || (e.pointerType === 'mouse' && e.button !== 0)) return
     const el = ref.current
     if (!el) return
+    stopFlight()
     const r = el.getBoundingClientRect()
     pointers.current.set(e.pointerId, { x: e.clientX - r.left, y: e.clientY - r.top })
     if (pointers.current.size === 1) draggedRef.current = false
@@ -238,6 +276,7 @@ export function StaticMap({
 
   const onDoubleClick = (e: React.MouseEvent) => {
     if (!interactive) return
+    stopFlight()
     const r = e.currentTarget.getBoundingClientRect()
     const pt = { x: e.clientX - r.left, y: e.clientY - r.top }
     zoomAround(toLatLng(pt), pt, Math.round(viewRef.current.zoom) + 1)
@@ -323,6 +362,7 @@ export function StaticMap({
           top={p.top}
           label={showLabels ? p.label : undefined}
           selected={p.id === selectedId}
+          activeOrder={p.activeOrder}
           onClick={onPinClick ? () => onPinClick(p.id) : undefined}
         />
       ))}
@@ -334,18 +374,23 @@ export function StaticMap({
   )
 }
 
-/** Figma "Map pin": logo in a black circle with a tail. Default 36, Selected 48. */
+/**
+ * Figma "Map pin": white circle with the logo (Default 36), black circle (Selected 48),
+ * a tail under it, and a green dot when the store has an active order.
+ */
 function MapPin({
   left,
   top,
   label,
   selected,
+  activeOrder,
   onClick,
 }: {
   left: number
   top: number
   label?: string
   selected: boolean
+  activeOrder?: boolean
   onClick?: () => void
 }) {
   const size = selected ? 48 : 36
@@ -353,26 +398,40 @@ function MapPin({
     <button
       type="button"
       onClick={onClick}
-      aria-label={label ? `${label}${selected ? ', selected' : ''}` : 'Store'}
+      aria-label={label ? `${label}${activeOrder ? ', active order' : ''}${selected ? ', selected' : ''}` : 'Store'}
       aria-pressed={selected}
       className={cn('absolute flex -translate-x-1/2 flex-col items-center', selected ? 'z-20' : 'z-10')}
       style={{ left, top: top - size - 6 }}
     >
       <span
         className={cn(
-          'flex items-center justify-center rounded-full bg-surface-inverse text-text-on-inverse ring-2 ring-surface-base transition-all',
-          selected ? 'size-12 shadow-[0_2px_12px_rgb(0_0_0/0.2)]' : 'size-9 shadow-[0_2px_8px_rgb(0_0_0/0.12)]',
+          'relative flex items-center justify-center rounded-full transition-all duration-500 ease-card',
+          selected
+            ? 'size-12 bg-surface-inverse text-text-on-inverse ring-2 ring-surface-base shadow-[0_2px_12px_rgb(0_0_0/0.2)]'
+            : 'size-9 bg-surface-base text-text-primary inset-ring inset-ring-border-default shadow-[0_2px_8px_rgb(0_0_0/0.12)]',
         )}
       >
         {/* Placeholder until the SALT logo SVG is added (Figma Brand/Logo). */}
-        <Icon name="store" size={selected ? 26 : 20} />
+        <Icon name="store" size={selected ? 28 : 20} />
+        {activeOrder && (
+          <span
+            aria-hidden
+            className={cn(
+              'absolute -top-0.75 rounded-full bg-state-success ring-2 ring-surface-base',
+              selected ? '-end-0.75 size-4' : '-end-0.75 size-3.5',
+            )}
+          />
+        )}
       </span>
       <span
         aria-hidden
-        className={cn('-mt-px border-x-transparent border-t-surface-inverse', selected ? 'border-x-[7px] border-t-8' : 'border-x-[6px] border-t-[7px]')}
+        className={cn(
+          '-mt-px border-x-transparent',
+          selected ? 'border-x-[7px] border-t-8 border-t-surface-inverse' : 'border-x-[6px] border-t-[7px] border-t-surface-base drop-shadow-[0_1px_0_var(--color-border-default)]',
+        )}
       />
       {label && (
-        <span className="mt-0.5 max-w-28 truncate label-s text-text-primary [text-shadow:0_0_2px_#fff,0_0_2px_#fff,0_0_3px_#fff]">
+        <span className="mt-0.5 max-w-28 truncate label-s text-text-primary [text-shadow:0_0_2px_var(--color-surface-base),0_0_2px_var(--color-surface-base),0_0_3px_var(--color-surface-base)]">
           {label}
         </span>
       )}

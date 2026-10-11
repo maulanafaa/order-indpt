@@ -2,7 +2,7 @@ import type { ButtonHTMLAttributes } from 'react'
 import { cn } from '../../lib/cn'
 import { Icon, type IconName } from './Icon'
 
-export type IconButtonStyle = 'ghost' | 'outline' | 'elevated' | 'solid'
+export type IconButtonStyle = 'ghost' | 'outline' | 'elevated' | 'solid' | 'muted'
 export type IconButtonSize = 40 | 32
 
 const styles: Record<IconButtonStyle, string> = {
@@ -10,6 +10,7 @@ const styles: Record<IconButtonStyle, string> = {
   outline: 'bg-surface-base text-text-primary inset-ring inset-ring-border-default active:bg-surface-muted',
   elevated: 'bg-surface-base text-text-primary shadow-elevated active:bg-surface-muted',
   solid: 'bg-surface-inverse text-text-on-inverse active:opacity-85',
+  muted: 'bg-surface-muted text-text-primary active:bg-surface-disabled',
 }
 
 type IconButtonProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'children' | 'style'> & {

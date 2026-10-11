@@ -29,6 +29,8 @@ type CheckoutState = {
   payment: PaymentChoice | null
   oneOffCard: OneOffCard | null
   carId: string | null
+  /** Carhop: the car as typed at checkout ("Toyota Land Cruiser, White · Plate RKD 4821"). Null until edited. */
+  carText: string | null
   /** A car added without saving it to the profile. */
   oneOffCar: Car | null
   promoCode: string | null
@@ -48,6 +50,7 @@ const fresh = {
   payment: null,
   oneOffCard: null,
   carId: null,
+  carText: null,
   oneOffCar: null,
   promoCode: null,
 }
@@ -58,7 +61,7 @@ export const useCheckout = create<CheckoutState>()(
       ...fresh,
       set: (patch) => set(patch),
       startFor: (storeSlug) =>
-        set((s) => (s.storeSlug === storeSlug ? s : { ...fresh, promoCode: s.promoCode, payment: s.payment, carId: s.carId, storeSlug })),
+        set((s) => (s.storeSlug === storeSlug ? s : { ...fresh, payment: s.payment, carId: s.carId, carText: s.carText, storeSlug })),
       reset: () => set({ ...fresh }),
     }),
     { name: 'order-indpt-checkout', version: 1 },
@@ -67,6 +70,19 @@ export const useCheckout = create<CheckoutState>()(
 
 export const APPLE_PAY = 'apple-pay'
 export const CASH = 'cash'
+/** A card typed into the inline card form at checkout. */
+export const CARD = 'card'
+
+/** Checkout payment options: Apple Pay (when this device has it, chosen by default) or a card. */
+export type CheckoutPayment = typeof APPLE_PAY | typeof CARD
+export function resolvePayment(choice: PaymentChoice | null, applePay: boolean): CheckoutPayment {
+  if (choice === CARD) return CARD
+  return applePay ? APPLE_PAY : CARD
+}
+
+/** "Toyota Land Cruiser, White · Plate RKD 4821" for the carhop field. */
+export const carText = (c: { make: string; model: string; colour: string; plate: string }) =>
+  [`${c.make} ${c.model}`.trim() + (c.colour ? `, ${c.colour}` : ''), c.plate ? `Plate ${c.plate}` : ''].filter(Boolean).join(' · ')
 
 /**
  * Tiles for the order method picker: unsupported methods are hidden,

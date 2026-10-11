@@ -26,38 +26,93 @@ import type {
   StoreService,
 } from '../data/schema'
 
-export const stores = storesJson as Store[]
-export const storeHours = storeHoursJson as StoreHours[]
-export const storeServices = storeServicesJson as StoreService[]
-export const categories = (categoriesJson as Category[]).slice().sort((a, b) => a.sortOrder - b.sortOrder)
-export const items = itemsJson as Item[]
-export const modifierGroups = modifierGroupsJson as ModifierGroup[]
-export const modifiers = modifiersJson as Modifier[]
-export const storeAvailability = storeAvailabilityJson as StoreAvailability[]
-export const promos = promosJson as Promo[]
-export const seedOrders = ordersJson as Order[]
-
-const groupBy = <T, K>(rows: T[], key: (r: T) => K) => {
-  const m = new Map<K, T[]>()
-  for (const r of rows) {
-    const k = key(r)
-    const list = m.get(k)
-    if (list) list.push(r)
-    else m.set(k, [r])
-  }
-  return m
+/** Everything the menu screens read. Bundled JSON first; lib/catalog.ts may swap in Supabase rows at boot. */
+export type Catalog = {
+  stores: Store[]
+  storeHours: StoreHours[]
+  storeServices: StoreService[]
+  categories: Category[]
+  items: Item[]
+  modifierGroups: ModifierGroup[]
+  modifiers: Modifier[]
+  storeAvailability: StoreAvailability[]
+  promos: Promo[]
 }
 
-export const storeBySlug = new Map(stores.map((s) => [s.slug, s]))
-export const storeById = new Map(stores.map((s) => [s.id, s]))
-export const itemById = new Map(items.map((i) => [i.id, i]))
-export const itemBySlug = new Map(items.map((i) => [i.slug, i]))
-export const modifierById = new Map(modifiers.map((m) => [m.id, m]))
-export const hoursByStore = groupBy(storeHours, (h) => h.storeId)
-export const servicesByStore = groupBy(storeServices, (s) => s.storeId)
-export const itemsByCategory = groupBy(items, (i) => i.categoryId)
-export const groupsByItem = groupBy(modifierGroups, (g) => g.itemId)
-export const modifiersByGroup = groupBy(modifiers, (m) => m.groupId)
+export const bundledCatalog: Catalog = {
+  stores: storesJson as Store[],
+  storeHours: storeHoursJson as StoreHours[],
+  storeServices: storeServicesJson as StoreService[],
+  categories: categoriesJson as Category[],
+  items: itemsJson as Item[],
+  modifierGroups: modifierGroupsJson as ModifierGroup[],
+  modifiers: modifiersJson as Modifier[],
+  storeAvailability: storeAvailabilityJson as StoreAvailability[],
+  promos: promosJson as Promo[],
+}
+
+// Containers are filled in place (never reassigned) so every import sees the live data.
+export const stores: Store[] = []
+export const storeHours: StoreHours[] = []
+export const storeServices: StoreService[] = []
+export const categories: Category[] = []
+export const items: Item[] = []
+export const modifierGroups: ModifierGroup[] = []
+export const modifiers: Modifier[] = []
+export const storeAvailability: StoreAvailability[] = []
+export const promos: Promo[] = []
+export const seedOrders = ordersJson as Order[]
+
+export const storeBySlug = new Map<string, Store>()
+export const storeById = new Map<string, Store>()
+export const itemById = new Map<string, Item>()
+export const itemBySlug = new Map<string, Item>()
+export const modifierById = new Map<string, Modifier>()
+export const hoursByStore = new Map<string, StoreHours[]>()
+export const servicesByStore = new Map<string, StoreService[]>()
+export const itemsByCategory = new Map<string, Item[]>()
+export const groupsByItem = new Map<string, ModifierGroup[]>()
+export const modifiersByGroup = new Map<string, Modifier[]>()
+
+const fill = <T,>(target: T[], rows: T[]) => target.splice(0, target.length, ...rows)
+const index = <T, K>(target: Map<K, T>, rows: T[], key: (r: T) => K) => {
+  target.clear()
+  for (const r of rows) target.set(key(r), r)
+}
+const groupInto = <T, K>(target: Map<K, T[]>, rows: T[], key: (r: T) => K) => {
+  target.clear()
+  for (const r of rows) {
+    const k = key(r)
+    const list = target.get(k)
+    if (list) list.push(r)
+    else target.set(k, [r])
+  }
+}
+
+/** Replaces the catalog and rebuilds every index. Call before the app renders. */
+export function applyCatalog(c: Catalog) {
+  fill(stores, c.stores)
+  fill(storeHours, c.storeHours)
+  fill(storeServices, c.storeServices)
+  fill(categories, c.categories.slice().sort((a, b) => a.sortOrder - b.sortOrder))
+  fill(items, c.items)
+  fill(modifierGroups, c.modifierGroups)
+  fill(modifiers, c.modifiers)
+  fill(storeAvailability, c.storeAvailability)
+  fill(promos, c.promos)
+  index(storeBySlug, stores, (s) => s.slug)
+  index(storeById, stores, (s) => s.id)
+  index(itemById, items, (i) => i.id)
+  index(itemBySlug, items, (i) => i.slug)
+  index(modifierById, modifiers, (m) => m.id)
+  groupInto(hoursByStore, storeHours, (h) => h.storeId)
+  groupInto(servicesByStore, storeServices, (s) => s.storeId)
+  groupInto(itemsByCategory, items, (i) => i.categoryId)
+  groupInto(groupsByItem, modifierGroups, (g) => g.itemId)
+  groupInto(modifiersByGroup, modifiers, (m) => m.groupId)
+}
+
+applyCatalog(bundledCatalog)
 
 export const methodLabels: Record<OrderMethod, string> = {
   pickup: 'Pickup',

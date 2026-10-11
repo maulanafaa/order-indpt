@@ -4,7 +4,7 @@ import { ToastProvider } from '../ui/ToastProvider'
 import { OverlayContext } from './overlay'
 
 /**
- * Mobile frame: a 390px column centred on a grey surround on desktop, full
+ * Mobile frame: a 390 x 844 column centred on a dark surround on desktop, full
  * width on phones. Pages scroll inside `[data-scroll-root]`; sheets and
  * toasts render in the overlay layer on top of it.
  */
@@ -18,8 +18,8 @@ export function AppFrame() {
     scrollRef.current?.scrollTo({ top: 0 })
   }, [pathname])
   return (
-    <div className="flex h-dvh justify-center bg-surface-muted">
-      <div className="relative isolate h-full w-full overflow-clip bg-surface-base min-[480px]:w-[390px] min-[480px]:border-x min-[480px]:border-border-default">
+    <div className="flex h-dvh items-center justify-center bg-surface-muted min-[480px]:bg-surface-inverse">
+      <div className="relative isolate h-full w-full overflow-clip bg-surface-base min-[480px]:max-h-[844px] min-[480px]:w-[390px] min-[480px]:border-x min-[480px]:border-border-default">
         <OverlayContext.Provider value={overlay}>
           <ToastProvider>
             <div ref={scrollRef} data-scroll-root className="h-full overflow-x-hidden overflow-y-auto overscroll-contain">

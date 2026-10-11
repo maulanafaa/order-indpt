@@ -18,6 +18,8 @@ type InputProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'prefix' | 'size' 
   error?: ReactNode
   /** Review only: draw the Focused state without focus. */
   forceFocus?: boolean
+  /** Content at the end of the field, e.g. card brand marks. */
+  trailing?: ReactNode
 }
 
 /** Figma "Input". State × Content with Label, Prefix, Leading icon, Clear, Helper. */
@@ -31,6 +33,7 @@ export function Input({
   helper,
   error,
   forceFocus,
+  trailing,
   disabled,
   className,
   id: idProp,
@@ -63,6 +66,7 @@ export function Input({
           className="h-full min-w-0 flex-1 bg-transparent input-text text-text-primary outline-none placeholder:text-text-tertiary disabled:text-text-disabled"
           {...rest}
         />
+        {trailing}
         {clearable && value && !disabled && (
           <button
             type="button"

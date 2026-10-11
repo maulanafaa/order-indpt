@@ -36,3 +36,7 @@ scripts/scrape/.cache/
 
 # Files waiting to be deleted by hand
 _to_delete/
+
+# Photo drop folder: the source of truth is the Supabase Storage bucket `images`
+photos/*/*
+!photos/*/.gitkeep

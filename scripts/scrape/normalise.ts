@@ -16,7 +16,9 @@ import type {
 } from '../../src/data/schema'
 import {
   addOnCategories,
+  excludedCategories,
   bestSellers,
+  newItems,
   categoryNames,
   defaultHours,
   groupRules,
@@ -207,9 +209,11 @@ export function normalise(raw: RawBundle): NormaliseResult {
   const catSeen = new Map<number, { name: string; sort: number[]; firstSeen: number }>()
   let order = 0
   const addOnCats = new Set(addOnCategories.map((c) => c.toUpperCase()))
+  const excludedCats = new Set(excludedCategories.map((c) => c.toUpperCase()))
 
   for (const { menu } of Object.values(raw.indpt)) {
     for (const cat of menu.categories) {
+      if (excludedCats.has(cat.name.toUpperCase())) continue
       const isAddOn = addOnCats.has(cat.name.toUpperCase())
       for (const it of cat.items) {
         const name = cleanItemName(it.name['en-US'] ?? Object.values(it.name)[0] ?? '')
@@ -270,6 +274,7 @@ export function normalise(raw: RawBundle): NormaliseResult {
   const modifiers: Modifier[] = []
   const itemSlugs = new Set<string>()
   const bestKeys = new Set(bestSellers.map(nameKey))
+  const newKeys = new Set(newItems.map(nameKey))
   const foundBest = new Set<string>()
   let matched = 0
   let withAddOns = 0
@@ -302,6 +307,7 @@ export function normalise(raw: RawBundle): NormaliseResult {
       price,
       calories: null,
       isBestSeller: bestKeys.has(key),
+      isNew: newKeys.has(key),
       allergens: q ? allergensOf(detailFor(q) ?? q.product) : [],
     })
 

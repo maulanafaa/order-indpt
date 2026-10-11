@@ -3,7 +3,7 @@ import { cn } from '../../lib/cn'
 import { Icon } from './Icon'
 
 type ProductImageProps = {
-  /** /images/menu/{slug}.webp or /images/stores/{slug}.webp */
+  /** From menuImage() or storeImage() in lib/format (Supabase Storage bucket `images`). */
   src: string
   alt: string
   /** Dims the photo (sold out). */

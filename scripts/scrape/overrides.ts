@@ -26,7 +26,6 @@ export const categoryNames: Record<string, string> = {
   BREAKFAST: 'Breakfast',
   COOKIES: 'Cookies',
   'ENERGY BOOST': 'Energy boost',
-  BOX: 'Boxes',
   Dessert: 'Desserts',
 }
 
@@ -35,6 +34,9 @@ export const categoryNames: Record<string, string> = {
  * are used only to price add-ons in KSA riyals.
  */
 export const addOnCategories = ['EXTRAS']
+
+/** Categories left out of the prototype entirely (source names). */
+export const excludedCategories = ['BOX']
 
 /** Store names, cleaned up for display (locator name -> display name). */
 export const storeNames: Record<string, string> = {
@@ -82,6 +84,9 @@ export const bestSellers = [
   'Lotus Softie',
 ]
 
+/** Items tagged "New" (badge, and they join Best sellers in the "For you" grid). */
+export const newItems = ['Chicken Cheetos Slider', 'Classic Iced Matcha 120z', 'Cheetos Fries', 'Matcha Coconut Cloud']
+
 /** Hours for stores with no ordering link (nothing to read them from). */
 export const defaultHours = { opens: '11:00', closes: '01:00' }
 
@@ -101,6 +106,12 @@ export const storeServices: Record<string, ServiceRule> = {
   'salt-nakheel-mall-riyadh': { dineIn: { supported: false, availableNow: false } },
   // Carhop supported but paused right now (disabled in the UI).
   'salt-olaya-khobar': { carhop: { supported: true, availableNow: false } },
+  // Every method paused: "Online ordering unavailable" (See menu, add buttons disabled).
+  'salt-jaks-riyadh': {
+    pickup: { supported: true, availableNow: false },
+    carhop: { supported: true, availableNow: false },
+    dineIn: { supported: true, availableNow: false },
+  },
   // Pickup supported but paused right now.
   'salt-saad-square': { pickup: { supported: true, availableNow: false } },
   // Mall kiosk: no carhop.

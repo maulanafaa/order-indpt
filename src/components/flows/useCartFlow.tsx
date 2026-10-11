@@ -3,7 +3,6 @@ import { useLocation, useNavigate, useSearchParams } from 'react-router'
 import type { Item, Store } from '../../data/schema'
 import { useAuth } from '../../lib/auth'
 import { cartCount, useCart, type CartLine } from '../../lib/cart'
-import { itemById } from '../../lib/data'
 import { useScenario } from '../../lib/scenarios'
 import { BottomSheet } from '../ui/BottomSheet'
 import { Button } from '../ui/Button'
@@ -43,11 +42,7 @@ type Options = {
   closed: boolean
   soldOutItems: Set<string>
   unavailableModifiers: Set<string>
-  openItem: (item: Item) => void
   closeItem: () => void
-  /** "+" from the menu or upsell: customisable items open the sheet, fixed ones are added. */
-  quickAdd: (item: Item) => void
-  isCustomisable: (item: Item) => boolean
   /** Go to checkout from the cart sheet. Default: open /checkout (logging in first if needed). */
   onCheckout?: () => void
 }
@@ -56,7 +51,7 @@ type Options = {
  * Cart sheet, login and "Leave store" for a branch page.
  * Checkout: signed in goes straight to /checkout; a guest logs in first.
  */
-export function useCartFlow({ store, closed, soldOutItems, unavailableModifiers, openItem, closeItem, quickAdd, isCustomisable, onCheckout }: Options) {
+export function useCartFlow({ store, closed, soldOutItems, unavailableModifiers, closeItem, onCheckout }: Options) {
   const navigate = useNavigate()
   const location = useLocation()
   const [params, setParams] = useSearchParams()
@@ -65,6 +60,7 @@ export function useCartFlow({ store, closed, soldOutItems, unavailableModifiers,
   const cartStore = useCart((s) => s.storeSlug)
   const allLines = useCart((s) => s.lines)
   const updateLine = useCart((s) => s.updateLine)
+  const addLine = useCart((s) => s.addLine)
   const replace = useCart((s) => s.replace)
   const lines = cartStore === store.slug ? allLines : []
   const count = cartCount(lines)
@@ -95,27 +91,15 @@ export function useCartFlow({ store, closed, soldOutItems, unavailableModifiers,
 
   const closeCart = useCallback(() => setCartOpen(false), [])
 
-  const edit = (line: CartLine) => {
-    const { id, ...rest } = line
-    setEditing({ lineId: id, line: rest })
-    setReturnToCart(true)
-    setCartOpen(false)
-    const it = itemById.get(line.itemId)
-    if (it) openItem(it)
-  }
-
+  /** "+" on a cart upsell card: added straight away (upsell items need no choices). */
   const upsell = (item: Item) => {
-    if (isCustomisable(item)) {
-      setReturnToCart(true)
-      setCartOpen(false)
-    }
-    quickAdd(item)
+    addLine(store.slug, { itemId: item.id, quantity: 1, modifiers: [], note: '' })
   }
 
   /** Keep demo flags (payment=..., checkout=...) on the way to checkout. */
   const checkoutUrl = () => {
     const keep = new URLSearchParams()
-    for (const k of ['payment', 'checkout']) {
+    for (const k of ['payment', 'checkout', 'applepay', 'balance']) {
       const v = params.get(k)
       if (v) keep.set(k, v)
     }
@@ -159,7 +143,6 @@ export function useCartFlow({ store, closed, soldOutItems, unavailableModifiers,
         onClose={closeCart}
         soldOutItems={soldOutItems}
         unavailableModifiers={unavailableModifiers}
-        onEdit={edit}
         onUpsell={upsell}
         onCheckout={checkout}
         closed={closed}

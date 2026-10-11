@@ -1,5 +1,6 @@
 import type { Item } from '../../data/schema'
 import { cn } from '../../lib/cn'
+import { Badge } from '../ui/Badge'
 import { menuImage } from '../../lib/format'
 import { IconButton } from '../ui/IconButton'
 import { Price } from '../ui/Price'
@@ -12,10 +13,19 @@ export type MenuItemControls = {
   onOpen: () => void
   onAdd: () => void
   onDecrease: () => void
+  /** Branch not taking online orders: the add button is disabled. */
+  disabled?: boolean
 }
 
-/** Figma "Menu item", Style = Image left: Default / In cart / Sold out. */
-export function MenuItemRow({ item, quantity, soldOut, onOpen, onAdd, onDecrease }: { item: Item } & MenuItemControls) {
+/** Best seller (promo) or New (solid) badge, or nothing. */
+export function ItemBadge({ item, className }: { item: Item; className?: string }) {
+  if (item.isNew) return <Badge variant="solid" className={className}>New</Badge>
+  if (item.isBestSeller) return <Badge variant="promo" className={className}>Best seller</Badge>
+  return null
+}
+
+/** Figma "Menu item", Style = Image left: Default / In cart / Sold out, with Best seller or New tags. */
+export function MenuItemRow({ item, quantity, soldOut, onOpen, onAdd, onDecrease, disabled }: { item: Item } & MenuItemControls) {
   return (
     <article
       onClick={onOpen}
@@ -26,6 +36,11 @@ export function MenuItemRow({ item, quantity, soldOut, onOpen, onAdd, onDecrease
         <ProductImage src={menuImage(item.slug)} alt={item.name} dimmed={soldOut} className="size-20 rounded-8" />
       </div>
       <div className="flex min-w-0 flex-1 flex-col gap-1 py-4 pe-4 ps-2">
+        {!soldOut && (item.isNew || item.isBestSeller) && (
+          <div className="flex pb-0.5">
+            <ItemBadge item={item} />
+          </div>
+        )}
         <h3 className={cn('product-l', soldOut ? 'text-text-tertiary' : 'text-text-primary')}>{item.name}</h3>
         {item.description && (
           <p className={cn('line-clamp-2 body-s', soldOut ? 'text-text-tertiary' : 'text-text-secondary')}>{item.description}</p>
@@ -36,7 +51,7 @@ export function MenuItemRow({ item, quantity, soldOut, onOpen, onAdd, onDecrease
           ) : (
             <>
               <Price amount={item.price} size="md" />
-              <AddControl item={item} quantity={quantity} onAdd={onAdd} onDecrease={onDecrease} />
+              <AddControl item={item} quantity={quantity} onAdd={onAdd} onDecrease={onDecrease} disabled={disabled} />
             </>
           )}
         </div>
@@ -51,11 +66,13 @@ export function AddControl({
   quantity,
   onAdd,
   onDecrease,
+  disabled,
 }: {
   item: Item
   quantity: number
   onAdd: () => void
   onDecrease: () => void
+  disabled?: boolean
 }) {
   return (
     <div onClick={(e) => e.stopPropagation()}>
@@ -68,7 +85,7 @@ export function AddControl({
           onChange={(next) => (next > quantity ? onAdd() : onDecrease())}
         />
       ) : (
-        <IconButton icon="plus" label={`Add ${item.name}`} variant="outline" size={32} onClick={onAdd} />
+        <IconButton icon="plus" label={`Add ${item.name}`} variant="outline" size={32} onClick={onAdd} disabled={disabled} />
       )}
     </div>
   )

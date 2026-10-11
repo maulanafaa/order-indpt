@@ -38,10 +38,12 @@ function interval(row: StoreHours) {
 
 export type OpenStatus = {
   open: boolean
-  /** "Open · until 02:00", "Open 24 hours", "Closed · opens 13:00", "Closed · opens Sun 13:00" */
+  /** "Open · until 02:00", "Open 24 hours", "Closed · Opens at 13:00", "Closed · Opens Sun at 13:00" */
   label: string
   /** When closed: next opening time, "13:00". */
   opensAt?: string
+  /** When closed: minutes until it opens. */
+  opensInMin?: number
 }
 
 export function openStatus(store: Store, now = new Date(), forceClosed = false): OpenStatus {
@@ -69,8 +71,8 @@ export function openStatus(store: Store, now = new Date(), forceClosed = false):
     const r = byDay.get(d)
     if (!r) continue
     if (i === 0 && toMin(r.opens) <= minutes) continue
-    const when = i === 0 ? r.opens : i === 1 ? `tomorrow ${r.opens}` : `${dayNames[d].slice(0, 3)} ${r.opens}`
-    return { open: false, label: `Closed · opens ${when}`, opensAt: r.opens }
+    const when = i === 0 ? `at ${r.opens}` : i === 1 ? `tomorrow at ${r.opens}` : `${dayNames[d].slice(0, 3)} at ${r.opens}`
+    return { open: false, label: `Closed · Opens ${when}`, opensAt: r.opens, opensInMin: i * 1440 + toMin(r.opens) - minutes }
   }
   return { open: false, label: 'Closed' }
 }

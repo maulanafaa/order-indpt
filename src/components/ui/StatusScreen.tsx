@@ -3,12 +3,13 @@ import { cn } from '../../lib/cn'
 import { Icon, type IconName } from './Icon'
 import { IconButton } from './IconButton'
 
-type StatusTone = 'success' | 'error' | 'warning'
+type StatusTone = 'success' | 'error' | 'warning' | 'neutral'
 
 const tones: Record<StatusTone, { halo: string; dot: string }> = {
   success: { halo: 'bg-state-success-subtle', dot: 'bg-state-success' },
   error: { halo: 'bg-state-error-subtle', dot: 'bg-state-error' },
   warning: { halo: 'bg-state-warning-subtle', dot: 'bg-state-warning' },
+  neutral: { halo: 'bg-surface-muted', dot: 'bg-surface-inverse' },
 }
 
 type StatusScreenProps = {

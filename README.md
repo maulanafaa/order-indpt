@@ -27,7 +27,8 @@ compare with Figma.
 | `npm run preview` | Serve the built `dist/` locally |
 | `npm run lint` | oxlint (warnings fail) and a TypeScript check |
 | `npm run scrape` | Fetches stores and menus and writes `src/data` (see below) |
-| `npm run check:images` | Lists menu items and stores with no photo yet |
+| `npm run check:images` | Lists menu items and stores with no photo in Supabase yet |
+| `npm run images:upload` | Uploads photos from `photos/` to Supabase Storage |
 
 ## Deploy (GitHub to Netlify)
 
@@ -61,8 +62,9 @@ src/icons             SVG icons exported from Figma (index.ts lists them)
 src/data              JSON tables + schema.ts (scraped and seed files)
 src/lib               format.ts, scenarios.ts, store hooks
 src/tokens            colours, type and radius from the Figma variables
-public/images/menu    {item-slug}.webp, square 800 x 800, under 200 KB
-public/images/stores  {store-slug}.webp, 1200 x 600, under 200 KB
+photos/menu           drop folder: {item-slug}.webp, square 800 x 800, under 200 KB
+photos/stores         drop folder: {store-slug}.webp, 1200 x 600, under 200 KB
+                      (not deployed; npm run images:upload sends them to Supabase)
 ```
 
 ## Data pipeline
@@ -109,30 +111,36 @@ Hand-written seed files, checked by every scrape run:
 
 ## Screens and demo flags
 
+Testing guide with demo phone numbers, stores, links and every error case: [TESTING.md](TESTING.md).
+
 | Route | Screen |
 | --- | --- |
 | `/` | Find a store: location permission, map with pins, list view, search |
 | `/store/:slug` | Branch menu (`?item=salt-burger` opens the item sheet), cart sheet, login sheet, Leave store |
 | `/store/:slug/info` | Store info: Details and Opening hours tabs |
 | `/store/:slug/search` | Menu search |
-| `/checkout` | Checkout for Pickup, Carhop and Dine-in, payment, car, schedule and promo sheets, order placed and payment result screens |
+| `/checkout` | Checkout for Pickup, Carhop and Dine-in: time dropdowns, car field, Apple Pay or inline card form, INDPT balance, expandable order summary, order placed, error sheets and blocking screens |
 
 Scenario flags are read from the URL until the demo panel (Stage 6) sets them:
 
-- `location=prompt|denied|granted` permission state on Find a store
+- `location=prompt|denied|granted` permission state on Find a store (the floating Location switch also turns it on and off)
 - `near=riyadh|khobar|dubai|hail` where the demo user is (`hail` has no store nearby)
-- `store=closed` forces the branch closed (Schedule order)
+- `store=closed|soon|paused` forces the branch closed (Schedule order), opening in 25 min (Order ahead) or not taking online orders (See menu, adds disabled)
+- `order=placed|preparing|ready|done|multi` shows an active order on the branch page (card, scrolled pill, sheet for several)
 - `menu=error` shows the menu failed state with Try again
 - `cart=demo` on a branch page fills the cart with the Figma items and opens it (at `/store/salt-u-walk` one item is sold out and two add-ons get removed)
 - `user=new` logging in gives a user with nothing saved
-- `payment=success|declined|insufficient|gateway|pending` result of paying by card or Apple Pay on the first try (cash always goes through; Try again and Check payment status then succeed)
-- `checkout=soldout|paused|timefull|promo` what the store says when you tap Place order (`promo` needs a promo applied)
+- `payment=success|declined|insufficient|gateway|offline|error|pending` result of paying by Apple Pay or card on the first try (pending is a full screen, the rest are bottom sheets; Try again and Check payment status then succeed)
+- `applepay=off` no Apple Pay on this device: the card form shows inline
+- `balance=partial|full` INDPT balance pays SAR 40 or the whole order
+- `demo=off` turns off the built-in demo branches (`src/lib/demoBranches.ts`): active Carhop, Pickup, several Pickup and Dine-in orders, a just picked up order, opening soon and closed branches. See TESTING.md, Demo branches
+- `checkout=soldout|paused|timefull` what the store says when you tap Place order (paused is a full screen, the rest are bottom sheets)
 
-Put `payment=` and `checkout=` on the branch page URL (they are carried to checkout) or straight on `/checkout`.
+Put `payment=`, `checkout=`, `applepay=` and `balance=` on the branch page URL (they are carried to checkout) or straight on `/checkout`.
 
-Promo codes (seeds in `src/data/promos.json`): `SALT15` 15% off over 100, up to 30 off; `FRIESONUS` free Original Fries with a burger (Pickup and Dine-in); `CARHOP10` 10% off Carhop only; `SUMMER20` expired; anything else is not found.
+Promo codes (seeds in `src/data/promos.json`, not shown at checkout until the next phase): `SALT15` 15% off over 100, up to 30 off; `FRIESONUS` free Original Fries with a burger (Pickup and Dine-in); `CARHOP10` 10% off Carhop only; `SUMMER20` expired; anything else is not found.
 
-Every fake network call (send code, verify, apply promo, save card or car, place order) waits 1 second so loading states show. Placed orders are saved to localStorage (`src/lib/orders.ts`) for order tracking.
+Every fake network call (send code, verify, apply promo, save card or car, place order) waits 1 second so loading states show. Placed orders are saved to localStorage (`src/lib/orders.ts`) and open on the Order detail page (`/order/:id`). Demo branch orders come from `src/lib/demoOrders.ts`; statuses picked in the Order status sheet and I'm here details are kept in `src/lib/orderUpdates.ts`.
 
 Fake login (any +966 5X XXX XXXX number):
 
@@ -163,3 +171,57 @@ installed only as a stand-in for any icon not exported yet.
 
 Currency: always `<Price amount={43} />` (or `<SarIcon />`). Never type the
 riyal character.
+
+## Supabase
+
+The app reads stores, hours, services, menu, availability and promos from the
+Supabase project `order-indpt` at boot (`src/lib/catalog.ts`). If Supabase is
+unreachable, slower than 4 seconds, or not seeded yet, it uses the bundled
+JSON in `src/data` instead, so the prototype always runs.
+
+- Seed or refresh the catalog: `npm run db:seed-sql`, then paste
+  `supabase/seed.sql` into the Supabase SQL editor and run it. User data
+  (profiles, cars, cards, orders) is not touched.
+- Login: the code rules are still fake (see the table above), but a passing
+  code calls the edge function `phone-login` (`supabase/functions/phone-login`),
+  which creates or finds a real account for that number and returns a one-time
+  token the app exchanges for a session. A first login creates the profile:
+  the demo profile (name, two cars, three cards) or an empty one with
+  `user=new`. Profile, cars, cards and placed orders are then saved in
+  Supabase, readable only by their owner (row level security). If Supabase
+  can't be reached, the login falls back to this device only.
+- Config: the project URL and publishable key are defaults in
+  `src/lib/supabase.ts`. Override them with `VITE_SUPABASE_URL` and
+  `VITE_SUPABASE_PUBLISHABLE_KEY` in `.env`, or set `VITE_SUPABASE_URL=off`
+  to skip Supabase.
+
+## Photos
+
+Menu photos and store covers live in the public Supabase Storage bucket
+`images` (`menu/{item-slug}.webp`, `stores/{store-slug}.webp`). The app builds
+each URL from the slug (`menuImage` and `storeImage` in `src/lib/format.ts`),
+so a new photo shows up on the next page load, with no code change or
+redeploy. A missing photo shows the grey placeholder. Icons, the logo and the
+favicon stay in the project (`src/icons`, `src/assets/brand`, `public`).
+
+| | Menu photo | Store cover |
+| --- | --- | --- |
+| Name | `{item-slug}.webp` | `{store-slug}.webp` |
+| Size | 800 x 800 | 1200 x 600 |
+| Format | WebP, under 200 KB (the bucket refuses anything else) | same |
+
+Adding photos:
+
+1. `npm run check:images` prints every missing photo with the file name it needs.
+2. Export, crop and convert to WebP (about quality 80), e.g. with squoosh.app
+   or `cwebp -q 80 in.jpg -o salt-burger.webp`.
+3. Put the files in `photos/menu/` or `photos/stores/`.
+4. `npm run images:upload`. It needs the secret key once: copy it from the
+   Supabase dashboard (Project Settings > API Keys) into `.env.local` as
+   `SUPABASE_SECRET_KEY=...`. Git ignores this file; never put the key in app code.
+
+Or upload by hand in the Supabase dashboard: Storage > `images` > `menu` or
+`stores` folder. Uploading a file with the same name replaces it (browsers may
+keep the old one for up to an hour).
+
+The files in `photos/` are not committed: the bucket is the source of truth.

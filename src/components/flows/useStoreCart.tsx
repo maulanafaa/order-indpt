@@ -22,18 +22,21 @@ export function useStoreCart(store: Store, openItem: (item: Item) => void) {
   const lines = cartStore === store.slug ? allLines : []
   const [pending, setPending] = useState<{ line: NewLine; done?: () => void } | null>(null)
 
-  const commit = (line: NewLine) => {
+  const commit = (line: NewLine, quiet = false) => {
     addLine(store.slug, line)
-    toast.show({ type: 'success', message: 'Added to your order' })
+    if (!quiet) toast.show({ type: 'success', message: 'Added to your order' })
   }
 
-  /** Returns false when it had to ask first (the sheet calls `done` after). */
-  const add = (line: NewLine, done?: () => void) => {
+  /**
+   * Returns false when it had to ask first (the sheet calls `done` after).
+   * `quiet` skips the toast (the item sheet upsell shows its own tooltip).
+   */
+  const add = (line: NewLine, done?: () => void, quiet = false) => {
     if (cartStore && cartStore !== store.slug && allLines.length) {
       setPending({ line, done })
       return false
     }
-    commit(line)
+    commit(line, quiet)
     done?.()
     return true
   }

@@ -26,7 +26,8 @@ export function computeTotals(lines: CartLine[], soldOut: Set<string>, promoCode
 
 /** Subtotal, promo, VAT and total for the cart at a store, with the checkout's promo and method. */
 export function useOrderTotals(store: Store, lines: CartLine[], soldOut: Set<string>): OrderTotals & { method: ReturnType<typeof resolveMethod> } {
-  const promoCode = useCheckout((s) => s.promoCode)
+  // Promo codes come back in the next phase; until then checkout totals ignore any saved code.
+  const promoCode = null
   const chosen = useCheckout((s) => (s.storeSlug === store.slug ? s.method : null))
   const method = resolveMethod(store.id, chosen)
   return { ...computeTotals(lines, soldOut, promoCode, method), method }

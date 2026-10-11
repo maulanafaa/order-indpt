@@ -1,6 +1,7 @@
 import { useId, useState } from 'react'
 import { useNavigate } from 'react-router'
-import { formatMobile, isSaudiMobile, useAuth } from '../../lib/auth'
+import { formatMobile, isSaudiMobile } from '../../lib/auth'
+import { completeSignIn } from '../../lib/login'
 import {
   ATTEMPT_LOCK_SECONDS,
   MAX_ATTEMPTS,
@@ -42,7 +43,6 @@ type CodeError = null | 'incorrect' | 'expired' | 'locked'
 
 function LoginFlow({ onClose, onSuccess, newUser }: Omit<LoginSheetProps, 'open'>) {
   const navigate = useNavigate()
-  const signIn = useAuth((s) => s.signIn)
   const titleId = useId()
   const helperId = useId()
 
@@ -107,12 +107,13 @@ function LoginFlow({ onClose, onSuccess, newUser }: Omit<LoginSheetProps, 'open'
     if (code.length < 6) return
     setVerifying(true)
     const result = await verifyCode(code)
-    setVerifying(false)
     if (result === 'ok') {
-      signIn(digits, newUser ? 'new' : 'existing')
+      await completeSignIn(digits, code, newUser ? 'new' : 'existing')
+      setVerifying(false)
       onSuccess()
       return
     }
+    setVerifying(false)
     if (result === 'expired') return setCodeError('expired')
     const left = attemptsLeft - 1
     setAttemptsLeft(left)

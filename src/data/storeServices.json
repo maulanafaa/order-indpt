@@ -21,19 +21,19 @@
     "storeId": "store-128",
     "method": "pickup",
     "supported": true,
-    "availableNow": true
+    "availableNow": false
   },
   {
     "storeId": "store-128",
     "method": "carhop",
     "supported": true,
-    "availableNow": true
+    "availableNow": false
   },
   {
     "storeId": "store-128",
     "method": "dineIn",
     "supported": true,
-    "availableNow": true
+    "availableNow": false
   },
   {
     "storeId": "store-117",

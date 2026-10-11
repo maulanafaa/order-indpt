@@ -16,7 +16,7 @@ src/icons         SVG exports from Figma (lucide-react only as a stand-in)
 src/data          stores, menu, orders, user, promos as JSON
 src/lib           scenarios.ts, format.ts, store hooks
 src/tokens        colours, type, radius from Figma variables
-public/images/menu/{item-slug}.webp, public/images/stores/{store-slug}.webp
+photos/menu, photos/stores  photo drop folder (not deployed); photos live in Supabase Storage bucket `images`: menu/{item-slug}.webp, stores/{store-slug}.webp
 
 ## Design rules (from Figma)
 - Mobile frame 390 px wide; centre it on desktop with a grey surround.
@@ -31,13 +31,14 @@ public/images/menu/{item-slug}.webp, public/images/stores/{store-slug}.webp
   every async button has a Loading state (spinner, same width).
 - Quantity stepper shows a trash icon at 1 (red on outline, white on solid).
 - Unavailable things are disabled, never hidden, unless the branch does not
-  support them at all. Exception: the Best Seller section only shows items
-  the branch can sell today (sold out items stay, disabled, in their category).
+  support them at all. Exception: the For you grid (Best sellers and New
+  items) only shows items the branch can sell today (sold out items stay,
+  disabled, in their category).
 - Copy: plain and short. Never use the em dash character.
 
 ## Data rules
 - Prices are numbers in SAR. Format with formatPrice().
-- Images resolve from the item or store slug; missing image = placeholder.
+- Images resolve from the item or store slug via menuImage()/storeImage() (Supabase Storage bucket `images`); missing image = placeholder. Never hardcode an image URL. Icons, logo and favicon stay in the project.
 - All edge cases are driven by src/lib/scenarios.ts (URL params + demo panel).
 
 ## Done means

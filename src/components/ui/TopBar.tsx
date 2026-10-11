@@ -5,6 +5,8 @@ import { IconButton } from './IconButton'
 
 type TopBarProps = {
   title: ReactNode
+  /** Figma "Titles": a Body/S line under the title, e.g. the branch name. */
+  subtitle?: ReactNode
   /** Back arrow, close x, or nothing. */
   leading?: 'back' | 'close' | 'none'
   /** Defaults to going back in history. */
@@ -16,7 +18,7 @@ type TopBarProps = {
 }
 
 /** Figma "Top bar": 56px header with a 1px bottom border. */
-export function TopBar({ title, leading = 'back', onLeading, trailing, sticky = true, className }: TopBarProps) {
+export function TopBar({ title, subtitle, leading = 'back', onLeading, trailing, sticky = true, className }: TopBarProps) {
   const navigate = useNavigate()
   const onClick = onLeading ?? (() => navigate(-1))
   return (
@@ -31,7 +33,14 @@ export function TopBar({ title, leading = 'back', onLeading, trailing, sticky = 
       {leading !== 'none' && (
         <IconButton icon={leading === 'back' ? 'back' : 'x'} label={leading === 'back' ? 'Back' : 'Close'} onClick={onClick} />
       )}
-      <h1 className="min-w-0 flex-1 truncate title-s text-text-primary">{title}</h1>
+      {subtitle ? (
+        <div className="flex min-w-0 flex-1 flex-col">
+          <h1 className="truncate title-s text-text-primary">{title}</h1>
+          <p className="truncate body-s text-text-secondary">{subtitle}</p>
+        </div>
+      ) : (
+        <h1 className="min-w-0 flex-1 truncate title-s text-text-primary">{title}</h1>
+      )}
       {trailing}
     </header>
   )
