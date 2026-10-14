@@ -297,6 +297,7 @@ function StoreMenu({ store }: { store: Store }) {
         editing={flow.editing}
         upsell={paused ? [] : upsellItems(new Set(), availability.soldOutItems)}
         onUpsellAdd={(it) => cart.add({ itemId: it.id, quantity: 1, modifiers: [], note: '' }, undefined, true)}
+        storeSlug={store.slug}
         ordersPaused={paused}
       />
       {cart.leaveSheet}

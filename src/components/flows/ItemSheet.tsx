@@ -31,12 +31,14 @@ type ItemSheetProps = {
   /** "Goes well with this" items; "+" adds one straight to the cart. */
   upsell?: Item[]
   onUpsellAdd?: (item: Item) => void
+  /** The branch, so upsell cards can show what is already in its cart. */
+  storeSlug?: string
   /** Branch not taking online orders: browse only, nothing can be added. */
   ordersPaused?: boolean
 }
 
 /** Item page as a bottom sheet: Figma "Item · Food / Drink (customizable)" and "Item · Fixed". */
-export function ItemSheet({ item, open, onClose, soldOut, unavailableModifiers, onAdd, editing, upsell, onUpsellAdd, ordersPaused }: ItemSheetProps) {
+export function ItemSheet({ item, open, onClose, soldOut, unavailableModifiers, onAdd, editing, upsell, onUpsellAdd, storeSlug, ordersPaused }: ItemSheetProps) {
   return (
     <BottomSheet open={open} onClose={onClose} bare ariaLabel={item?.name ?? 'Item'}>
       {item && (
@@ -50,6 +52,7 @@ export function ItemSheet({ item, open, onClose, soldOut, unavailableModifiers, 
           onAdd={onAdd}
           upsell={upsell}
           onUpsellAdd={onUpsellAdd}
+          storeSlug={storeSlug}
           ordersPaused={ordersPaused}
         />
       )}
@@ -68,6 +71,7 @@ function ItemSheetBody({
   editing,
   upsell = [],
   onUpsellAdd,
+  storeSlug,
   ordersPaused = false,
 }: Omit<ItemSheetProps, 'open' | 'item'> & { item: Item }) {
   const groups = useMemo(() => groupsByItem.get(item.id) ?? [], [item.id])
@@ -214,7 +218,7 @@ function ItemSheetBody({
           )}
 
           {!editing && !soldOut && !ordersPaused && onUpsellAdd && (
-            <UpsellRow items={upsell.filter((u) => u.id !== item.id)} onAdd={onUpsellAdd} />
+            <UpsellRow items={upsell.filter((u) => u.id !== item.id)} storeSlug={storeSlug ?? ''} onAdd={onUpsellAdd} />
           )}
         </div>
       </div>

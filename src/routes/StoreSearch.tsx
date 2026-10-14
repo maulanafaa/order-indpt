@@ -113,6 +113,7 @@ function MenuSearch({ store }: { store: Store }) {
         onAdd={(line, done) => cart.add(line, done)}
         upsell={paused ? [] : upsellItems(new Set(), availability.soldOutItems)}
         onUpsellAdd={(it) => cart.add({ itemId: it.id, quantity: 1, modifiers: [], note: '' }, undefined, true)}
+        storeSlug={store.slug}
         ordersPaused={paused}
       />
       {cart.leaveSheet}

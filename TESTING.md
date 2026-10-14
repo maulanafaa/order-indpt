@@ -268,7 +268,8 @@ swipeable cards.
 
 **Item sheet upsell:** at the bottom of a customisable item (e.g. Salt Burger), Goes
 well with this offers extra items. Tapping + adds that item straight to the cart; the
-button turns into a check and a tooltip confirms for 2 seconds.
+card shows a quantity stepper in place (trash at 1) and a toast confirms, the same as
+the cart's Goes well with your order.
 
 **Cart:** the bar at the bottom of the menu shows the item count and total on the
 left and a View cart button (Schedule order when the branch is closed). In the cart
