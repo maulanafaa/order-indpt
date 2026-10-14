@@ -266,7 +266,7 @@ function AddCard({
             Save and use this card
           </Button>
           <p className="flex items-center justify-center gap-1 caption text-text-tertiary">
-            <Icon name="lock" size={12} />
+            <Icon name="shield" size={12} className="text-state-success" />
             Payments are encrypted and processed securely
           </p>
         </div>

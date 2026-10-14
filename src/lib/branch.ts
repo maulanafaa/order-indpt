@@ -7,6 +7,7 @@ import { servicesByStore } from './data'
 import { openStatus } from './hours'
 import { demoStateFor } from './demoBranches'
 import type { StoreFlag } from './scenarios'
+import { time12 } from './format'
 
 /** Opens within this many minutes counts as "opening soon". */
 const SOON_MIN = 60
@@ -15,7 +16,7 @@ export type BranchKind = 'open' | 'soon' | 'closed' | 'paused'
 
 export type BranchState = {
   kind: BranchKind
-  /** Badge text: "Open · until 02:00", "Opens at 07:00 · in 25 min", "Closed · Opens at 16:00", "Online ordering unavailable". */
+  /** Badge text: "Open · until 2:00 AM", "Opens at 7:00 AM · in 25 min", "Closed · Opens at 4:00 PM", "Online ordering unavailable". */
   label: string
   /** Next opening time when not open, "16:00". */
   opensAt?: string
@@ -41,12 +42,12 @@ export function branchState(store: Store, now = new Date(), urlFlag: StoreFlag |
     // Demo: opens 25 minutes from now, on a 5 minute mark.
     const at = new Date(now.getTime() + 25 * 60_000)
     const opensAt = `${pad(at.getHours())}:${pad(Math.floor(at.getMinutes() / 5) * 5)}`
-    return { kind: 'soon', label: `Opens at ${opensAt} · in 25 min`, opensAt, canOrder: true }
+    return { kind: 'soon', label: `Opens at ${time12(opensAt)} · in 25 min`, opensAt, canOrder: true }
   }
   const status = openStatus(store, now, flag === 'closed')
   if (status.open) return { kind: 'open', label: status.label, canOrder: true }
   if (status.opensInMin != null && status.opensInMin <= SOON_MIN && flag !== 'closed') {
-    return { kind: 'soon', label: `Opens at ${status.opensAt} · in ${status.opensInMin} min`, opensAt: status.opensAt, canOrder: true }
+    return { kind: 'soon', label: `Opens at ${time12(status.opensAt)} · in ${status.opensInMin} min`, opensAt: status.opensAt, canOrder: true }
   }
   return { kind: 'closed', label: status.label, opensAt: status.opensAt, canOrder: true }
 }
@@ -62,7 +63,7 @@ export const branchBadge: Record<BranchKind, 'success' | 'warning' | 'subtle'> =
 /** Main action label on the store card. */
 export const branchAction: Record<BranchKind, string> = {
   open: 'Order',
-  soon: 'Order ahead',
+  soon: 'Schedule order',
   closed: 'Schedule order',
   paused: 'See menu',
 }

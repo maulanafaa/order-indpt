@@ -14,7 +14,7 @@ export function Chip({ selected = false, className, children, type = 'button', .
       className={cn(
         'inline-flex h-10 shrink-0 items-center justify-center rounded-4 px-3 label-m whitespace-nowrap transition-colors',
         selected
-          ? 'bg-state-success text-text-on-inverse'
+          ? 'bg-surface-inverse text-text-on-inverse'
           : 'bg-surface-base text-text-primary inset-ring inset-ring-border-default active:bg-surface-muted',
         'disabled:bg-surface-muted disabled:text-text-disabled disabled:inset-ring-0',
         className,

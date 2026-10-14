@@ -14,31 +14,27 @@ import { ProductImage } from '../../ui/ProductImage'
 /* ------------------------------- Status hero ------------------------------ */
 
 const heroTones = {
-  dark: { box: 'bg-surface-inverse', label: 'text-text-on-inverse', number: 'text-text-on-inverse', sub: 'text-text-on-inverse-muted' },
-  success: { box: 'bg-state-success', label: 'text-text-on-inverse', number: 'text-text-on-inverse', sub: 'text-text-on-inverse' },
-  base: { box: 'bg-surface-base', label: 'text-text-primary', number: 'text-text-primary', sub: 'text-text-secondary' },
-  error: { box: 'bg-state-error-subtle', label: 'text-state-error', number: 'text-state-error', sub: 'text-text-primary' },
+  dark: { box: 'bg-surface-inverse', number: 'text-text-on-inverse', tag: 'bg-surface-base text-text-primary' },
+  success: { box: 'bg-state-success', number: 'text-text-on-inverse', tag: 'bg-surface-base text-state-success' },
+  base: { box: 'bg-surface-base', number: 'text-text-primary', tag: 'bg-surface-muted text-text-primary' },
+  error: { box: 'bg-state-error-subtle', number: 'text-state-error', tag: 'bg-surface-base text-state-error' },
 } as const
 
-/** Figma "Status hero": status label with icon, the order number (Display), one subtitle line. */
+/** Figma "Status hero": the order number (Title/XL) and a status tag with a chevron. Opens the Order status sheet. */
 export function StatusHero({ hero, number, onOpen }: { hero: Hero; number: string; onOpen: () => void }) {
   const t = heroTones[hero.tone]
   return (
     <button
       type="button"
       onClick={onOpen}
-      aria-label={`${hero.label}, order ${number}. ${hero.subtitle}. Show order status`}
-      className={cn('flex w-full items-center gap-3 rounded-8 p-4 text-start transition-colors duration-300 ease-card', t.box)}
+      aria-label={`Order ${number}, ${hero.label}. Show order status`}
+      className={cn('flex w-full items-center justify-between gap-3 rounded-8 p-4 text-start transition-colors duration-300 ease-card', t.box)}
     >
-      <span className="flex min-w-0 flex-1 flex-col gap-0.5">
-        <span className={cn('flex items-center gap-1.5 label-l', t.label)}>
-          <Icon name={hero.icon} size={20} className={cn('shrink-0', hero.tone === 'base' && 'text-state-success')} />
-          {hero.label}
-        </span>
-        <span className={cn('pt-1 display', t.number)}>#{number}</span>
-        <span className={cn('body-s', t.sub)}>{hero.subtitle}</span>
+      <span className={cn('min-w-0 truncate title-xl', t.number)}>#{number}</span>
+      <span className={cn('inline-flex shrink-0 items-center gap-1 rounded-4 py-1 ps-2 pe-1.5 label-m transition-colors duration-300 ease-card', t.tag)}>
+        {hero.label}
+        <Icon name="chev" size={16} className="shrink-0" />
       </span>
-      {hero.active && <Icon name="chev" size={20} className={cn('shrink-0', t.label)} />}
     </button>
   )
 }

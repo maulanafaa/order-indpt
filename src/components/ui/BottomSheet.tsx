@@ -28,7 +28,8 @@ type BottomSheetProps = {
   children: ReactNode
 }
 
-const EXIT_MS = 450
+/** Matches the exit transition below. */
+const EXIT_MS = 320
 
 /**
  * Bottom sheet from the Figma screens: no corner radius, black 55% overlay,
@@ -98,8 +99,8 @@ export function BottomSheet({
         aria-hidden
         onClick={dismissible ? onClose : undefined}
         className={cn(
-          'absolute inset-0 bg-overlay transition-opacity duration-[450ms] ease-sheet',
-          leaving ? 'opacity-0' : 'animate-fade-in',
+          'absolute inset-0 bg-overlay transition-opacity duration-[320ms] ease-out',
+          leaving ? 'opacity-0' : 'animate-overlay-in',
         )}
       />
       <div
@@ -111,7 +112,7 @@ export function BottomSheet({
         tabIndex={-1}
         className={cn(
           'absolute inset-x-0 bottom-0 flex max-h-[92%] flex-col bg-surface-base outline-none',
-          'transition-transform duration-[450ms] ease-sheet motion-reduce:transition-none',
+          'will-change-transform transition-transform duration-[320ms] ease-sheet-exit motion-reduce:transition-none motion-reduce:animate-none',
           leaving ? 'translate-y-full' : 'animate-sheet-in',
           className,
         )}

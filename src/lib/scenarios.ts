@@ -4,7 +4,7 @@
  *
  *   menu=error              branch menu fails to load
  *   store=closed|soon|paused   force the branch closed (Schedule order), opening
- *                           in 25 min (Order ahead), or not taking online orders
+ *                           in 25 min (Schedule order), or not taking online orders
  *   location=prompt|denied|granted   location permission
  *   near=riyadh|khobar|dubai|hail    where "you" are (hail = no store nearby)
  *   user=new                logging in gives a user with nothing saved
@@ -15,7 +15,7 @@
  *                           pending is a full screen, the rest are bottom sheets
  *   applepay=off            this device has no Apple Pay: the card form shows inline
  *   balance=partial|full    INDPT balance covers part (SAR 40) or all of the order
- *   order=placed|preparing|ready|done|multi
+ *   order=scheduled|placed|preparing|ready|delivering|done|multi
  *                           an active order on the branch being viewed (Figma 2.1, 2.4)
  *   demo=off                turn off the built-in demo branches (lib/demoBranches.ts)
  *   checkout=soldout|paused|timefull
@@ -40,7 +40,7 @@ export const paymentResults = ['success', 'declined', 'insufficient', 'gateway',
 export type PaymentResult = (typeof paymentResults)[number]
 export const storeFlags = ['closed', 'soon', 'paused'] as const
 export type StoreFlag = (typeof storeFlags)[number]
-export const orderFlags = ['placed', 'preparing', 'ready', 'done', 'multi'] as const
+export const orderFlags = ['scheduled', 'placed', 'preparing', 'ready', 'delivering', 'done', 'multi'] as const
 export type OrderFlag = (typeof orderFlags)[number]
 export const checkoutIssues = ['soldout', 'paused', 'timefull'] as const
 export const balanceFlags = ['partial', 'full'] as const

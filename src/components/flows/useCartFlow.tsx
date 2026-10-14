@@ -1,13 +1,10 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useLocation, useNavigate, useSearchParams } from 'react-router'
 import type { Item, Store } from '../../data/schema'
-import { useAuth } from '../../lib/auth'
 import { cartCount, useCart, type CartLine } from '../../lib/cart'
-import { useScenario } from '../../lib/scenarios'
 import { BottomSheet } from '../ui/BottomSheet'
 import { Button } from '../ui/Button'
 import { CartSheet } from './CartSheet'
-import { LoginSheet } from './LoginSheet'
 
 type NewLine = Omit<CartLine, 'id'>
 
@@ -55,8 +52,6 @@ export function useCartFlow({ store, closed, soldOutItems, unavailableModifiers,
   const navigate = useNavigate()
   const location = useLocation()
   const [params, setParams] = useSearchParams()
-  const scenario = useScenario()
-  const user = useAuth((s) => s.user)
   const cartStore = useCart((s) => s.storeSlug)
   const allLines = useCart((s) => s.lines)
   const updateLine = useCart((s) => s.updateLine)
@@ -68,13 +63,10 @@ export function useCartFlow({ store, closed, soldOutItems, unavailableModifiers,
   const [cartOpen, setCartOpen] = useState(
     () => Boolean((location.state as { openCart?: boolean } | null)?.openCart) || params.get('cart') === 'demo',
   )
-  const [loginOpen, setLoginOpen] = useState(false)
   const [leaveOpen, setLeaveOpen] = useState(false)
   /** The item sheet was opened from the cart (Edit or upsell): go back to the cart after. */
   const [returnToCart, setReturnToCart] = useState(false)
   const [editing, setEditing] = useState<{ lineId: string; line: NewLine } | null>(null)
-  // Remember user=new from the URL, it may be gone by the time the person logs in.
-  const [newUser] = useState(scenario.newUser)
 
   // cart=demo: fill the cart with the Figma items and open it.
   useEffect(() => {
@@ -99,7 +91,7 @@ export function useCartFlow({ store, closed, soldOutItems, unavailableModifiers,
   /** Keep demo flags (payment=..., checkout=...) on the way to checkout. */
   const checkoutUrl = () => {
     const keep = new URLSearchParams()
-    for (const k of ['payment', 'checkout', 'applepay', 'balance']) {
+    for (const k of ['payment', 'checkout', 'applepay', 'balance', 'user']) {
       const v = params.get(k)
       if (v) keep.set(k, v)
     }
@@ -109,9 +101,9 @@ export function useCartFlow({ store, closed, soldOutItems, unavailableModifiers,
 
   const checkout = () => {
     setCartOpen(false)
+    // Signed in or not: the number is verified on the checkout page.
     if (onCheckout) onCheckout()
-    else if (user) navigate(checkoutUrl())
-    else setLoginOpen(true)
+    else navigate(checkoutUrl())
   }
 
   /** Back to Find a store. With items in the cart, ask first. */
@@ -147,18 +139,6 @@ export function useCartFlow({ store, closed, soldOutItems, unavailableModifiers,
         onCheckout={checkout}
         closed={closed}
         checkoutLabel={onCheckout ? 'Back to checkout' : undefined}
-      />
-      <LoginSheet
-        open={loginOpen}
-        newUser={newUser}
-        onClose={() => {
-          setLoginOpen(false)
-          setCartOpen(true)
-        }}
-        onSuccess={() => {
-          setLoginOpen(false)
-          navigate(checkoutUrl())
-        }}
       />
       <BottomSheet open={leaveOpen} onClose={() => setLeaveOpen(false)} ariaLabel={`Leave ${store.name}?`}>
         <div className="flex flex-col gap-6">

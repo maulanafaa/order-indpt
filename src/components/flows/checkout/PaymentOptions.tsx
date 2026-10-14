@@ -154,7 +154,7 @@ function CardForm({ card, onCard, errors }: { card: CardFields; onCard: (patch: 
         error={errors.name}
       />
       <p className="flex items-center gap-1.5 caption text-text-tertiary">
-        <Icon name="lock" size={14} className="shrink-0" />
+        <Icon name="shield" size={14} className="shrink-0 text-state-success" />
         Payments are encrypted and processed securely
       </p>
     </div>

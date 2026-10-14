@@ -1,5 +1,5 @@
-import { useState, type ReactNode } from 'react'
-import { useNavigate, useParams } from 'react-router'
+import { useEffect, useState, type ReactNode } from 'react'
+import { useNavigate, useParams, useSearchParams } from 'react-router'
 import {
   ItemsCard,
   LocationCard,
@@ -20,7 +20,6 @@ import { heroFor, stageOf, stepsFor, useOrder } from '../lib/orderDetail'
 import { moveTo, useOrderUpdates } from '../lib/orderUpdates'
 import { useScenario } from '../lib/scenarios'
 import { callSupport } from '../lib/support'
-import { useNow } from '../lib/useNow'
 
 /** I'm here counts as at the store within this distance. */
 const NEAR_KM = 1
@@ -54,14 +53,13 @@ export default function OrderPage() {
 
 function OrderDetail({ order, store }: { order: Order; store: Store }) {
   const toast = useToast()
-  const now = useNow()
   const scenario = useScenario()
   const user = useAuth((s) => s.user)
   const patch = useOrderUpdates((s) => s.patch)
-  const [sheet, setSheet] = useState<Sheet>(null)
+  const [params, setParams] = useSearchParams()
   const [downloading, setDownloading] = useState(false)
 
-  const hero = heroFor(order, now.getTime())
+  const hero = heroFor(order)
   const stage = stageOf(order)
   const past = stage === 'done' || stage === 'cancelled'
   const number = order.id.replace(/^SLT-/, '')
@@ -69,6 +67,18 @@ function OrderDetail({ order, store }: { order: Order; store: Store }) {
   const car = order.carDetails ?? (savedCar ? carText(savedCar) : '')
   const carhopActive = order.method === 'carhop' && (stage === 'placed' || stage === 'preparing' || stage === 'ready')
   const km = distanceKm(scenario.near.point, store)
+  // ?here=1 (I'm here on the branch page's active order card) starts the arrival flow.
+  const [sheet, setSheet] = useState<Sheet>(() => (params.get('here') && carhopActive ? (km > NEAR_KM ? 'tooFar' : 'parking') : null))
+  useEffect(() => {
+    if (params.get('here'))
+      setParams(
+        (p) => {
+          p.delete('here')
+          return p
+        },
+        { replace: true },
+      )
+  }, [params, setParams])
 
   const download = async () => {
     setDownloading(true)

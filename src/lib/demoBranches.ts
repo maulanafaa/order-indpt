@@ -11,10 +11,10 @@
  *     salt-jaks-riyadh       online ordering paused (from the data, not this file)
  *   Eastern Province (?near=khobar)
  *     salt-al-bahar-resort-khobar  active Dine-in order, order placed
- *     salt-olaya-khobar      opening soon (in 25 min): Order ahead
+ *     salt-olaya-khobar      opening soon (in 25 min): Schedule order
  *     salt-west-field        closed: Schedule order for tomorrow
  *   AlUla
- *     salt-al-ula            order just picked up: Enjoy your meal!
+ *     salt-al-ula            order just picked up
  */
 import type { OrderMethod, OrderStatus } from '../data/schema'
 import type { StoreFlag } from './scenarios'

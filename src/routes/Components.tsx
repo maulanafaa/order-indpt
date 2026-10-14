@@ -31,6 +31,7 @@ import {
 } from '../components/ui'
 import { iconNames } from '../icons'
 import { colors, colorUsage, textStyles } from '../tokens'
+import { time12 } from '../lib/format'
 
 /* ------------------------------------------------------------------ */
 /* Page                                                                */
@@ -421,14 +422,14 @@ function ChipBlock() {
   return (
     <Block title="Chip" desc="Selectable pill for time slots and filters.">
       <Row label="Default, Selected, Disabled">
-        <Chip>19:15</Chip>
-        <Chip selected>19:15</Chip>
-        <Chip disabled>19:15</Chip>
+        <Chip>7:15 PM</Chip>
+        <Chip selected>7:15 PM</Chip>
+        <Chip disabled>7:15 PM</Chip>
       </Row>
       <Row label="Try it">
         {slots.map((s) => (
           <Chip key={s} selected={slot === s} onClick={() => setSlot(s)} disabled={s === '20:00'}>
-            {s}
+            {time12(s)}
           </Chip>
         ))}
       </Row>

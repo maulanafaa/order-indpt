@@ -45,6 +45,7 @@ import QrIcon from './qr.svg?react'
 import ReceiptIcon from './receipt.svg?react'
 import SearchIcon from './search.svg?react'
 import SendIcon from './send.svg?react'
+import SettingsIcon from './settings.svg?react'
 import ShareIcon from './share.svg?react'
 import ShieldIcon from './shield.svg?react'
 import SplitIcon from './split.svg?react'
@@ -106,6 +107,7 @@ export const icons = {
   'receipt': ReceiptIcon,
   'search': SearchIcon,
   'send': SendIcon,
+  'settings': SettingsIcon,
   'share': ShareIcon,
   'shield': ShieldIcon,
   'split': SplitIcon,

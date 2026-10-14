@@ -17,12 +17,13 @@ Figma.
 | Item sheet open | http://localhost:5173/store/salt-u-walk?item=salt-burger |
 | Store info | http://localhost:5173/store/salt-u-walk/info |
 | Menu search | http://localhost:5173/store/salt-u-walk/search |
-| Checkout (needs a cart and a login) | http://localhost:5173/checkout |
+| Checkout (needs a cart) | http://localhost:5173/checkout |
 | Component gallery | http://localhost:5173/components |
 
-Fastest full run: open the cart demo link, tap **Checkout**, log in with
-`55 123 4567`, tap **Send code**, enter `123456` and tap **Verify**. You land on
-checkout; then place the order. Refresh at any point: the cart and login stay.
+Fastest full run: open the cart demo link and tap **Checkout**. Under **Verify your
+number** type `55 123 4567`, then tap anywhere outside the field: the code sheet
+opens. Enter `123456` (it checks as soon as the 6th digit is in), then place the
+order. Refresh at any point: the cart and login stay.
 
 ## Demo credentials at a glance
 
@@ -40,22 +41,35 @@ Nothing here is real: no SMS is sent and no card is charged.
 | Card: number incomplete / expired | `4417 1234 5678 441` / expiry `08/24` |
 | Empty profile on first login | add `user=new` to the URL |
 
-## Logging in
+## Logging in (Verify your number, on checkout)
 
-The phone login is fake: no SMS is sent. Enter any Saudi mobile number
-(9 digits starting with 5, after the fixed +966) and any 6 digit code.
+The phone login is fake: no SMS is sent. It happens on the checkout page (Figma
+4.7), not in a sheet before it:
+
+- Type the number after the country code. Pick another Gulf country with the flag
+  and chevron (UAE, Qatar, Kuwait, Bahrain, Oman). Saudi and UAE numbers are 9
+  digits starting with 5.
+- Once the number is complete, a spinner shows briefly, then a green check if it
+  is valid.
+- Tap anywhere outside the field: a valid number sends the code and opens the
+  **Enter the code** sheet; an invalid one shows "Enter a valid mobile number".
+- Until the number is verified, the name field is hidden, Payment method is
+  greyed out and **Place order** is disabled. Once verified, the name shows
+  (filled in for a returning number), payment unlocks and the button becomes
+  **Pay with Apple Pay** or **Place order**. The button sits at the end of the
+  page (not sticky) and has no amount.
 
 | Phone number | What happens |
 | --- | --- |
 | `55 123 4567` | Normal number (the demo user Noura uses it, but any number works) |
-| `50 000 0000` | The code can't be sent (connection problem) |
-| `59 999 9999` | Too many code requests (10 minute wait) |
+| `50 000 0000` | The code can't be sent: error under the number field |
+| `59 999 9999` | Too many code requests: error with a 10 minute countdown |
 
 | Code | What happens |
 | --- | --- |
-| `000000` | Incorrect. After 3 wrong codes, code entry pauses for 15 minutes |
-| `111111` | Expired |
-| Any other 6 digits, e.g. `123456` | Logged in, continue to checkout |
+| `000000` | Incorrect. After 3 wrong codes, code entry pauses for 15 minutes (Use a different number) |
+| `111111` | Expired: Send a new code |
+| Any other 6 digits, e.g. `123456` | Verified: the sheet closes and checkout unlocks |
 
 Behind the fake code, each number gets a real Supabase account:
 
@@ -93,16 +107,16 @@ turn these off.
 | Case | Branch | Link | What you see |
 | --- | --- | --- | --- |
 | Open, nothing going on | SALT U Walk (Riyadh) | http://localhost:5173/store/salt-u-walk | Clean branch for every flag below (cart demo, payment results) |
-| Active Carhop order | SALT SAAD Square (Riyadh) | http://localhost:5173/store/salt-saad-square | Being prepared, #48310. Green dot on its map pin |
-| Active Pickup order | SALT Riyadh Park Mall (Riyadh) | http://localhost:5173/store/salt-riyadh-park-mall | Ready to collect, #48201. Green dot on its map pin |
-| Several active Pickup orders | SALT Nakheel Mall (Riyadh) | http://localhost:5173/store/salt-nakheel-mall-riyadh | Two swipeable cards: Ready to collect #51930, Being prepared #51947. Scroll down: the pill says 2 active orders and opens the Your active orders sheet |
+| Active Carhop order | SALT SAAD Square (Riyadh) | http://localhost:5173/store/salt-saad-square | Being prepared, #48310 |
+| Active Pickup order | SALT Riyadh Park Mall (Riyadh) | http://localhost:5173/store/salt-riyadh-park-mall | Ready to collect, #48201 |
+| Several active Pickup orders | SALT Nakheel Mall (Riyadh) | http://localhost:5173/store/salt-nakheel-mall-riyadh | Two swipeable cards: Ready to collect #51930, Being prepared #51947. |
 | Active Dine-in order | SALT Al Bahar Resort (Khobar) | http://localhost:5173/store/salt-al-bahar-resort-khobar | Order placed, #60412, waiting for confirmation |
-| Order just picked up | SALT Al Ula | http://localhost:5173/store/salt-al-ula | Enjoy your meal!, #70118 |
-| Opening soon | SALT Olaya (Khobar) | http://localhost:5173/store/salt-olaya-khobar | Amber "Opens at ... · in 25 min", Order ahead. Checkout offers tomorrow's times |
+| Order just picked up | SALT Al Ula | http://localhost:5173/store/salt-al-ula | Picked up, #70118 |
+| Opening soon | SALT Olaya (Khobar) | http://localhost:5173/store/salt-olaya-khobar | Amber "Opens at ... · in 25 min", Schedule order. Checkout offers tomorrow's times |
 | Closed, schedule order | SALT West Field (Dammam) | http://localhost:5173/store/salt-west-field | Grey "Closed · Opens tomorrow at ...", Schedule order. Checkout offers tomorrow's times only |
 | Online ordering paused | SALT JAKS Riyadh | http://localhost:5173/store/salt-jaks-riyadh | See menu, every add button disabled, no cart bar, no upsell |
 
-The orders on these branches are examples for the banner, pill and sheet; tapping
+The orders on these branches are examples for the banner; tapping
 one opens the order page placeholder. Real orders you place show the same way at
 the branch you ordered from.
 
@@ -132,16 +146,16 @@ browser.
 | Pickup, being prepared, paid partly with INDPT balance | http://localhost:5173/order/SLT-51947 | Payment: INDPT balance 40.00 and mada for the rest |
 | Pickup, ready (second order at the same branch) | http://localhost:5173/order/SLT-51930 | |
 | Carhop, being prepared | http://localhost:5173/order/SLT-48310 | Your car with Edit, sticky I'm here bar |
-| Dine-in, order placed | http://localhost:5173/order/SLT-60412 | Arrival row first: Dine-in · arriving at ..., "Prep starts at ..." |
-| Just picked up, paid fully with balance | http://localhost:5173/order/SLT-70118 | White hero "Enjoy your meal!" for 30 minutes, then "Picked up" with the date |
-| Past order, picked up | http://localhost:5173/order/SLT-23877 | Order number row, no chevron on the hero |
+| Dine-in, order placed | http://localhost:5173/order/SLT-60412 | Order scheduled tag, Arrival row first |
+| Just picked up, paid fully with balance | http://localhost:5173/order/SLT-70118 | White hero #70118 with a Picked up tag |
+| Past order, picked up | http://localhost:5173/order/SLT-23877 | Order number row in Order info |
 | Past order, cancelled and refunded | http://localhost:5173/order/SLT-24012 | Light red hero, Refund card, Status Refunded |
 
 **Carhop I'm here** (SLT-48310): tap I'm here. You are about 7 km away by
 default, so "You seem to be ... away" opens first (Get directions, or I'm here
 anyway). Add `?near=` with a closer place, or tap I'm here anyway, to reach
 "Where are you parked?": edit the car, add a parking spot, then tap I'm here,
-bring my order (1 second sending state). The hero turns to "On its way to you",
+bring my order (1 second sending state). The hero tag turns to "Delivering to you",
 the sticky bar goes away and the location card shows the parking spot and a
 disabled "Arrived at ..." button. Set the status back to Ready in the Order
 status sheet to try again.
@@ -149,15 +163,18 @@ status sheet to try again.
 ## Order status cases
 
 Every status a customer can meet, and where to see it. `U` is
-http://localhost:5173/store/salt-u-walk?cart=demo (log in, tap Checkout, then Place order).
+http://localhost:5173/store/salt-u-walk?cart=demo (tap Checkout, verify your number, then Place order).
 
 | Status | Where | How to see it |
 | --- | --- | --- |
-| Order placed (waiting for confirmation) | Branch banner and pill | SALT Al Bahar Resort, or `?order=placed` on any branch |
-| Being prepared | Branch banner and pill | SALT SAAD Square, or `?order=preparing` |
-| Ready to collect | Branch banner and pill | SALT Riyadh Park Mall, or `?order=ready` |
-| Enjoy your meal! (picked up) | Branch banner | SALT Al Ula, or `?order=done` |
-| Several active orders | Swipeable cards, pill, sheet | SALT Nakheel Mall, or `?order=multi` |
+| Scheduled (today or tomorrow) | Branch banner: Scheduled dine-in · Arrive 7:15 PM | SALT Al Bahar Resort, or `?order=scheduled` on any branch |
+| Order placed | Branch banner: Order placed · Arrive 7:15 PM | `?order=placed` on any branch |
+| Being prepared | Branch banner | SALT SAAD Square, or `?order=preparing` |
+| Ready to collect | Branch banner (green) | SALT Riyadh Park Mall, or `?order=ready` |
+| Carhop ready | Branch banner with an I’m here button that opens the arrival flow | SALT SAAD Square, then set the order to Ready in its Order status sheet |
+| Carhop delivering (after I’m here) | Branch banner: Delivering to you | `?order=delivering` |
+| Picked up, delivered or collected | Branch banner for 30 minutes | SALT Al Ula, or `?order=done` |
+| Several active orders | Swipeable cards | SALT Nakheel Mall, or `?order=multi` |
 | Order placed (splash) | Full screen after Place order | `U` |
 | Card declined | Sheet | `U&payment=declined` |
 | Not enough balance | Sheet | `U&payment=insufficient` |
@@ -174,7 +191,7 @@ http://localhost:5173/store/salt-u-walk?cart=demo (log in, tap Checkout, then Pl
 Try again (or Check payment status) always goes through on the second attempt.
 
 The store card shows one of four states, worked out from the real opening hours:
-Open (green, Order), Opening within an hour (amber, Order ahead), Closed (grey,
+Open (green, Order), Opening within an hour (amber, Schedule order), Closed (grey,
 Schedule) or Online ordering unavailable (grey, See menu). The branch page shows
 the same badge under the name, except when the branch is open.
 
@@ -190,9 +207,19 @@ to checkout.
 
 ### Find a store
 
-The **Location on / off** switch floating at the top of Find a store is a demo
-control: it turns the simulated location on or off without the URL. With location
-off there are no drive times, no "you" dot, and the list is sorted by name.
+The **gear** at the top right of the map opens **Test settings** (prototype only):
+
+- **Location access:** Ask (the permission screen), Allowed or Denied, without
+  the URL. With location off there are no drive times, no "you" dot, and the
+  list is sorted by name.
+- **You are in:** Riyadh, Al Khobar, Dubai or Ha'il (no store nearby); the same
+  as `near=` in the URL. Needs location allowed.
+- **Stores to try:** one branch per state (open, active Carhop / Pickup /
+  Dine-in order, several orders, opening soon, closed, just picked up, online
+  ordering paused). Tap one to open its branch page.
+
+The checkout has its own gear with test numbers, codes, log out and order type
+switches (on, disabled or hidden).
 
 In list view, the country chips (Saudi Arabia, UAE, Qatar, Kuwait, Bahrain) filter
 the list and search results. They start on your country (Saudi Arabia with
@@ -225,7 +252,7 @@ Empty states to try:
 | `order=placed` | Active order card under the name: Order placed | http://localhost:5173/store/salt-u-walk?order=placed |
 | `order=preparing` | Active order: Being prepared | http://localhost:5173/store/salt-u-walk?order=preparing |
 | `order=ready` | Active order: Ready to collect (green) | http://localhost:5173/store/salt-u-walk?order=ready |
-| `order=done` | Active order: Enjoy your meal! | http://localhost:5173/store/salt-u-walk?order=done |
+| `order=done` | Active order: Picked up | http://localhost:5173/store/salt-u-walk?order=done |
 | `order=multi` | Two active orders: swipeable cards with dots | http://localhost:5173/store/salt-u-walk?order=multi |
 | `menu=error` | Menu fails to load, with Try again | http://localhost:5173/store/salt-u-walk?menu=error |
 | `cart=demo` | Fills the cart with the Figma items and opens it | http://localhost:5173/store/salt-u-walk?cart=demo |
@@ -236,10 +263,8 @@ Leaving a branch with items in the cart (back arrow) asks before clearing it.
 
 **Active orders:** with an `order=` flag, or after you place a real order (it shows
 as Order placed for a few hours), the card replaces the opening status and order
-methods under the branch name. Scroll down the menu and a pill floats above the
-cart bar ("Order placed #48201", or "2 active orders · 1 ready"); tap it to open the
-order, or with several orders to open the Your active orders sheet. On Find a store,
-a store with an active order has a green dot on its map pin (try `/?location=granted&order=ready`).
+methods under the branch name; tap it to open the order. Several orders show as
+swipeable cards.
 
 **Item sheet upsell:** at the bottom of a customisable item (e.g. Salt Burger), Goes
 well with this offers extra items. Tapping + adds that item straight to the cart; the
@@ -250,8 +275,8 @@ left and a View cart button (Schedule order when the branch is closed). In the c
 sheet: the title shows the item count, there is no Edit on lines, Add order note
 opens a note field (kept with the checkout), Goes well with your order adds items
 with a toast, and setting a line to 0 removes it with a toast. The checkout button
-shows the total; VAT is included and noted under it. Tapping Checkout as a guest
-opens the login sheet, and after login you land on /checkout.
+shows the total; VAT is included and noted under it. Tapping Checkout always goes
+to /checkout; guests verify their number there.
 
 ### Payment results
 

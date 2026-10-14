@@ -10,7 +10,7 @@ import { Icon } from '../ui/Icon'
  * (pinch, trackpad, mouse wheel, double tap) and stays put otherwise. If tiles
  * cannot load, a muted grid shows instead.
  */
-export type MapPinData = { id: string; point: LatLng; label?: string; /** Green dot: an active order at this store. */ activeOrder?: boolean }
+export type MapPinData = { id: string; point: LatLng; label?: string }
 
 type StaticMapProps = {
   /** Where the map looks. Changing it recentres the map (zoom is kept). */
@@ -32,8 +32,11 @@ type StaticMapProps = {
   resetKey?: number
   /** Bump to move back to `center` keeping the zoom (e.g. a pin was chosen). */
   recenterKey?: number
-  /** Called with the new visual centre after the person pans or zooms (settled, debounced). */
-  onMoveEnd?: (center: LatLng) => void
+  /**
+   * Called after the person pans or zooms (settled, debounced) with the new visual
+   * centre and the ids of pins in the visible part of the map (above the bottom panel).
+   */
+  onMoveEnd?: (center: LatLng, visibleIds: string[]) => void
   className?: string
 }
 
@@ -113,9 +116,11 @@ export function StaticMap({
   /* ------------------------------ gestures ------------------------------ */
   const viewRef = useRef(view)
   const sizeRef = useRef(size)
+  const pinsRef = useRef(pins)
   useEffect(() => {
     viewRef.current = view
     sizeRef.current = size
+    pinsRef.current = pins
   })
   const draggedRef = useRef(false)
 
@@ -157,8 +162,25 @@ export function StaticMap({
   const moveTimer = useRef(0)
   const notifyMoved = useCallback(() => {
     window.clearTimeout(moveTimer.current)
-    moveTimer.current = window.setTimeout(() => onMoveEndRef.current?.(viewRef.current.center), 250)
-  }, [])
+    moveTimer.current = window.setTimeout(() => {
+      const v = viewRef.current
+      const sz = sizeRef.current
+      // The visible part: the map above the bottom panel (the visual centre sits offsetY above the middle).
+      const bottom = sz.h - 2 * offsetY
+      const c = project(v.center, v.zoom)
+      const ox = c.x - sz.w / 2
+      const oy = c.y - (sz.h / 2 - offsetY)
+      const visibleIds = (pinsRef.current ?? [])
+        .filter((p) => {
+          const q = project(p.point, v.zoom)
+          const x = q.x - ox
+          const y = q.y - oy
+          return x >= 0 && x <= sz.w && y >= 0 && y <= bottom
+        })
+        .map((p) => p.id)
+      onMoveEndRef.current?.(v.center, visibleIds)
+    }, 250)
+  }, [offsetY])
   useEffect(() => () => window.clearTimeout(moveTimer.current), [])
 
   /** Screen point (relative to the map box) of the visual centre. */
@@ -362,7 +384,6 @@ export function StaticMap({
           top={p.top}
           label={showLabels ? p.label : undefined}
           selected={p.id === selectedId}
-          activeOrder={p.activeOrder}
           onClick={onPinClick ? () => onPinClick(p.id) : undefined}
         />
       ))}
@@ -376,21 +397,19 @@ export function StaticMap({
 
 /**
  * Figma "Map pin": white circle with the logo (Default 36), black circle (Selected 48),
- * a tail under it, and a green dot when the store has an active order.
+ * a tail under it.
  */
 function MapPin({
   left,
   top,
   label,
   selected,
-  activeOrder,
   onClick,
 }: {
   left: number
   top: number
   label?: string
   selected: boolean
-  activeOrder?: boolean
   onClick?: () => void
 }) {
   const size = selected ? 48 : 36
@@ -398,7 +417,7 @@ function MapPin({
     <button
       type="button"
       onClick={onClick}
-      aria-label={label ? `${label}${activeOrder ? ', active order' : ''}${selected ? ', selected' : ''}` : 'Store'}
+      aria-label={label ? `${label}${selected ? ', selected' : ''}` : 'Store'}
       aria-pressed={selected}
       className={cn('absolute flex -translate-x-1/2 flex-col items-center', selected ? 'z-20' : 'z-10')}
       style={{ left, top: top - size - 6 }}
@@ -413,15 +432,6 @@ function MapPin({
       >
         {/* Placeholder until the SALT logo SVG is added (Figma Brand/Logo). */}
         <Icon name="store" size={selected ? 28 : 20} />
-        {activeOrder && (
-          <span
-            aria-hidden
-            className={cn(
-              'absolute -top-0.75 rounded-full bg-state-success ring-2 ring-surface-base',
-              selected ? '-end-0.75 size-4' : '-end-0.75 size-3.5',
-            )}
-          />
-        )}
       </span>
       <span
         aria-hidden

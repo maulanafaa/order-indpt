@@ -6,6 +6,7 @@
 import type { Store } from '../data/schema'
 import { hoursByStore } from './data'
 import { storeClock } from './hours'
+import { time12 } from './format'
 
 export const SLOT_MINUTES = 15
 /** As soon as possible: ready in about this long. */
@@ -26,11 +27,8 @@ const toMin = (t: string) => {
   return h * 60 + m
 }
 
-/** "18:45" from minutes (wraps past midnight). */
-export const clockTime = (minutes: number) => {
-  const m = ((Math.round(minutes) % 1440) + 1440) % 1440
-  return `${String(Math.floor(m / 60)).padStart(2, '0')}:${String(m % 60).padStart(2, '0')}`
-}
+/** "6:45 PM" from minutes (wraps past midnight). */
+export const clockTime = (minutes: number) => time12(minutes)
 
 /** Deterministic "Fully booked" slots: every fifth one, offset by the store. */
 const isFull = (store: Store, dayOffset: number, minutes: number) =>

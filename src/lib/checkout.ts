@@ -88,16 +88,39 @@ export const carText = (c: { make: string; model: string; colour: string; plate:
  * Tiles for the order method picker: unsupported methods are hidden,
  * paused ones go to the end (disabled).
  */
+/** Prototype test settings: an order type can be on, disabled (greyed out, placed last) or hidden. */
+export type MethodMode = 'on' | 'disabled' | 'hidden'
+
+export const useMethodOverrides = create<{ modes: Partial<Record<OrderMethod, MethodMode>>; setMode: (m: OrderMethod, mode: MethodMode) => void }>()(
+  persist(
+    (set) => ({
+      modes: {},
+      setMode: (m, mode) => set((s) => ({ modes: { ...s.modes, [m]: mode } })),
+    }),
+    { name: 'order-indpt-method-modes' },
+  ),
+)
+
+/**
+ * Order type tiles for the checkout (Figma 4.7): available ones first in the order
+ * Carhop, Pickup, Dine-in, then unavailable ones (paused, or disabled in the test
+ * settings). Hidden ones are left out.
+ */
 export function methodTiles(storeId: string): StoreService[] {
-  const all = supportedServices(storeId)
-  return [...all.filter((s) => s.availableNow), ...all.filter((s) => !s.availableNow)]
+  const order: OrderMethod[] = ['carhop', 'pickup', 'dineIn']
+  const modes = useMethodOverrides.getState().modes
+  const rank = (s: StoreService) => (s.availableNow ? 0 : 3) + order.indexOf(s.method)
+  return supportedServices(storeId)
+    .filter((s) => modes[s.method] !== 'hidden')
+    .map((s) => (modes[s.method] === 'disabled' ? { ...s, availableNow: false } : s))
+    .sort((x, y) => rank(x) - rank(y))
 }
 
-/** The leftmost available method, or the stored one when it is still available. */
+/** The stored method when it is still available, else Pickup, else the first available one. */
 export function resolveMethod(storeId: string, chosen: OrderMethod | null): OrderMethod | null {
-  const tiles = methodTiles(storeId)
-  if (chosen && tiles.some((t) => t.method === chosen && t.availableNow)) return chosen
-  return tiles.find((t) => t.availableNow)?.method ?? null
+  const tiles = methodTiles(storeId).filter((t) => t.availableNow)
+  if (chosen && tiles.some((t) => t.method === chosen)) return chosen
+  return (tiles.find((t) => t.method === 'pickup') ?? tiles[0])?.method ?? null
 }
 
 /** Default payment: the user's default card, else nothing (they must choose). */

@@ -116,7 +116,7 @@ Testing guide with demo phone numbers, stores, links and every error case: [TEST
 | Route | Screen |
 | --- | --- |
 | `/` | Find a store: location permission, map with pins, list view, search |
-| `/store/:slug` | Branch menu (`?item=salt-burger` opens the item sheet), cart sheet, login sheet, Leave store |
+| `/store/:slug` | Branch menu (`?item=salt-burger` opens the item sheet), cart sheet, Leave store |
 | `/store/:slug/info` | Store info: Details and Opening hours tabs |
 | `/store/:slug/search` | Menu search |
 | `/checkout` | Checkout for Pickup, Carhop and Dine-in: time dropdowns, car field, Apple Pay or inline card form, INDPT balance, expandable order summary, order placed, error sheets and blocking screens |
@@ -125,8 +125,8 @@ Scenario flags are read from the URL until the demo panel (Stage 6) sets them:
 
 - `location=prompt|denied|granted` permission state on Find a store (the floating Location switch also turns it on and off)
 - `near=riyadh|khobar|dubai|hail` where the demo user is (`hail` has no store nearby)
-- `store=closed|soon|paused` forces the branch closed (Schedule order), opening in 25 min (Order ahead) or not taking online orders (See menu, adds disabled)
-- `order=placed|preparing|ready|done|multi` shows an active order on the branch page (card, scrolled pill, sheet for several)
+- `store=closed|soon|paused` forces the branch closed (Schedule order), opening in 25 min (Schedule order) or not taking online orders (See menu, adds disabled)
+- `order=scheduled|placed|preparing|ready|delivering|done|multi` shows an active order on the branch page (card, or swipeable cards for several; `delivering` is a Carhop order)
 - `menu=error` shows the menu failed state with Try again
 - `cart=demo` on a branch page fills the cart with the Figma items and opens it (at `/store/salt-u-walk` one item is sold out and two add-ons get removed)
 - `user=new` logging in gives a user with nothing saved
@@ -142,7 +142,7 @@ Promo codes (seeds in `src/data/promos.json`, not shown at checkout until the ne
 
 Every fake network call (send code, verify, apply promo, save card or car, place order) waits 1 second so loading states show. Placed orders are saved to localStorage (`src/lib/orders.ts`) and open on the Order detail page (`/order/:id`). Demo branch orders come from `src/lib/demoOrders.ts`; statuses picked in the Order status sheet and I'm here details are kept in `src/lib/orderUpdates.ts`.
 
-Fake login (any +966 5X XXX XXXX number):
+Fake login, on checkout under Verify your number (any +966 5X XXX XXXX number):
 
 | Input | Result |
 | --- | --- |

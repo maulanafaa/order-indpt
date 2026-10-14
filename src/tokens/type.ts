@@ -30,7 +30,7 @@ export const textStyles: TextStyle[] = [
   { figma: 'Label/L', className: 'label-l', family: 'Figtree', weight: 600, size: 15, lineHeight: 20, usage: 'Menu item names, selected values', sample: 'Original Beef Slider' },
   { figma: 'Label/M', className: 'label-m', family: 'Figtree', weight: 500, size: 14, lineHeight: 20, usage: 'Form labels, options, chips', sample: 'Extra jalapeño' },
   { figma: 'Label/S', className: 'label-s', family: 'Figtree', weight: 600, size: 12, lineHeight: 16, letterSpacing: '0.01em', usage: 'Tags and badges', sample: 'Best seller' },
-  { figma: 'Caption', className: 'caption', family: 'Figtree', weight: 400, size: 12, lineHeight: 16, usage: 'Timestamps and meta', sample: 'Sat, 26 Sep · 09:14' },
+  { figma: 'Caption', className: 'caption', family: 'Figtree', weight: 400, size: 12, lineHeight: 16, usage: 'Timestamps and meta', sample: 'Sat, 26 Sep · 9:14 AM' },
   { figma: 'Overline', className: 'overline-text', family: 'Figtree', weight: 600, size: 11, lineHeight: 14, letterSpacing: '0.08em', upper: true, usage: 'Group labels', sample: 'Payment method' },
   { figma: 'Input', className: 'input-text', family: 'Figtree', weight: 400, size: 16, lineHeight: 24, usage: 'Input values. 16px stops iOS Safari from zooming', sample: '55 123 4567' },
   { figma: 'Price/L', className: 'price-l', family: 'Figtree', weight: 600, size: 16, lineHeight: 20, usage: 'Totals', sample: '132.30' },

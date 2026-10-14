@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { createPortal } from 'react-dom'
 import { useNavigate } from 'react-router'
 import { OrderSummary, PlaceOrderBar } from '../components/flows/checkout/OrderSummary'
@@ -10,15 +10,17 @@ import {
   StorePaused,
   type RecoverableError,
 } from '../components/flows/checkout/ResultScreens'
-import { LoginSheet } from '../components/flows/LoginSheet'
+import { TestSettingsSheet } from '../components/flows/checkout/TestSettingsSheet'
+import { VerifyNumber } from '../components/flows/checkout/VerifyNumber'
 import { useOverlayRoot } from '../components/layout/overlay'
 import {
   Button,
+  Collapse,
   EmptyState,
+  IconButton,
   Input,
   Notice,
   OrderTypeTile,
-  SectionCard,
   Select,
   Textarea,
   TopBar,
@@ -26,12 +28,12 @@ import {
   type SelectOption,
 } from '../components/ui'
 import type { Order, OrderMethod, Store, User } from '../data/schema'
-import { formatMobile, useAuth } from '../lib/auth'
+import { useAuth } from '../lib/auth'
 import { balanceUsed } from '../lib/balance'
 import { branchState } from '../lib/branch'
 import { round2, unitPrice, useCart } from '../lib/cart'
 import { cardLabel, emptyCard, validateCard, type CardFields } from '../lib/card'
-import { APPLE_PAY, CARD, carText, methodTiles, resolveMethod, resolvePayment, useCheckout, type TimeChoice } from '../lib/checkout'
+import { APPLE_PAY, CARD, carText, methodTiles, resolveMethod, resolvePayment, useCheckout, useMethodOverrides, type TimeChoice } from '../lib/checkout'
 import { availabilityFor, itemById, methodLabels, modifierById, storeBySlug } from '../lib/data'
 import { fakeRequest } from '../lib/fake'
 import { newOrderId, useOrders } from '../lib/orders'
@@ -39,12 +41,9 @@ import { useScenario, type CheckoutIssue, type PaymentResult } from '../lib/scen
 import { ASAP_MINUTES, asapMinutes, clockTime, slotDate, slotsFor } from '../lib/slots'
 import { useOrderTotals } from '../lib/totals'
 import { useNow } from '../lib/useNow'
+import { cn } from '../lib/cn'
 
-const methodMeta: Record<OrderMethod, { icon: IconName; caption: string }> = {
-  pickup: { icon: 'bag', caption: 'At the counter' },
-  carhop: { icon: 'car', caption: 'To your car' },
-  dineIn: { icon: 'cup', caption: 'At a table' },
-}
+const methodIcon: Record<OrderMethod, IconName> = { pickup: 'bag', carhop: 'car', dineIn: 'cup' }
 
 type Placed = { order: Order; storeName: string; readyText: string }
 
@@ -80,14 +79,7 @@ export default function CheckoutPage() {
       </>
     )
 
-  if (!user)
-    return (
-      <>
-        <TopBar title="Checkout" subtitle={store.name} onLeading={() => navigate(`/store/${store.slug}`)} />
-        <LoginSheet open onClose={() => navigate(`/store/${store.slug}`, { state: { openCart: true } })} onSuccess={() => {}} />
-      </>
-    )
-
+  // Not signed in: the number is verified on this page (Figma 4.7).
   return <CheckoutForm key={store.id} store={store} user={user} onPlaced={setPlaced} />
 }
 
@@ -105,7 +97,7 @@ const parseTime = (v: string): TimeChoice => {
   return { kind: 'later', dayOffset: d === 1 ? 1 : 0, minutes: m }
 }
 
-function CheckoutForm({ store, user, onPlaced }: { store: Store; user: User; onPlaced: (p: Placed) => void }) {
+function CheckoutForm({ store, user, onPlaced }: { store: Store; user: User | null; onPlaced: (p: Placed) => void }) {
   const navigate = useNavigate()
   const scenario = useScenario()
   const now = useNow()
@@ -113,6 +105,12 @@ function CheckoutForm({ store, user, onPlaced }: { store: Store; user: User; onP
   const co = useCheckout()
   const setCo = co.set
   const updateUser = useAuth((s) => s.updateUser)
+  // Remember user=new from the URL: it may be gone by the time the code is entered.
+  const [newUser, setNewUser] = useState(scenario.newUser)
+  /** Prototype test settings (gear on the top bar). */
+  const [testOpen, setTestOpen] = useState(false)
+  /** Payment and the button unlock once the number is verified (signed in). */
+  const verified = Boolean(user)
   const lines = useCart((s) => s.lines)
   const removeLine = useCart((s) => s.removeLine)
   const clearCart = useCart((s) => s.clear)
@@ -129,6 +127,8 @@ function CheckoutForm({ store, user, onPlaced }: { store: Store; user: User; onP
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [store.slug])
 
+  // Re-render when an order type is switched on or off in the test settings.
+  useMethodOverrides((s) => s.modes)
   const tiles = methodTiles(store.id)
   const method = resolveMethod(store.id, co.storeSlug === store.slug ? co.method : null)
   const [tried, setTried] = useState(false)
@@ -144,18 +144,18 @@ function CheckoutForm({ store, user, onPlaced }: { store: Store; user: User; onP
   const issueShown = useRef(false)
 
   /* -------------------------------- choices ------------------------------- */
-  const name = co.name ?? user.name
-  const savedCar = user.cars.find((c) => c.isDefault) ?? user.cars[0] ?? null
+  const name = co.name ?? user?.name ?? ''
+  const savedCar = user?.cars.find((c) => c.isDefault) ?? user?.cars[0] ?? null
   const car = co.carText ?? (savedCar ? carText(savedCar) : '')
   const payment = resolvePayment(co.payment, scenario.applePay)
-  const [card, setCard] = useState<CardFields>(() => emptyCard(user.name))
+  const [card, setCard] = useState<CardFields>(() => emptyCard(user?.name ?? ''))
 
   const balance = balanceUsed(scenario.balance, totals.total)
   const toPay = round2(Math.max(0, totals.total - balance))
   const paysOnline = toPay > 0
 
   // Pickup and carhop time: a dropdown of as soon as possible and today's / tomorrow's slots.
-  // As soon as possible, rounded up to the next 5 minutes ("19:15", not "19:09").
+  // As soon as possible, rounded up to the next 5 minutes ("7:15 PM", not "7:09 PM").
   const nowMinutes = asapMinutes(store, now) - ASAP_MINUTES
   const asap = Math.ceil((nowMinutes + ASAP_MINUTES) / 5) * 5
   // Open: as soon as possible and the rest of today. Closed (schedule order): tomorrow only.
@@ -186,10 +186,10 @@ function CheckoutForm({ store, user, onPlaced }: { store: Store; user: User; onP
   const dineValue = co.dineIn === 'asap' || dineSlots.some((s) => s.minutes === co.dineIn && !s.full) ? co.dineIn : 'asap'
   const dineMinutes = dineValue === 'asap' ? asap : dineValue
   const dineOptions: SelectOption[] = [
-    { value: 'asap', label: `${clockTime(asap)} · in about ${asap - nowMinutes} min` },
+    { value: 'asap', label: clockTime(asap) },
     ...dineSlots.map((s) => ({
       value: String(s.minutes),
-      label: `${clockTime(s.minutes)} · in about ${s.minutes - nowMinutes} min`,
+      label: clockTime(s.minutes),
       disabled: s.full,
       note: s.full ? 'Fully booked' : undefined,
     })),
@@ -198,7 +198,7 @@ function CheckoutForm({ store, user, onPlaced }: { store: Store; user: User; onP
   /* ------------------------------- validation ------------------------------ */
   const cardErrors = paysOnline && payment === CARD ? validateCard(card, now) : {}
   const errors = {
-    name: method !== 'carhop' && !name.trim() ? 'Please enter your name' : null,
+    name: verified && method !== 'carhop' && !name.trim() ? 'Please enter your name' : null,
     car: method === 'carhop' && !car.trim() ? 'Add your car details so staff can find you.' : null,
     time: method !== 'dineIn' && !timeValue ? 'No times left. Try another store.' : null,
   }
@@ -214,6 +214,7 @@ function CheckoutForm({ store, user, onPlaced }: { store: Store; user: User; onP
   }
 
   const finish = () => {
+    if (!user) return
     const placedAt = new Date()
     const dayOffset = method !== 'dineIn' && time.kind === 'later' ? time.dayOffset : 0
     const minutes = method === 'dineIn' ? dineMinutes : timeMinutes
@@ -290,6 +291,7 @@ function CheckoutForm({ store, user, onPlaced }: { store: Store; user: User; onP
   }
 
   const place = () => {
+    if (!verified) return
     setTried(true)
     const firstError =
       (['name', 'car', 'time'] as const).find((k) => errors[k]) ??
@@ -412,29 +414,8 @@ function CheckoutForm({ store, user, onPlaced }: { store: Store; user: User; onP
 
   /* -------------------------------- sections ------------------------------- */
   const onlyOne = tiles.length === 1
-  const contact = (
-    <SectionCard title="Contact">
-      <Input
-        id="field-name"
-        label="Name"
-        value={name}
-        onChange={(v) => setCo({ name: v })}
-        placeholder="Enter your name"
-        autoComplete="name"
-        error={show('name')}
-      />
-      <Input
-        label="Mobile number"
-        value={formatMobile(user.mobile)}
-        onChange={() => {}}
-        prefix="+966"
-        readOnly
-        helper="Verified · we’ll text you when it’s ready"
-      />
-    </SectionCard>
-  )
   const timeSection = (
-    <SectionCard title="Pickup time" id="field-time" className="gap-2.5">
+    <Section title="Pickup time" id="field-time" gap="gap-2.5" className="relative z-20">
       <Select
         options={timeOptions}
         value={timeValue}
@@ -443,14 +424,40 @@ function CheckoutForm({ store, user, onPlaced }: { store: Store; user: User; onP
         placeholder="No times available"
         error={show('time')}
       />
-    </SectionCard>
+    </Section>
+  )
+  // Figma 4.7: the number first; the name field appears once it is verified (filled in for a returning customer).
+  const verify = (
+    // Above the sections after it, so the country list opens over them.
+    <Section title="Verify your number" id="field-verify" className="relative z-10">
+      <VerifyNumber verifiedMobile={user?.mobile ?? null} newUser={newUser} />
+      {/* Pulled up by the section gap while closed, so the hidden name field takes no space. */}
+      <Collapse open={verified} className="-mx-0.5 -mt-3">
+        <div className="p-0.5 pt-3.5">
+          <Input
+            id="field-name"
+            value={name}
+            onChange={(v) => setCo({ name: v })}
+            placeholder="Enter your name"
+            aria-label="Your name"
+            autoComplete="name"
+            error={show('name')}
+          />
+        </div>
+      </Collapse>
+    </Section>
   )
 
   return (
-    <div className="flex min-h-full flex-col bg-surface-muted">
-      <TopBar title="Checkout" subtitle={store.name} onLeading={() => navigate(`/store/${store.slug}`)} />
+    <div className="flex min-h-full flex-col bg-surface-base">
+      <TopBar
+        title="Checkout"
+        subtitle={store.name}
+        onLeading={() => navigate(`/store/${store.slug}`)}
+        trailing={<IconButton icon="settings" label="Test settings" onClick={() => setTestOpen(true)} />}
+      />
 
-      <main className="flex flex-col gap-4 px-4 pt-4 pb-6">
+      <main className="flex flex-col gap-6 p-4">
         {!onlyOne && (
           <section aria-labelledby="method-title" className="flex flex-col gap-4">
             <h1 id="method-title" className="title-l text-text-primary">
@@ -460,9 +467,8 @@ function CheckoutForm({ store, user, onPlaced }: { store: Store; user: User; onP
               {tiles.map((t) => (
                 <OrderTypeTile
                   key={t.method}
-                  icon={methodMeta[t.method].icon}
+                  icon={methodIcon[t.method]}
                   label={methodLabels[t.method]}
-                  caption={t.availableNow ? methodMeta[t.method].caption : 'Unavailable'}
                   selected={method === t.method}
                   disabled={!t.availableNow}
                   onSelect={() => setCo({ method: t.method })}
@@ -481,72 +487,62 @@ function CheckoutForm({ store, user, onPlaced }: { store: Store; user: User; onP
         {/* Keyed by method: switching remounts every section below so they fade up in turn. */}
         <div
           key={method ?? 'none'}
-          className="flex flex-col gap-4 *:animate-content-in *:motion-reduce:animate-none [&>*:nth-child(2)]:[animation-delay:60ms] [&>*:nth-child(3)]:[animation-delay:120ms] [&>*:nth-child(4)]:[animation-delay:180ms]"
+          className="flex flex-col gap-8 *:animate-content-in *:motion-reduce:animate-none [&>*:nth-child(2)]:[animation-delay:60ms] [&>*:nth-child(3)]:[animation-delay:120ms] [&>*:nth-child(4)]:[animation-delay:180ms] [&>*:nth-child(5)]:[animation-delay:240ms]"
         >
-          {method === 'pickup' && (
-            <>
-              {contact}
-              {timeSection}
-            </>
-          )}
-
           {method === 'carhop' && (
-            <>
-              <SectionCard title="Your car" id="field-car" className="gap-2.5">
-                <Textarea
-                  value={car}
-                  onChange={(v) => setCo({ carText: v })}
-                  placeholder="e.g. White Toyota Land Cruiser, plate RKD 4821"
-                  aria-label="Your car"
-                  maxLength={80}
-                  error={show('car')}
-                  helper={
-                    co.carText === null && savedCar
-                      ? 'Saved from your last carhop order'
-                      : user.cars.length === 0
-                        ? 'We’ll save this for your next carhop order.'
-                        : undefined
-                  }
-                />
-              </SectionCard>
-              {timeSection}
-            </>
+            <Section title="Your car" id="field-car" gap="gap-2.5">
+              <Textarea
+                value={car}
+                onChange={(v) => setCo({ carText: v })}
+                placeholder="e.g. White Toyota Land Cruiser, plate RKD 4821"
+                aria-label="Your car"
+                maxLength={80}
+                error={show('car')}
+                helper={
+                  co.carText === null && savedCar
+                    ? 'Saved from your last carhop order'
+                    : !user || user.cars.length === 0
+                      ? 'We’ll save this for your next carhop order.'
+                      : undefined
+                }
+              />
+            </Section>
           )}
 
-          {method === 'dineIn' && (
-            <>
-              <SectionCard title="When will you arrive?" id="field-time">
-                <Select
-                  options={dineOptions}
-                  value={String(dineValue)}
-                  onChange={(v) => setCo({ dineIn: v === 'asap' ? 'asap' : Number(v) })}
-                  leadingIcon="clock"
-                />
-                <Notice tone="neutral" icon="clock" size="compact">
-                  We’ll start preparing at {clockTime(Math.max(dineMinutes - 10, nowMinutes))} so it’s hot when you sit down at{' '}
-                  {clockTime(dineMinutes)}. Show your order number at the counter.
-                </Notice>
-              </SectionCard>
-              {contact}
-            </>
+          {method === 'dineIn' ? (
+            <Section title="When will you arrive?" id="field-time" gap="gap-2.5" className="relative z-20">
+              <Select
+                options={dineOptions}
+                value={String(dineValue)}
+                onChange={(v) => setCo({ dineIn: v === 'asap' ? 'asap' : Number(v) })}
+                leadingIcon="clock"
+              />
+            </Section>
+          ) : (
+            timeSection
           )}
 
-          <SectionCard title={balance > 0 ? 'Payment' : 'Payment method'} id="field-payment">
-            {balance > 0 && <BalanceRow amount={balance} />}
-            {paysOnline && (
-              <>
-                {balance > 0 && <p className="body-s text-text-secondary">Pay the rest with</p>}
-                <PaymentOptions
-                  applePay={scenario.applePay}
-                  value={payment}
-                  onChange={(v) => setCo({ payment: v })}
-                  card={card}
-                  onCard={(patch) => setCard((c) => ({ ...c, ...patch }))}
-                  errors={tried ? cardErrors : {}}
-                />
-              </>
-            )}
-          </SectionCard>
+          {verify}
+
+          {/* Unlocks once the number is verified. */}
+          <Section title={balance > 0 ? 'Payment' : 'Payment method'} id="field-payment">
+            <div inert={!verified} className={cn('flex flex-col gap-3 transition-opacity duration-300 ease-card', !verified && 'opacity-40')}>
+              {balance > 0 && <BalanceRow amount={balance} />}
+              {paysOnline && (
+                <>
+                  {balance > 0 && <p className="body-s text-text-secondary">Pay the rest with</p>}
+                  <PaymentOptions
+                    applePay={scenario.applePay}
+                    value={payment}
+                    onChange={(v) => setCo({ payment: v })}
+                    card={card}
+                    onCard={(patch) => setCard((c) => ({ ...c, ...patch }))}
+                    errors={tried ? cardErrors : {}}
+                  />
+                </>
+              )}
+            </div>
+          </Section>
 
           <OrderSummary
             lines={totals.payable}
@@ -562,13 +558,9 @@ function CheckoutForm({ store, user, onPlaced }: { store: Store; user: User; onP
         </div>
       </main>
 
-      <PlaceOrderBar
-        applePay={paysOnline && payment === APPLE_PAY}
-        label="Place order"
-        amount={paysOnline ? toPay : null}
-        loading={placing}
-        onPlace={place}
-      />
+      <PlaceOrderBar applePay={paysOnline && payment === APPLE_PAY} label="Place order" disabled={!verified} loading={placing} onPlace={place} />
+
+      <TestSettingsSheet storeId={store.id} open={testOpen} onClose={() => setTestOpen(false)} newUser={newUser} onNewUser={setNewUser} />
 
       <CheckoutErrorSheet error={errorContent(errorKind)} open={errorOpen} onClose={closeError} />
 
@@ -588,5 +580,15 @@ function CheckoutForm({ store, user, onPlaced }: { store: Store; user: User; onP
           overlay,
         )}
     </div>
+  )
+}
+
+/** A checkout section from Figma 4.7: Title/L heading over its fields, no card. */
+function Section({ title, id, gap = 'gap-3', className, children }: { title: string; id?: string; gap?: string; className?: string; children: ReactNode }) {
+  return (
+    <section id={id} className={cn('flex scroll-mt-20 flex-col', gap, className)}>
+      <h2 className="title-l text-text-primary">{title}</h2>
+      {children}
+    </section>
   )
 }

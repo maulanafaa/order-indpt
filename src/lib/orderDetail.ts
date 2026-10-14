@@ -4,11 +4,11 @@
  * (Figma 110:723 Status hero, 110:687 Order timeline).
  */
 import type { Order, OrderMethod } from '../data/schema'
-import type { IconName } from '../components/ui/Icon'
 import { seedOrders } from './data'
 import { demoOrders } from './demoOrders'
 import { applyPatch, useOrderUpdates } from './orderUpdates'
 import { useOrders } from './orders'
+import { time12 } from './format'
 
 /** The order with this id, or null. */
 export function useOrder(id: string | undefined): Order | null {
@@ -34,14 +34,9 @@ export function stageOf(o: Order): Stage {
   }
 }
 
-const pad = (n: number) => String(n).padStart(2, '0')
-/** "18:41" in this device's time. */
-export const clock = (iso?: string | null) => {
-  if (!iso) return ''
-  const d = new Date(iso)
-  return `${pad(d.getHours())}:${pad(d.getMinutes())}`
-}
-/** "Tue, 29 Sep 2026 · 18:41". */
+/** "6:41 PM" in this device's time. */
+export const clock = (iso?: string | null) => time12(iso)
+/** "Tue, 29 Sep 2026 · 6:41 PM". */
 export function dateTime(iso?: string | null) {
   if (!iso) return ''
   const d = new Date(iso)
@@ -52,48 +47,27 @@ export function dateTime(iso?: string | null) {
 
 const at = (o: Order, status: Order['status']) => o.timeline.find((t) => t.status === status)?.at
 
-/** "We’ll start preparing" time for dine-in: 10 minutes before the table time. */
-const prepStart = (o: Order) => (o.readyAt ? clock(new Date(new Date(o.readyAt).getTime() - 10 * 60_000).toISOString()) : '')
+export type Hero = { label: string; tone: HeroTone }
 
-/** Orders picked up within this window still show "Enjoy your meal!". */
-const RECENT_MS = 30 * 60_000
+const readyHero: Record<OrderMethod, string> = { pickup: 'Ready to collect', carhop: 'Ready for you', dineIn: 'Ready at the counter' }
+const doneHero: Record<OrderMethod, string> = { pickup: 'Picked up', carhop: 'Delivered', dineIn: 'Collected' }
 
-export type Hero = { label: string; icon: IconName; subtitle: string; tone: HeroTone; active: boolean }
-
-/** Status hero: label with icon, and one subtitle line that holds any time. */
-export function heroFor(o: Order, now = Date.now()): Hero {
-  const m = o.method
+/** Figma "Status hero" (Status × Order type): the order number with a status tag. */
+export function heroFor(o: Order): Hero {
   switch (stageOf(o)) {
     case 'placed':
-      return {
-        label: 'Order placed',
-        icon: 'desk-bell',
-        subtitle: m === 'dineIn' && o.readyAt ? `Prep starts at ${prepStart(o)}` : 'Waiting for confirmation',
-        tone: 'dark',
-        active: true,
-      }
+      return { label: o.scheduled ? 'Order scheduled' : 'Order placed', tone: 'dark' }
     case 'preparing':
-      return { label: 'Being prepared', icon: 'chef-hat', subtitle: 'We’ll let you know when it’s ready', tone: 'dark', active: true }
+      return { label: 'Being prepared', tone: 'dark' }
     case 'ready':
-      if (m === 'carhop') return { label: 'Ready for you', icon: 'car', subtitle: 'Tap I’m here when you arrive', tone: 'success', active: true }
-      return { label: m === 'dineIn' ? 'Ready at the counter' : 'Ready to collect', icon: 'bag', subtitle: 'Show your order number', tone: 'success', active: true }
+      return { label: readyHero[o.method], tone: 'success' }
     case 'arrived':
-      return { label: 'On its way to you', icon: 'car', subtitle: 'Stay in your car', tone: 'success', active: true }
-    case 'done': {
-      const recent = o.completedAt && now - new Date(o.completedAt).getTime() < RECENT_MS
-      const verb = m === 'carhop' ? 'Delivered to your car' : m === 'dineIn' ? 'Collected' : 'Picked up'
-      return recent
-        ? { label: 'Enjoy your meal!', icon: 'check', subtitle: `${verb} at ${clock(o.completedAt)}`, tone: 'base', active: false }
-        : { label: verb, icon: 'check', subtitle: dateTime(o.completedAt ?? o.placedAt), tone: 'base', active: false }
-    }
+      // Carhop after I'm here (same words as the Active order card).
+      return { label: 'Delivering to you', tone: 'dark' }
+    case 'done':
+      return { label: doneHero[o.method], tone: 'base' }
     case 'cancelled':
-      return {
-        label: 'Order cancelled',
-        icon: 'x',
-        subtitle: o.refund ? 'Refunded to your INDPT balance' : 'Refunded in full',
-        tone: 'error',
-        active: false,
-      }
+      return { label: 'Order cancelled', tone: 'error' }
   }
 }
 

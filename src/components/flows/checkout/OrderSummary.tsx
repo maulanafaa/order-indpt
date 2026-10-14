@@ -1,3 +1,4 @@
+import ApplePayMark from '../../../assets/brands/apple-pay-mark.svg?react'
 import { useId, type ReactNode } from 'react'
 import { lineTotal, type CartLine } from '../../../lib/cart'
 import { cn } from '../../../lib/cn'
@@ -27,13 +28,13 @@ type OrderSummaryProps = {
  * Figma "OrderSummary" (38:2960, 226:16896, 435:67329, 582:39105): item count with a
  * chevron that shows the item list, the cart's order note, the Subtotal and VAT
  * breakdown, then Total. With INDPT balance: Total, balance and To pay.
- * 16 px between blocks; the note box stands in for the first divider.
+ * 16 px between blocks. The note shows with the item list.
  */
 export function OrderSummary({ lines, count, subtotal, vat, total, note, balance, open, onToggle }: OrderSummaryProps) {
   const listId = useId()
   const hasNote = Boolean(note.trim())
   return (
-    <section aria-labelledby={`${listId}-title`} className="flex flex-col gap-4 rounded-8 bg-surface-base p-4">
+    <section aria-labelledby={`${listId}-title`} className="flex flex-col gap-4">
       <div className="flex items-center justify-between gap-3">
         <h2 id={`${listId}-title`} className="title-l text-text-primary">
           Order summary
@@ -63,13 +64,11 @@ export function OrderSummary({ lines, count, subtotal, vat, total, note, balance
             </li>
           ))}
         </ul>
+        {/* The order note opens and closes with the items. */}
+        {hasNote && <p className="mt-4 rounded-4 bg-surface-muted p-3 body-s break-words text-text-primary">Note: {note.trim()}</p>}
       </Collapse>
 
-      {hasNote ? (
-        <p className="rounded-4 bg-surface-muted p-3 body-s break-words text-text-primary">Note: {note.trim()}</p>
-      ) : (
-        <Divider />
-      )}
+      <Divider />
 
       <div className="flex flex-col gap-2.5">
         <Row label="Subtotal">
@@ -117,34 +116,39 @@ function Row({ label, strong, tone, children }: { label: string; strong?: boolea
 }
 
 /**
- * Figma "PlaceOrderBar": Type=Apple Pay (black Pay with Apple Pay button) or
- * Type=Default (Place order · price, centred). No caption.
+ * Figma "CTA bar" at the end of the checkout (not sticky): Pay with Apple Pay, or
+ * Place order. Disabled until the number is verified.
  */
 export function PlaceOrderBar({
   applePay,
   label,
-  amount,
+  disabled,
   loading,
   onPlace,
 }: {
   applePay: boolean
   label: string
-  /** Shown after the label; left out when nothing is left to pay. */
-  amount: number | null
+  disabled: boolean
   loading: boolean
   onPlace: () => void
 }) {
   return (
-    <div className="sticky bottom-0 z-20 mt-auto bg-surface-base px-4 pt-3 pb-[max(28px,env(safe-area-inset-bottom))] shadow-bar">
-      {applePay ? (
+    <div className="mt-auto bg-surface-base px-4 pt-3 pb-[max(28px,env(safe-area-inset-bottom))]">
+      {applePay && !disabled ? (
         <button
           type="button"
           onClick={onPlace}
           disabled={loading}
           data-loading={loading || undefined}
-          className="relative flex h-13 w-full items-center justify-center rounded-full bg-surface-inverse text-[17px] leading-none font-semibold text-text-on-inverse data-loading:pointer-events-none"
+          className="relative flex h-13 w-full items-center justify-center rounded-full bg-surface-inverse text-text-on-inverse active:opacity-85 data-loading:pointer-events-none"
         >
-          <span className={cn('font-sans', loading && 'invisible')}>Pay with Apple Pay</span>
+          {/* Figma "Apple Pay button": "Pay with" (CTA/L) and the Apple Pay mark. */}
+          <span aria-hidden className={cn('flex items-center gap-2 px-1', loading && 'invisible')}>
+            <span className="cta-l">Pay with</span>
+            {/* Nudged down so the mark sits on the same baseline as "Pay with" (measured: 2.5 px high when centred). */}
+            <ApplePayMark width={39} height={16} className="translate-y-[2.5px]" />
+          </span>
+          <span className="sr-only">Pay with Apple Pay</span>
           {loading && (
             <span className="absolute inset-0 flex items-center justify-center">
               <Spinner />
@@ -153,16 +157,8 @@ export function PlaceOrderBar({
           )}
         </button>
       ) : (
-        <Button fullWidth loading={loading} onClick={onPlace}>
-          <span className="inline-flex items-center gap-2">
-            {label}
-            {amount !== null && (
-              <>
-                <span aria-hidden>·</span>
-                <Price amount={amount} size="cta" tone="inverse" />
-              </>
-            )}
-          </span>
+        <Button fullWidth disabled={disabled} loading={loading} onClick={onPlace}>
+          {label}
         </Button>
       )}
     </div>

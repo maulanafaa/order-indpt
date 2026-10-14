@@ -6,7 +6,7 @@ import { CartBar } from '../components/flows/CartBar'
 import { ItemSheet } from '../components/flows/ItemSheet'
 import { MenuItemRow } from '../components/flows/MenuItemRow'
 import { MenuTile } from '../components/flows/MenuTile'
-import { ActiveOrderBanner, ActiveOrderPill, ActiveOrdersSheet } from '../components/flows/ActiveOrders'
+import { ActiveOrderBanner } from '../components/flows/ActiveOrders'
 import { OrderMethods } from '../components/flows/OrderMethods'
 import { useItemParam } from '../components/flows/useItemParam'
 import { useStoreCart } from '../components/flows/useStoreCart'
@@ -15,7 +15,6 @@ import { Badge, Button, EmptyState, Icon, IconButton, Tabs, TopBar } from '../co
 import type { Item, Store } from '../data/schema'
 import { cn } from '../lib/cn'
 import { useActiveOrders, type ActiveOrder } from '../lib/activeOrders'
-import { useCart } from '../lib/cart'
 import { upsellItems } from '../lib/upsell'
 import { branchBadge, branchState } from '../lib/branch'
 import { availabilityFor, categories, items, itemsByCategory, storeBySlug } from '../lib/data'
@@ -60,12 +59,9 @@ function StoreMenu({ store }: { store: Store }) {
   const status = { open: branch.kind === 'open' }
   const paused = branch.kind === 'paused'
   const activeOrders = useActiveOrders(store.id)
-  const cartCount = useCart((c) => (c.storeSlug === store.slug ? c.lines.length : 0))
-  const [ordersSheet, setOrdersSheet] = useState(false)
-  const openOrder = (o: ActiveOrder) => {
-    setOrdersSheet(false)
-    navigate(`/order/${o.id}`)
-  }
+  const openOrder = (o: ActiveOrder) => navigate(`/order/${o.id}`)
+  // Carhop ready: I'm here opens the order with the arrival flow started.
+  const imHere = (o: ActiveOrder) => navigate(`/order/${o.id}?here=1`)
   const availability = useMemo(() => availabilityFor(store.id), [store.id])
   const { item, lastItem, openItem, closeItem } = useItemParam()
   const cart = useStoreCart(store, openItem)
@@ -208,7 +204,7 @@ function StoreMenu({ store }: { store: Store }) {
         )}
       </header>
       {activeOrders.length > 0 && (
-        <ActiveOrderBanner orders={activeOrders} onOpen={openOrder} />
+        <ActiveOrderBanner orders={activeOrders} onOpen={openOrder} onImHere={imHere} />
       )}
 
       {scenario.menuError ? (
@@ -259,29 +255,6 @@ function StoreMenu({ store }: { store: Store }) {
       )}
 
       {!paused && <CartBar storeSlug={store.slug} closed={!status.open} soldOutItems={availability.soldOutItems} onOpen={flow.openCart} />}
-
-      {/* Floating active order pill once the header has scrolled away (Figma "Active order", Style = Pill). */}
-      {overlay &&
-        activeOrders.length > 0 &&
-        createPortal(
-          <div
-            aria-hidden={!stuck}
-            inert={!stuck}
-            className={cn(
-              'pointer-events-none absolute inset-x-0 z-30 flex justify-center transition-[opacity,translate] duration-[450ms] ease-sheet',
-              stuck ? 'opacity-100' : 'translate-y-3 opacity-0',
-            )}
-            style={{ bottom: cartCount > 0 && !paused ? 104 : 24 }}
-          >
-            <ActiveOrderPill
-              orders={activeOrders}
-              className="pointer-events-auto"
-              onClick={() => (activeOrders.length > 1 ? setOrdersSheet(true) : openOrder(activeOrders[0]))}
-            />
-          </div>,
-          overlay,
-        )}
-      <ActiveOrdersSheet open={ordersSheet} orders={activeOrders} onClose={() => setOrdersSheet(false)} onOpen={openOrder} />
 
       {/* Sticky bar: compact header (shown when scrolling up) + category tabs. */}
       {overlay &&

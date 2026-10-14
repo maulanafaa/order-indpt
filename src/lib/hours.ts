@@ -4,6 +4,7 @@
  */
 import type { Store, StoreHours } from '../data/schema'
 import { hoursByStore } from './data'
+import { time12 } from './format'
 
 const tzOffsetHours: Record<string, number> = {
   'Saudi Arabia': 3,
@@ -38,7 +39,7 @@ function interval(row: StoreHours) {
 
 export type OpenStatus = {
   open: boolean
-  /** "Open · until 02:00", "Open 24 hours", "Closed · Opens at 13:00", "Closed · Opens Sun at 13:00" */
+  /** "Open · until 2:00 AM", "Open 24 hours", "Closed · Opens at 1:00 PM", "Closed · Opens Sun at 1:00 PM" */
   label: string
   /** When closed: next opening time, "13:00". */
   opensAt?: string
@@ -56,12 +57,12 @@ export function openStatus(store: Store, now = new Date(), forceClosed = false):
     if (today) {
       const { start, end } = interval(today)
       if (end - start >= 1440) return { open: true, label: 'Open 24 hours' }
-      if (minutes >= start && minutes < end) return { open: true, label: `Open · until ${today.closes === '24:00' ? '00:00' : today.closes}` }
+      if (minutes >= start && minutes < end) return { open: true, label: `Open · until ${time12(today.closes)}` }
     }
     const yesterday = byDay.get((day + 6) % 7)
     if (yesterday) {
       const { end } = interval(yesterday)
-      if (end > 1440 && minutes < end - 1440) return { open: true, label: `Open · until ${yesterday.closes}` }
+      if (end > 1440 && minutes < end - 1440) return { open: true, label: `Open · until ${time12(yesterday.closes)}` }
     }
   }
 
@@ -71,7 +72,8 @@ export function openStatus(store: Store, now = new Date(), forceClosed = false):
     const r = byDay.get(d)
     if (!r) continue
     if (i === 0 && toMin(r.opens) <= minutes) continue
-    const when = i === 0 ? `at ${r.opens}` : i === 1 ? `tomorrow at ${r.opens}` : `${dayNames[d].slice(0, 3)} at ${r.opens}`
+    const at = time12(r.opens)
+    const when = i === 0 ? `at ${at}` : i === 1 ? `tomorrow at ${at}` : `${dayNames[d].slice(0, 3)} at ${at}`
     return { open: false, label: `Closed · Opens ${when}`, opensAt: r.opens, opensInMin: i * 1440 + toMin(r.opens) - minutes }
   }
   return { open: false, label: 'Closed' }
@@ -83,7 +85,7 @@ export function weekHours(store: Store) {
   const today = storeClock(store).day
   return dayNames.map((name, day) => {
     const r = rows.find((x) => x.day === day)
-    const text = !r ? 'Closed' : r.opens === '00:00' && r.closes === '24:00' ? 'Open 24 hours' : `${r.opens} – ${r.closes}`
+    const text = !r ? 'Closed' : r.opens === '00:00' && r.closes === '24:00' ? 'Open 24 hours' : `${time12(r.opens)} – ${time12(r.closes)}`
     return { day, name, text, isToday: day === today }
   })
 }

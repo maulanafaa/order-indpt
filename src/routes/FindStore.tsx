@@ -1,11 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate } from 'react-router'
-import { LocationToggle } from '../components/flows/LocationToggle'
+import { FindStoreTestSheet } from '../components/flows/FindStoreTestSheet'
 import { StaticMap } from '../components/flows/StaticMap'
 import { StoreCard } from '../components/flows/StoreCard'
 import { Button, Chip, EmptyState, Icon, IconButton, SearchField, ViewToggle } from '../components/ui'
 import type { Store } from '../data/schema'
-import { useActiveOrders } from '../lib/activeOrders'
 import { branchState } from '../lib/branch'
 import { cn } from '../lib/cn'
 import { citiesText, countries } from '../lib/countries'
@@ -36,13 +35,15 @@ export default function FindStorePage() {
   const now = useNow()
   const permission = useLocationStore((s) => s.permission)
   const setPermission = useLocationStore((s) => s.setPermission)
-  const activeOrders = useActiveOrders()
   const [view, setView] = useState<View>('map')
+  const [testOpen, setTestOpen] = useState(false)
   const [query, setQuery] = useState('')
   const [selectedId, setSelectedId] = useState<string | null>(null)
   const [mapCenter, setMapCenter] = useState<LatLng | null>(null)
   /** Where the person moved the map to. Cards then show the branches nearest that area. */
   const [area, setArea] = useState<LatLng | null>(null)
+  /** Stores in the visible part of the map after the last pan or zoom. */
+  const [inView, setInView] = useState(0)
   /** Bumped to recentre (pin chosen) or reset (my location) the map after the person moved it. */
   const [recenterKey, setRecenterKey] = useState(0)
   const [resetKey, setResetKey] = useState(0)
@@ -83,7 +84,6 @@ export default function FindStorePage() {
   const country = pickedCountry ?? userCountry ?? 'Saudi Arabia'
 
   const stateOf = (s: Store) => branchState(s, now, null, scenario.demo)
-  const activeStoreIds = useMemo(() => new Set(activeOrders.map((o) => o.storeId)), [activeOrders])
 
   const ranked: Ranked[] = useMemo(() => {
     const rows = stores.map((store) => ({ store, km: user ? distanceKm(user, store) : null }))
@@ -113,7 +113,9 @@ export default function FindStorePage() {
     setSelectedId(nearestToMe)
   }
   const noneNearby = Boolean(user && !area && nearby.length === 0)
+  // Nothing close to the map centre: either the map shows stores further out (zoomed out), or none at all.
   const areaEmpty = Boolean(area && nearby.length === 0)
+  const zoomedOut = areaEmpty && inView > 0
   const listMode = view === 'list' || Boolean(q)
   const onPermissionScreen = permission === 'prompt'
 
@@ -137,8 +139,9 @@ export default function FindStorePage() {
     return glideScroll(row, to)
   }, [selectedId, shownKey])
 
-  const moveArea = (c: LatLng) => {
+  const moveArea = (c: LatLng, visibleIds: string[]) => {
     setArea(c)
+    setInView(visibleIds.length)
     // A store that is no longer in the cards should not stay selected.
     if (selectedId) {
       const s = stores.find((x) => x.id === selectedId)
@@ -184,20 +187,28 @@ export default function FindStorePage() {
   }
 
   const center = mapCenter ?? user ?? DEFAULT_CENTER
-  const pins = stores.map((s) => ({ id: s.id, point: { lat: s.lat, lng: s.lng }, label: s.name, activeOrder: activeStoreIds.has(s.id) }))
+  const pins = stores.map((s) => ({ id: s.id, point: { lat: s.lat, lng: s.lng }, label: s.name }))
 
-  /** Demo switch over the map. It fades away when the list covers the map. */
+  /** Prototype test settings: a gear at the top right of the map. It fades away when the list covers the map. */
   const toggle = (hidden = false) => (
     <div
       aria-hidden={hidden || undefined}
       inert={hidden}
       className={cn(
-        'pointer-events-none absolute inset-x-0 top-0 z-20 flex justify-center p-3 transition-[opacity,translate] duration-[450ms] ease-sheet',
+        'absolute end-4 top-4 z-20 transition-[opacity,translate] duration-[450ms] ease-sheet',
         hidden && '-translate-y-3 opacity-0',
       )}
     >
-      <LocationToggle on={located} onChange={(on) => (on && onPermissionScreen ? allow() : toggleLocation(on))} />
+      <IconButton icon="settings" label="Test settings" variant="elevated" onClick={() => setTestOpen(true)} />
     </div>
+  )
+  const testSheet = (
+    <FindStoreTestSheet
+      open={testOpen}
+      onClose={() => setTestOpen(false)}
+      permission={permission}
+      onPermission={(p) => (p === 'prompt' ? setPermission('prompt') : toggleLocation(p === 'granted'))}
+    />
   )
 
   /* ---------------------------- permission sheet ---------------------------- */
@@ -207,6 +218,7 @@ export default function FindStorePage() {
         <StaticMap center={center} zoom={11} pins={pins} showLabels={false} className="absolute inset-0" />
         <div className="absolute inset-0 bg-overlay backdrop-blur-[2px]" />
         {toggle()}
+        {testSheet}
         <section className="absolute inset-x-0 bottom-0 z-10 flex flex-col bg-surface-base px-4 pt-2.5 pb-8 animate-sheet-in">
           <span aria-hidden className="mx-auto h-1 w-9 rounded-2 bg-border-default" />
           <Icon name="locate" size={40} className="mt-4" />
@@ -256,6 +268,7 @@ export default function FindStorePage() {
         className="absolute inset-0"
       />
       {toggle(list)}
+      {testSheet}
       {user && (
         <div
           inert={list}
@@ -359,8 +372,20 @@ export default function FindStorePage() {
           ) : areaEmpty ? (
             <>
               <div className="flex flex-col gap-1 px-4">
-                <h2 className="title-xl text-text-primary">No SALT in this area</h2>
-                <p className="body-m text-text-secondary">Try moving the map, zooming out, or searching for a city.</p>
+                {zoomedOut ? (
+                  <>
+                    <h2 className="title-xl text-text-primary">Zoom in to see stores</h2>
+                    <p className="body-m text-text-secondary">
+                      {inView === 1 ? 'There’s a SALT store' : `There are ${inView} SALT stores`} on the map. Zoom in, move the map or
+                      search for an area to see {inView === 1 ? 'it' : 'them'}.
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    <h2 className="title-xl text-text-primary">No SALT in this area</h2>
+                    <p className="body-m text-text-secondary">Try moving the map, zooming out, or searching for a city.</p>
+                  </>
+                )}
               </div>
               {user && (
                 <div className="px-4">
