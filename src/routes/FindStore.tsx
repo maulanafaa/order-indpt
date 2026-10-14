@@ -96,13 +96,25 @@ export default function FindStorePage() {
 
   /** Cards on the map: branches near the area you moved to, near you, or near the default centre. */
   const focus = area ?? user ?? DEFAULT_CENTER
-  const nearby = useMemo(
+  const byDistance = useMemo(
     () =>
       [...ranked]
         .filter((r) => distanceKm(focus, r.store) <= NEARBY_KM)
         .sort((a, b) => distanceKm(focus, a.store) - distanceKm(focus, b.store)),
     [focus, ranked],
   )
+  // While a store is selected, moving the map keeps the cards in place: cards that stay keep
+  // their order and new ones join at the end, so the selected card does not slide around.
+  // With nothing selected, the cards follow the map (closest first).
+  const [cardOrder, setCardOrder] = useState<string[]>([])
+  const nearby = useMemo(() => {
+    if (!selectedId) return byDistance
+    const byId = new Map(byDistance.map((r) => [r.store.id, r]))
+    const kept = cardOrder.filter((id) => byId.has(id)).map((id) => byId.get(id)!)
+    return [...kept, ...byDistance.filter((r) => !cardOrder.includes(r.store.id))]
+  }, [byDistance, cardOrder, selectedId])
+  const nearbyKey = nearby.map((r) => r.store.id).join()
+  if (nearbyKey !== cardOrder.join()) setCardOrder(nearby.map((r) => r.store.id))
   const closest = ranked[0]
   /** Nearest branch to you on the map, chosen by default when your location turns on. */
   const nearestToMe = user ? (ranked.find((r) => (r.km ?? Infinity) <= NEARBY_KM)?.store.id ?? null) : null
@@ -128,7 +140,7 @@ export default function FindStorePage() {
   }, [listMode, onPermissionScreen])
 
   // Keep the carousel on the chosen card, or back at the start when the set changes.
-  const shownKey = nearby.map((r) => r.store.id).join()
+  const shownKey = nearbyKey
   useEffect(() => {
     const row = cardsRef.current
     if (!row) return
