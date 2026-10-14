@@ -1,6 +1,5 @@
 import { useMemo, useState } from 'react'
 import { Navigate, useNavigate, useParams } from 'react-router'
-import { CartBar } from '../components/flows/CartBar'
 import { ItemSheet } from '../components/flows/ItemSheet'
 import { MenuItemRow } from '../components/flows/MenuItemRow'
 import { useItemParam } from '../components/flows/useItemParam'
@@ -34,7 +33,6 @@ function MenuSearch({ store }: { store: Store }) {
   const results = q ? items.filter((i) => norm(`${i.name} ${i.description}`).includes(q)) : []
   const now = useNow()
   const branch = branchState(store, now, storeFlag, demo)
-  const status = { open: branch.kind === 'open' }
   const paused = branch.kind === 'paused'
 
   return (
@@ -94,15 +92,6 @@ function MenuSearch({ store }: { store: Store }) {
           Try “slider”, “fries” or “latte”.
         </EmptyState>
       )}
-
-      <div className="mt-auto">
-        {!paused && <CartBar
-          storeSlug={store.slug}
-          closed={!status.open}
-          soldOutItems={availabilityFor(store.id).soldOutItems}
-          onOpen={() => navigate(`/store/${store.slug}`, { state: { openCart: true } })}
-        />}
-      </div>
 
       <ItemSheet
         item={lastItem}
