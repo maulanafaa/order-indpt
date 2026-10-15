@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import { Navigate, useNavigate, useParams } from 'react-router'
 import { ItemSheet } from '../components/flows/ItemSheet'
 import { MenuItemRow } from '../components/flows/MenuItemRow'
@@ -6,18 +6,24 @@ import { useItemParam } from '../components/flows/useItemParam'
 import { useStoreCart } from '../components/flows/useStoreCart'
 import { Chip, EmptyState, IconButton, SearchField } from '../components/ui'
 import type { Store } from '../data/schema'
-import { availabilityFor, categories, items, itemsByCategory, storeBySlug } from '../lib/data'
+import { categories, items, itemsByCategory, storeBySlug } from '../lib/data'
 import { branchState } from '../lib/branch'
 import { upsellItems } from '../lib/upsell'
 import { useScenario } from '../lib/scenarios'
 import { useNow } from '../lib/useNow'
+import { CurrencyScope } from '../components/ui/CurrencyScope'
+import { useAvailability } from '../lib/testCart'
 
 /** Figma "Menu search result" and "Menu search empty". */
 export default function StoreSearchPage() {
   const { slug = '' } = useParams()
   const store = storeBySlug.get(slug)
   if (!store) return <Navigate to="/" replace />
-  return <MenuSearch store={store} />
+  return (
+    <CurrencyScope country={store.country}>
+      <MenuSearch store={store} />
+    </CurrencyScope>
+  )
 }
 
 const norm = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim()
@@ -26,7 +32,8 @@ function MenuSearch({ store }: { store: Store }) {
   const navigate = useNavigate()
   const { store: storeFlag, demo } = useScenario()
   const [query, setQuery] = useState('')
-  const availability = useMemo(() => availabilityFor(store.id), [store.id])
+  // Branch data plus anything forced in the cart test settings.
+  const availability = useAvailability(store.id)
   const { item, lastItem, openItem, closeItem } = useItemParam()
   const cart = useStoreCart(store, openItem)
   const q = norm(query)

@@ -26,9 +26,10 @@ export function OrderPlacedSplash({ order, storeName, readyText, onDone }: { ord
       icon="check"
       title="Order placed!"
       extra={
-        <p className="flex items-center gap-1.5 rounded-full bg-surface-muted px-3.5 py-2 whitespace-nowrap">
-          <span className="label-m text-text-primary">Order #{order.id}</span>
-          <span className="body-s text-text-secondary">· {methodLabels[order.method]}</span>
+        // Figma 814:107751 OrderChip: both parts Label/M, primary text.
+        <p className="flex items-center gap-1.5 rounded-full bg-surface-muted px-3.5 py-2 label-m whitespace-nowrap text-text-primary">
+          <span>Order #{order.id}</span>
+          <span>· {methodLabels[order.method]}</span>
         </p>
       }
       footer={

@@ -18,7 +18,7 @@ export type CartLine = {
   removedModifierIds?: string[]
 }
 
-type NewLine = Omit<CartLine, 'id'>
+export type NewLine = Omit<CartLine, 'id'>
 
 type CartState = {
   storeSlug: string | null

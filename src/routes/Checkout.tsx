@@ -34,7 +34,7 @@ import { branchState } from '../lib/branch'
 import { round2, unitPrice, useCart } from '../lib/cart'
 import { cardLabel, emptyCard, validateCard, type CardFields } from '../lib/card'
 import { APPLE_PAY, CARD, carText, methodTiles, resolveMethod, resolvePayment, useCheckout, useMethodOverrides, type TimeChoice } from '../lib/checkout'
-import { availabilityFor, itemById, methodLabels, modifierById, storeBySlug } from '../lib/data'
+import { itemById, methodLabels, modifierById, storeBySlug } from '../lib/data'
 import { fakeRequest } from '../lib/fake'
 import { newOrderId, useOrders } from '../lib/orders'
 import { useScenario, type CheckoutIssue, type PaymentResult } from '../lib/scenarios'
@@ -42,10 +42,12 @@ import { ASAP_MINUTES, asapMinutes, clockTime, slotDate, slotsFor } from '../lib
 import { useOrderTotals } from '../lib/totals'
 import { useNow } from '../lib/useNow'
 import { cn } from '../lib/cn'
+import { CurrencyScope } from '../components/ui/CurrencyScope'
+import { useAvailability } from '../lib/testCart'
 
 const methodIcon: Record<OrderMethod, IconName> = { pickup: 'bag', carhop: 'car', dineIn: 'cup' }
 
-type Placed = { order: Order; storeName: string; readyText: string }
+type Placed = { order: Order; storeName: string; country: string; readyText: string }
 
 export default function CheckoutPage() {
   const navigate = useNavigate()
@@ -60,7 +62,12 @@ export default function CheckoutPage() {
 
   if (placed)
     return overlay
-      ? createPortal(<OrderPlacedSplash order={placed.order} storeName={placed.storeName} readyText={placed.readyText} onDone={openOrder} />, overlay)
+      ? createPortal(
+          <CurrencyScope country={placed.country}>
+            <OrderPlacedSplash order={placed.order} storeName={placed.storeName} readyText={placed.readyText} onDone={openOrder} />
+          </CurrencyScope>,
+          overlay,
+        )
       : null
 
   if (!store || lines.length === 0)
@@ -80,7 +87,11 @@ export default function CheckoutPage() {
     )
 
   // Not signed in: the number is verified on this page (Figma 4.7).
-  return <CheckoutForm key={store.id} store={store} user={user} onPlaced={setPlaced} />
+  return (
+    <CurrencyScope country={store.country}>
+      <CheckoutForm key={store.id} store={store} user={user} onPlaced={setPlaced} />
+    </CurrencyScope>
+  )
 }
 
 /* ------------------------------------------------------------------------ */
@@ -116,7 +127,8 @@ function CheckoutForm({ store, user, onPlaced }: { store: Store; user: User | nu
   const clearCart = useCart((s) => s.clear)
   const addOrder = useOrders((s) => s.add)
   const placedOrders = useOrders((s) => s.placed)
-  const availability = useMemo(() => availabilityFor(store.id), [store.id])
+  // Branch data plus anything forced in the cart test settings.
+  const availability = useAvailability(store.id)
   const totals = useOrderTotals(store, lines, availability.soldOutItems)
   // Open now, or (opening soon / closed, from a flag or a demo branch) schedule for tomorrow.
   const status = { open: branchState(store, now, scenario.store, scenario.demo).kind === 'open' }
@@ -260,7 +272,7 @@ function CheckoutForm({ store, user, onPlaced }: { store: Store; user: User | nu
     // First carhop order: keep the car for next time.
     if (method === 'carhop' && user.cars.length === 0 && car.trim())
       updateUser({ cars: [{ id: `car-${Date.now()}`, make: car.trim(), model: '', colour: '', plate: '', isDefault: true }] })
-    onPlaced({ order, storeName: store.name, readyText: readyText() })
+    onPlaced({ order, storeName: store.name, country: store.country, readyText: readyText() })
     clearCart()
     useCheckout.getState().reset()
   }
@@ -413,7 +425,9 @@ function CheckoutForm({ store, user, onPlaced }: { store: Store; user: User | nu
   }
 
   /* -------------------------------- sections ------------------------------- */
-  const onlyOne = tiles.length === 1
+  // Figma 851:34305: one order type to choose from (the rest unsupported, hidden or paused) shows a note instead of tiles.
+  const available = tiles.filter((t) => t.availableNow)
+  const onlyOne = available.length === 1 ? available[0] : null
   const timeSection = (
     <Section title="Pickup time" id="field-time" gap="gap-2.5" className="relative z-20">
       <Select
@@ -458,7 +472,11 @@ function CheckoutForm({ store, user, onPlaced }: { store: Store; user: User | nu
       />
 
       <main className="flex flex-col gap-6 p-4">
-        {!onlyOne && (
+        {onlyOne ? (
+          <Notice icon={methodIcon[onlyOne.method]}>
+            This branch only offers {methodLabels[onlyOne.method].toLowerCase()} order right now.
+          </Notice>
+        ) : (
           <section aria-labelledby="method-title" className="flex flex-col gap-4">
             <h1 id="method-title" className="title-l text-text-primary">
               How would you like your order?
@@ -560,7 +578,17 @@ function CheckoutForm({ store, user, onPlaced }: { store: Store; user: User | nu
 
       <PlaceOrderBar applePay={paysOnline && payment === APPLE_PAY} label="Place order" disabled={!verified} loading={placing} onPlace={place} />
 
-      <TestSettingsSheet storeId={store.id} open={testOpen} onClose={() => setTestOpen(false)} newUser={newUser} onNewUser={setNewUser} />
+      <TestSettingsSheet
+        storeId={store.id}
+        open={testOpen}
+        onClose={() => setTestOpen(false)}
+        newUser={newUser}
+        onNewUser={setNewUser}
+        onResultChange={() => {
+          attempts.current = 0
+          issueShown.current = false
+        }}
+      />
 
       <CheckoutErrorSheet error={errorContent(errorKind)} open={errorOpen} onClose={closeError} />
 

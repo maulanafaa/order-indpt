@@ -15,6 +15,7 @@ import {
   QuantityStepper,
   RadioMark,
   SarIcon,
+  CurrencyIcon,
   Select,
   Tabs,
   Textarea,
@@ -246,6 +247,12 @@ function RadiusBlock() {
         <SarIcon size={20} />
         <SarIcon size={32} />
         <p className="body-s text-text-secondary">Drawn as a vector. Never type the character.</p>
+      </Row>
+      <Row label="Currency by branch country (CurrencyIcon)">
+        {(['SAR', 'AED', 'QAR', 'KWD', 'BHD'] as const).map((c) => (
+          <CurrencyIcon key={c} code={c} size={20} />
+        ))}
+        <p className="body-s text-text-secondary">Price uses the branch country (CurrencyScope).</p>
       </Row>
     </Block>
   )

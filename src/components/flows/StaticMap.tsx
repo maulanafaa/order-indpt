@@ -2,7 +2,6 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { CARD_GLIDE_MS, easeCard } from '../../lib/motion'
 import { cn } from '../../lib/cn'
 import type { LatLng } from '../../lib/geo'
-import { Icon } from '../ui/Icon'
 
 /**
  * A tile map without a map SDK: OpenStreetMap tile images placed with Web
@@ -395,10 +394,40 @@ export function StaticMap({
   )
 }
 
+/** Latin SALT wordmark from Figma salt-logo (814:34825), drawn in currentColor. */
+function SaltMark({ width }: { width: number }) {
+  return (
+    <svg width={width} viewBox="0 0 38.66 20.1" fill="currentColor" aria-hidden className="block">
+      <path d="M6.01852 8.84831L5.99846 8.82893C4.3909 7.26614 3.32877 6.23475 3.32877 4.84977C3.32877 3.84311 3.85014 3.2422 4.72377 3.2422C5.41359 3.2422 6.11878 3.53096 6.11878 5.66993V6.55359C6.11878 6.69129 6.23241 6.80425 6.37211 6.80425H8.9596C9.09997 6.80425 9.2136 6.69129 9.2136 6.55359V5.51753C9.2136 2.16201 7.66084 0.388672 4.72377 0.388672C1.33685 0.388672 0.129675 2.76026 0.129675 4.97944C0.129675 7.74139 1.94512 9.47797 3.4043 10.8743L3.56739 11.0267C5.06534 12.4318 6.24912 13.5407 6.24912 15.1503C6.24912 16.5239 5.40557 16.8126 4.69837 16.8126C3.60483 16.8126 3.09549 16.1302 3.09549 14.6643V13.2466C3.09549 13.0374 2.9237 12.8669 2.71181 12.8669H0.384346C0.172454 12.8669 0 13.0374 0 13.2466V14.8956C0 17.7792 1.89833 19.7163 4.72377 19.7163C7.54855 19.7163 9.44688 17.7892 9.44688 14.921C9.44688 12.389 8.0258 10.8068 6.01852 8.84831Z" />
+      <path d="M29.8169 16.4792H25.3772V0.946282C25.3772 0.808586 25.2636 0.696289 25.1239 0.696289H22.3285C22.1888 0.696289 22.0752 0.808586 22.0752 0.946282V19.1603C22.0752 19.298 22.1888 19.4103 22.3285 19.4103H29.8169C29.9566 19.4103 30.0703 19.298 30.0703 19.1603V16.7299C30.0703 16.5915 29.9566 16.4792 29.8169 16.4792Z" />
+      <path d="M38.4028 0.696289H29.0749C28.9352 0.696289 28.8215 0.808586 28.8215 0.946282V3.40142C28.8215 3.53979 28.9352 3.65208 29.0749 3.65208H32.1135V19.1603C32.1135 19.298 32.2272 19.4103 32.3669 19.4103H35.1622C35.3019 19.4103 35.4162 19.298 35.4162 19.1603V3.65208H38.4028C38.5431 3.65208 38.6561 3.53979 38.6561 3.40142V0.946282C38.6561 0.808586 38.5431 0.696289 38.4028 0.696289Z" />
+      <path d="M13.9394 12.9279L15.0877 5.40604C15.1131 5.24361 15.3504 5.24361 15.3745 5.40671L16.4988 12.9279H13.9394ZM17.1859 0.962324C17.1585 0.807917 17.0235 0.696289 16.8644 0.696289H13.5737C13.4147 0.696289 13.2796 0.808585 13.2522 0.962324L10.0465 19.1169C10.0338 19.1897 10.0538 19.2639 10.1019 19.3214C10.1507 19.3782 10.2216 19.4103 10.2964 19.4103H12.9802C13.1058 19.4103 13.2135 19.3181 13.2308 19.1951L13.7449 15.5675H16.6933L17.2073 19.1951C17.2247 19.3181 17.3323 19.4103 17.458 19.4103H20.1404C20.2159 19.4103 20.2861 19.3782 20.3349 19.3214C20.383 19.2639 20.4031 19.1897 20.3904 19.1169L17.1859 0.962324Z" />
+    </svg>
+  )
+}
+
 /**
- * Figma "Map pin": white circle with the logo (Default 36), black circle (Selected 48),
- * a tail under it.
+ * Figma 854:178611 "Map pin": a teardrop with a white 2px edge and a SALT badge.
+ * Default: white 32 × 37 pin, 24px black badge. Selected: black 46 × 53 pin, 35px badge.
+ * Paths are the Figma exports; the tip sits on the store's point.
  */
+const pinShapes = {
+  default: {
+    box: { w: 34, h: 39 },
+    viewBox: '12 10 34 39',
+    tip: 37.6,
+    d: 'M29 11C37.8367 11 45.0007 18.1634 45.001 27C45.001 32.2006 42.3251 36.0424 39.2041 39.1885C37.6474 40.7576 35.9435 42.1893 34.3809 43.5303C32.799 44.8877 31.3697 46.1465 30.2666 47.4229C29.6013 48.1927 28.3997 48.1927 27.7344 47.4229C26.6313 46.1465 25.2019 44.8877 23.6201 43.5303C22.0575 42.1893 20.3536 40.7576 18.7969 39.1885C15.6759 36.0424 13 32.2006 13 27C13.0002 18.1635 20.1635 11.0002 29 11Z',
+    badge: { size: 24, top: 5, mark: 17 },
+  },
+  selected: {
+    box: { w: 48, h: 56 },
+    viewBox: '12 10 48 56',
+    tip: 54.3,
+    d: 'M36 11C48.7025 11 59 21.2975 59 34C59 41.4478 55.174 46.9693 50.6328 51.5469C48.3661 53.8318 45.8849 55.9167 43.5869 57.8887C41.2699 59.877 39.1478 61.7444 37.5039 63.6465C36.7142 64.5602 35.2858 64.5602 34.4961 63.6465C32.8522 61.7444 30.7301 59.877 28.4131 57.8887C26.1151 55.9167 23.6339 53.8318 21.3672 51.5469C16.826 46.9693 13 41.4478 13 34C13 21.2975 23.2975 11 36 11Z',
+    badge: { size: 35, top: 6.5, mark: 24 },
+  },
+} as const
+
 function MapPin({
   left,
   top,
@@ -412,7 +441,7 @@ function MapPin({
   selected: boolean
   onClick?: () => void
 }) {
-  const size = selected ? 48 : 36
+  const shape = pinShapes[selected ? 'selected' : 'default']
   return (
     <button
       type="button"
@@ -420,26 +449,25 @@ function MapPin({
       aria-label={label ? `${label}${selected ? ', selected' : ''}` : 'Store'}
       aria-pressed={selected}
       className={cn('absolute flex -translate-x-1/2 flex-col items-center', selected ? 'z-20' : 'z-10')}
-      style={{ left, top: top - size - 6 }}
+      style={{ left, top: top - shape.tip }}
     >
-      <span
-        className={cn(
-          'relative flex items-center justify-center rounded-full transition-all duration-500 ease-card',
-          selected
-            ? 'size-12 bg-surface-inverse text-text-on-inverse ring-2 ring-surface-base shadow-[0_2px_12px_rgb(0_0_0/0.2)]'
-            : 'size-9 bg-surface-base text-text-primary inset-ring inset-ring-border-default shadow-[0_2px_8px_rgb(0_0_0/0.12)]',
-        )}
-      >
-        {/* Placeholder until the SALT logo SVG is added (Figma Brand/Logo). */}
-        <Icon name="store" size={selected ? 28 : 20} />
+      <span key={selected ? 'on' : 'off'} className={cn('relative block origin-bottom', selected && 'animate-pin-in')} style={{ width: shape.box.w, height: shape.box.h }}>
+        <svg
+          width={shape.box.w}
+          height={shape.box.h}
+          viewBox={shape.viewBox}
+          aria-hidden
+          className={cn('absolute inset-0 overflow-visible drop-shadow-[0_2px_6px_rgb(0_0_0/0.2)]', selected ? 'fill-surface-inverse' : 'fill-surface-base')}
+        >
+          <path d={shape.d} strokeWidth={2} className="stroke-surface-base" />
+        </svg>
+        <span
+          className="absolute left-1/2 flex -translate-x-1/2 items-center justify-center rounded-full bg-surface-inverse text-text-on-inverse"
+          style={{ top: shape.badge.top, width: shape.badge.size, height: shape.badge.size }}
+        >
+          <SaltMark width={shape.badge.mark} />
+        </span>
       </span>
-      <span
-        aria-hidden
-        className={cn(
-          '-mt-px border-x-transparent',
-          selected ? 'border-x-[7px] border-t-8 border-t-surface-inverse' : 'border-x-[6px] border-t-[7px] border-t-surface-base drop-shadow-[0_1px_0_var(--color-border-default)]',
-        )}
-      />
       {label && (
         <span className="mt-0.5 max-w-28 truncate label-s text-text-primary [text-shadow:0_0_2px_var(--color-surface-base),0_0_2px_var(--color-surface-base),0_0_3px_var(--color-surface-base)]">
           {label}

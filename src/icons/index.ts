@@ -14,6 +14,7 @@ import ChefHatIcon from './chef-hat.svg?react'
 import DeskBellIcon from './desk-bell.svg?react'
 import NoteTextIcon from './note-text.svg?react'
 import OrderBagIcon from './order-bag.svg?react'
+import ParkingIcon from './parking.svg?react'
 import ChevIcon from './chev.svg?react'
 import ClockIcon from './clock.svg?react'
 import CopyIcon from './copy.svg?react'
@@ -76,6 +77,7 @@ export const icons = {
   'desk-bell': DeskBellIcon,
   'note-text': NoteTextIcon,
   'order-bag': OrderBagIcon,
+  parking: ParkingIcon,
   'chev': ChevIcon,
   'clock': ClockIcon,
   'copy': CopyIcon,

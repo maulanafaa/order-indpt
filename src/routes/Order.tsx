@@ -1,30 +1,21 @@
 import { useEffect, useState, type ReactNode } from 'react'
 import { useNavigate, useParams, useSearchParams } from 'react-router'
-import {
-  ItemsCard,
-  LocationCard,
-  OrderInfoCard,
-  PaymentCard,
-  RefundCard,
-  StatusHero,
-  Timeline,
-} from '../components/flows/order/OrderParts'
-import { BottomSheet, Button, EmptyState, IconButton, Input, Textarea, TopBar, useToast } from '../components/ui'
+import { CarhopInfo, ItemsSection, OrderInfo, PaymentSection, StaffNotice, StatusHero, Timeline } from '../components/flows/order/OrderParts'
+import { BottomSheet, Button, EmptyState, IconButton, Textarea, TopBar, useToast } from '../components/ui'
 import type { Order, Store } from '../data/schema'
 import { useAuth } from '../lib/auth'
 import { carText } from '../lib/checkout'
 import { methodLabels, storeById } from '../lib/data'
 import { fakeRequest } from '../lib/fake'
-import { distanceKm, directionsUrl } from '../lib/geo'
-import { heroFor, stageOf, stepsFor, useOrder } from '../lib/orderDetail'
+import { directionsUrl } from '../lib/geo'
+import { heroFor, orderTypeText, stageOf, stepsFor, useOrder } from '../lib/orderDetail'
 import { moveTo, useOrderUpdates } from '../lib/orderUpdates'
-import { useScenario } from '../lib/scenarios'
-import { callSupport } from '../lib/support'
+import { callNumber, callSupport } from '../lib/support'
+import { CurrencyScope } from '../components/ui/CurrencyScope'
 
-/** I'm here counts as at the store within this distance. */
-const NEAR_KM = 1
-
-type Sheet = 'status' | 'tooFar' | 'parking' | 'car' | null
+type Sheet = 'status' | SpotMode | null
+/** Figma 830:665 I'm here, 834:137 change spot, 729:44014 edit car. */
+type SpotMode = 'arrive' | 'spot' | 'car'
 
 /** Figma 6.1 to 6.5 Order detail: Pickup, Carhop, Dine-in, past orders and balance payments. */
 export default function OrderPage() {
@@ -48,12 +39,15 @@ export default function OrderPage() {
         </EmptyState>
       </>
     )
-  return <OrderDetail key={order.id} order={order} store={store} />
+  return (
+    <CurrencyScope country={store.country}>
+      <OrderDetail key={order.id} order={order} store={store} />
+    </CurrencyScope>
+  )
 }
 
 function OrderDetail({ order, store }: { order: Order; store: Store }) {
   const toast = useToast()
-  const scenario = useScenario()
   const user = useAuth((s) => s.user)
   const patch = useOrderUpdates((s) => s.patch)
   const [params, setParams] = useSearchParams()
@@ -65,10 +59,11 @@ function OrderDetail({ order, store }: { order: Order; store: Store }) {
   const number = order.id.replace(/^SLT-/, '')
   const savedCar = user?.cars.find((c) => c.id === order.carId) ?? user?.cars.find((c) => c.isDefault)
   const car = order.carDetails ?? (savedCar ? carText(savedCar) : '')
-  const carhopActive = order.method === 'carhop' && (stage === 'placed' || stage === 'preparing' || stage === 'ready')
-  const km = distanceKm(scenario.near.point, store)
+  const carhop = order.method === 'carhop'
+  const arrived = stage === 'arrived'
+  const carhopActive = carhop && (stage === 'placed' || stage === 'preparing' || stage === 'ready')
   // ?here=1 (I'm here on the branch page's active order card) starts the arrival flow.
-  const [sheet, setSheet] = useState<Sheet>(() => (params.get('here') && carhopActive ? (km > NEAR_KM ? 'tooFar' : 'parking') : null))
+  const [sheet, setSheet] = useState<Sheet>(() => (params.get('here') && carhopActive ? 'arrive' : null))
   useEffect(() => {
     if (params.get('here'))
       setParams(
@@ -87,37 +82,50 @@ function OrderDetail({ order, store }: { order: Order; store: Store }) {
     toast.show({ type: 'success', message: `Invoice for #${number} downloaded` })
   }
 
-  return (
-    <div className="flex min-h-full flex-col bg-surface-muted">
-      <TopBar title="Order detail" />
+  const short = store.name.replace(/^SALT\s+/i, '')
+  /** The branch's carhop bays: shown before arrival and filled in on I'm here. */
+  const designated = `Carhop bays 1–6, in front of the ${short} entrance`
+  const parking = order.parkingSpot ?? `Park at carhop bays 1–6, in front of the ${short} entrance.`
+  const callStaff = () => callNumber(store.phone)
+  const spotMode: SpotMode | null = sheet === 'arrive' || sheet === 'spot' || sheet === 'car' ? sheet : null
 
-      <main className="flex flex-col gap-4 px-4 pt-4 pb-8">
-        <StatusHero hero={hero} number={number} onOpen={() => setSheet('status')} />
-        {order.status === 'cancelled' && <RefundCard order={order} />}
-        <LocationCard order={order} store={store} car={car} onEditCar={carhopActive ? () => setSheet('car') : undefined} />
-        <ItemsCard order={order} />
-        <PaymentCard order={order} />
-        <OrderInfoCard order={order} store={store} past={past} methodLabel={methodLabels[order.method]} />
-        <div className="flex flex-col gap-2">
-          <Button fullWidth variant="secondary" leadingIcon="receipt" loading={downloading} onClick={() => void download()}>
-            Download invoice
-          </Button>
-          <Button fullWidth variant="tertiary" leadingIcon="help-circle" onClick={callSupport}>
-            Get help
-          </Button>
+  return (
+    <div className="flex min-h-full flex-col bg-surface-base">
+      <TopBar title="Order detail" trailing={<IconButton icon="help-circle" label="Get help" onClick={callSupport} />} />
+
+      <main className="flex flex-col gap-7 px-4 pt-4 pb-8">
+        <div className="flex flex-col gap-3">
+          <StatusHero hero={hero} number={number} chevron={stage === 'done'} onOpen={() => setSheet('status')} />
+          {arrived && <StaffNotice onCall={callStaff} />}
         </div>
+        <OrderInfo
+          typeText={orderTypeText(order, methodLabels[order.method])}
+          storeName={store.name}
+          onDirections={!past && !carhop ? () => window.open(directionsUrl({ lat: store.lat, lng: store.lng }), '_blank', 'noopener') : undefined}
+        >
+          {carhop && !past && (
+            <CarhopInfo
+              car={car}
+              parking={parking}
+              onEditCar={() => setSheet('car')}
+              // Before I'm here, changing the spot is the arrival itself.
+              onChangeSpot={() => setSheet(arrived ? 'spot' : 'arrive')}
+            />
+          )}
+        </OrderInfo>
+        <ItemsSection order={order} />
+        <PaymentSection order={order} downloading={downloading} onDownload={() => void download()} />
       </main>
 
+      {/* Figma 828:175851 "ImHereBar". */}
       {carhopActive && (
-        <div className="sticky bottom-0 z-20 mt-auto flex flex-col gap-2 bg-surface-base px-4 pt-3 pb-[max(28px,env(safe-area-inset-bottom))] shadow-bar">
-          <Button fullWidth onClick={() => setSheet(km > NEAR_KM ? 'tooFar' : 'parking')}>
+        <div className="sticky bottom-0 z-20 mt-auto flex gap-2 bg-surface-base px-4 pt-3 pb-[max(28px,env(safe-area-inset-bottom))] shadow-bar">
+          <Button variant="secondary" leadingIcon="phone" className="min-w-0 flex-1" onClick={callStaff}>
+            Call staff
+          </Button>
+          <Button leadingIcon="hand" className="min-w-0 flex-1" onClick={() => setSheet('arrive')}>
             I’m here
           </Button>
-          <p className="text-center caption text-text-secondary">
-            {stage === 'ready'
-              ? 'Tap once you’re parked in a carhop bay.'
-              : 'Arrived early? Tap once you’re parked and we’ll bring it out when it’s ready.'}
-          </p>
         </div>
       )}
 
@@ -134,24 +142,15 @@ function OrderDetail({ order, store }: { order: Order; store: Store }) {
         </div>
       </BottomSheet>
 
-      <TooFarSheet
-        open={sheet === 'tooFar'}
-        km={km}
-        storeName={store.name}
-        onClose={() => setSheet(null)}
-        onDirections={() => window.open(directionsUrl({ lat: store.lat, lng: store.lng }), '_blank', 'noopener')}
-        onAnyway={() => setSheet('parking')}
-      />
-
-      <ParkingSheet
-        open={sheet === 'parking' || sheet === 'car'}
-        mode={sheet === 'car' ? 'car' : 'arrive'}
+      <SpotSheet
+        mode={spotMode}
         car={car}
-        parking={order.parkingSpot ?? ''}
+        spot={order.parkingSpot ?? designated}
         onClose={() => setSheet(null)}
-        onSubmit={(carValue, parking) => {
-          if (sheet === 'car') patch(order.id, { carDetails: carValue })
-          else patch(order.id, { ...moveTo(order, 'arrived'), carDetails: carValue, parkingSpot: parking || undefined })
+        onSubmit={(mode, value) => {
+          if (mode === 'car') patch(order.id, { carDetails: value })
+          else if (mode === 'spot') patch(order.id, { parkingSpot: value })
+          else patch(order.id, { ...moveTo(order, 'arrived'), parkingSpot: value })
           setSheet(null)
         }}
       />
@@ -178,115 +177,73 @@ function SheetFrame({ title, body, onClose, children }: { title: string; body?: 
   )
 }
 
-/** Figma 62:7385: I'm here tapped far from the branch. */
-function TooFarSheet({
-  open,
-  km,
-  storeName,
-  onClose,
-  onDirections,
-  onAnyway,
-}: {
-  open: boolean
-  km: number
-  storeName: string
-  onClose: () => void
-  onDirections: () => void
-  onAnyway: () => void
-}) {
-  return (
-    <BottomSheet open={open} onClose={onClose} ariaLabel="Too far away" bare>
-      <SheetFrame
-        title={`You seem to be ${km.toFixed(1)} km away`}
-        body={`Tap “I’m here” when you reach ${storeName} so your food is handed over fresh.`}
-        onClose={onClose}
-      >
-        <div className="flex flex-col gap-3">
-          <Button fullWidth variant="secondary" leadingIcon="nav" onClick={onDirections}>
-            Get directions
-          </Button>
-          <Button fullWidth variant="ghost" onClick={onAnyway}>
-            I’m here anyway
-          </Button>
-        </div>
-      </SheetFrame>
-    </BottomSheet>
-  )
+const spotCopy: Record<SpotMode, { title: string; placeholder: string; error: string; cta: string }> = {
+  arrive: {
+    title: 'Parking spot',
+    placeholder: 'e.g. Carhop bay 4, or near the pharmacy entrance',
+    error: 'Tell us where you parked',
+    cta: 'I’m here, bring my order',
+  },
+  spot: {
+    title: 'Parking spot',
+    placeholder: 'e.g. Carhop bay 4, or near the pharmacy entrance',
+    error: 'Tell us where you parked',
+    cta: 'Update parking spot',
+  },
+  car: {
+    title: 'Edit car',
+    placeholder: 'e.g. Toyota Land Cruiser, White · Plate RKD 4821',
+    error: 'Add your car details so staff can find you',
+    cta: 'Save',
+  },
 }
 
-/** Figma 62:7007 / 240:42869: where are you parked (car and parking spot), with a sending state. Also edits the car. */
-function ParkingSheet({
-  open,
+/** One field sheet: where they parked (I'm here, change spot) or their car (edit car), with a sending state. */
+function SpotSheet({
   mode,
   car,
-  parking,
+  spot,
   onClose,
   onSubmit,
 }: {
-  open: boolean
-  mode: 'arrive' | 'car'
+  mode: SpotMode | null
   car: string
-  parking: string
+  spot: string
   onClose: () => void
-  onSubmit: (car: string, parking: string) => void
+  onSubmit: (mode: SpotMode, value: string) => void
 }) {
+  // Keep the last mode while the sheet animates out.
+  const [shown, setShown] = useState<SpotMode>(mode ?? 'arrive')
+  if (mode && mode !== shown) setShown(mode)
   return (
-    <BottomSheet open={open} onClose={onClose} ariaLabel={mode === 'car' ? 'Your car' : 'Where are you parked?'} bare>
-      {open && <ParkingForm mode={mode} car={car} parking={parking} onClose={onClose} onSubmit={onSubmit} />}
+    <BottomSheet open={mode !== null} onClose={onClose} ariaLabel={spotCopy[shown].title} bare>
+      {mode && <SpotForm key={mode} mode={mode} initial={mode === 'car' ? car.replace(' · ', '\n') : spot} onClose={onClose} onSubmit={onSubmit} />}
     </BottomSheet>
   )
 }
 
-function ParkingForm({
-  mode,
-  car: initialCar,
-  parking: initialParking,
-  onClose,
-  onSubmit,
-}: {
-  mode: 'arrive' | 'car'
-  car: string
-  parking: string
-  onClose: () => void
-  onSubmit: (car: string, parking: string) => void
-}) {
-  // Two lines in the field: "Toyota Land Cruiser, White" / "Plate RKD 4821".
-  const [car, setCar] = useState(initialCar.replace(' · ', '\n'))
-  const [parking, setParking] = useState(initialParking)
+function SpotForm({ mode, initial, onClose, onSubmit }: { mode: SpotMode; initial: string; onClose: () => void; onSubmit: (mode: SpotMode, value: string) => void }) {
+  const copy = spotCopy[mode]
+  const [value, setValue] = useState(initial)
   const [sending, setSending] = useState(false)
   const [tried, setTried] = useState(false)
-  const carError = tried && !car.trim() ? 'Add your car so staff can find you.' : undefined
+  const error = tried && !value.trim() ? copy.error : undefined
 
   const submit = async () => {
     setTried(true)
-    if (!car.trim()) return
+    if (!value.trim()) return
     setSending(true)
     await fakeRequest()
     setSending(false)
-    onSubmit(car.trim().replace(/\s*\n+\s*/g, ' · '), parking.trim())
+    onSubmit(mode, value.trim().replace(/\s*\n+\s*/g, ' · '))
   }
 
   return (
-    <SheetFrame
-      title={mode === 'car' ? 'Your car' : 'Where are you parked?'}
-      body={mode === 'car' ? 'Staff use this to find you in the carhop bays.' : 'Staff will bring the order to your window.'}
-      onClose={onClose}
-    >
-      <Textarea label="Your car" value={car} onChange={setCar} error={carError} />
-      {mode === 'arrive' && (
-        <Input
-          label="Parking spot"
-          value={parking}
-          onChange={setParking}
-          placeholder="e.g. Bay 4, near the entrance"
-          clearable
-          helper="Optional, but it helps staff find you faster."
-        />
-      )}
-      <Button fullWidth leadingIcon={mode === 'car' ? undefined : 'car'} loading={sending} onClick={() => void submit()}>
-        {mode === 'car' ? 'Save' : 'I’m here, bring my order'}
+    <SheetFrame title={copy.title} onClose={onClose}>
+      <Textarea value={value} onChange={setValue} placeholder={copy.placeholder} aria-label={copy.title} error={error} />
+      <Button fullWidth leadingIcon={mode === 'arrive' ? 'hand' : undefined} loading={sending} onClick={() => void submit()}>
+        {copy.cta}
       </Button>
     </SheetFrame>
   )
 }
-

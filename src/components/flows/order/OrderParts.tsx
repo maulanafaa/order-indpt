@@ -1,152 +1,183 @@
 import type { ReactNode } from 'react'
-import type { Order, Store } from '../../../data/schema'
+import type { Order } from '../../../data/schema'
 import { cn } from '../../../lib/cn'
 import { itemById } from '../../../lib/data'
 import { menuImage } from '../../../lib/format'
-import { directionsUrl } from '../../../lib/geo'
-import { cardPart, dateTime, lineOptions, lineTotals, paymentLabelOf, type Hero, type Step } from '../../../lib/orderDetail'
+import { cardPart, lineOptions, lineTotals, paymentLabelOf, type Hero, type Step } from '../../../lib/orderDetail'
 import { vatIncluded } from '../../../lib/checkout'
 import { Button } from '../../ui/Button'
-import { Icon } from '../../ui/Icon'
+import { Icon, type IconName } from '../../ui/Icon'
 import { Price } from '../../ui/Price'
 import { ProductImage } from '../../ui/ProductImage'
+import { Spinner } from '../../ui/Spinner'
 
 /* ------------------------------- Status hero ------------------------------ */
 
 const heroTones = {
-  dark: { box: 'bg-surface-inverse', number: 'text-text-on-inverse', tag: 'bg-surface-base text-text-primary' },
-  success: { box: 'bg-state-success', number: 'text-text-on-inverse', tag: 'bg-surface-base text-state-success' },
-  base: { box: 'bg-surface-base', number: 'text-text-primary', tag: 'bg-surface-muted text-text-primary' },
-  error: { box: 'bg-state-error-subtle', number: 'text-state-error', tag: 'bg-surface-base text-state-error' },
+  dark: { box: 'bg-surface-inverse', text: 'text-text-on-inverse' },
+  success: { box: 'bg-state-success', text: 'text-text-on-inverse' },
+  base: { box: 'bg-surface-base inset-ring inset-ring-border-default', text: 'text-text-primary' },
+  error: { box: 'bg-state-error-subtle', text: 'text-state-error' },
 } as const
 
-/** Figma "Status hero": the order number (Title/XL) and a status tag with a chevron. Opens the Order status sheet. */
-export function StatusHero({ hero, number, onOpen }: { hero: Hero; number: string; onOpen: () => void }) {
+/**
+ * Figma 110:723 "Status hero": the order number (Title/XL) and the status (icon + Label/M).
+ * Tapping it opens the Order status sheet; only a past order shows the chevron.
+ */
+export function StatusHero({ hero, number, chevron, onOpen }: { hero: Hero; number: string; chevron?: boolean; onOpen: () => void }) {
   const t = heroTones[hero.tone]
   return (
     <button
       type="button"
       onClick={onOpen}
       aria-label={`Order ${number}, ${hero.label}. Show order status`}
-      className={cn('flex w-full items-center justify-between gap-3 rounded-8 p-4 text-start transition-colors duration-300 ease-card', t.box)}
+      className={cn('flex w-full items-center justify-between gap-3 rounded-8 px-5 py-4 text-start transition-colors duration-300 ease-card', t.box, t.text)}
     >
-      <span className={cn('min-w-0 truncate title-xl', t.number)}>#{number}</span>
-      <span className={cn('inline-flex shrink-0 items-center gap-1 rounded-4 py-1 ps-2 pe-1.5 label-m transition-colors duration-300 ease-card', t.tag)}>
+      <span className="min-w-0 truncate title-xl">#{number}</span>
+      <span className="inline-flex shrink-0 items-center gap-1.5 label-m">
+        <Icon name={hero.icon} size={18} className="shrink-0" />
         {hero.label}
-        <Icon name="chev" size={16} className="shrink-0" />
+        {chevron && <Icon name="chev" size={16} className="shrink-0" />}
       </span>
     </button>
   )
 }
 
-/* ------------------------------ Shared pieces ----------------------------- */
-
-export function Card({ title, aside, className, children }: { title?: string; aside?: ReactNode; className?: string; children: ReactNode }) {
+/** Figma 847:107943 "StaffNotice": carhop after I'm here. */
+export function StaffNotice({ onCall }: { onCall: () => void }) {
   return (
-    <section className={cn('flex flex-col rounded-8 bg-surface-base p-4', className)}>
-      {title && (
-        <div className="flex items-center justify-between gap-3">
-          <h2 className="title-l text-text-primary">{title}</h2>
-          {aside}
-        </div>
-      )}
-      {children}
-    </section>
+    <div className="flex items-center gap-3 rounded-8 bg-surface-muted p-3.5 animate-content-in">
+      <div className="flex min-w-0 flex-1 flex-col gap-0.5">
+        <p className="title-s text-text-primary">Staff is on the way</p>
+        <p className="body-s text-text-secondary">Stay in your car, we’ll bring it to you.</p>
+      </div>
+      <Button variant="secondary" size="md" leadingIcon="phone" onClick={onCall}>
+        Call
+      </Button>
+    </div>
   )
 }
 
+/* ------------------------------ Shared pieces ----------------------------- */
+
 /** "Label ........ value" in Body/M secondary and Label/M primary. */
-export function InfoRow({ label, children, labelClass }: { label: string; children: ReactNode; labelClass?: string }) {
+export function InfoRow({ label, children }: { label: string; children: ReactNode }) {
   return (
     <div className="flex items-center justify-between gap-3">
-      <span className={cn('body-m text-text-secondary', labelClass)}>{label}</span>
-      <span className="text-end label-m text-text-primary">{children}</span>
+      <span className="shrink-0 body-m text-text-secondary">{label}</span>
+      <span className="min-w-0 text-end label-m text-text-primary">{children}</span>
     </div>
   )
 }
 
 const Divider = () => <span aria-hidden className="h-px shrink-0 bg-border-default" />
 
-/** Caption label over a Label/L value. */
-function Detail({ label, children }: { label: string; children: ReactNode }) {
+/** Underlined text link with a 16px icon (Store, Download invoice). */
+function IconLink({ icon, loading, onClick, children }: { icon: IconName; loading?: boolean; onClick: () => void; children: ReactNode }) {
   return (
-    <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-      <span className="caption text-text-tertiary">{label}</span>
-      <span className="label-l text-text-primary">{children}</span>
-    </div>
+    <button
+      type="button"
+      onClick={onClick}
+      disabled={loading}
+      aria-busy={loading || undefined}
+      className="inline-flex items-center gap-1.5 label-m text-text-primary active:opacity-70"
+    >
+      {loading ? <Spinner size={16} /> : <Icon name={icon} size={16} className="shrink-0" />}
+      <span className="underline underline-offset-2">{children}</span>
+    </button>
   )
 }
 
-/* ------------------------------- Location card ---------------------------- */
+/* ------------------------------- Order info ------------------------------- */
 
-type LocationProps = {
-  order: Order
-  store: Store
-  /** Carhop car text, split into lines at " · ". */
-  car: string
-  /** Carhop and active: Edit opens the parking sheet. */
-  onEditCar?: () => void
+type InfoProps = {
+  /** "Pickup at 7:15 PM". */
+  typeText: string
+  storeName: string
+  /** Active pickup and dine-in: the store opens directions. */
+  onDirections?: () => void
+  /** Carhop details under a divider. */
+  children?: ReactNode
 }
 
-/** Figma "PickupLocation": branch with Directions; carhop adds the car (and parking once arrived); dine-in starts with the arrival time. */
-export function LocationCard({ order, store, car, onEditCar }: LocationProps) {
-  const arrived = order.status === 'arrived'
-  const branch = (
-    <div className="flex items-center gap-3">
-      <Detail label="Branch">{store.name}</Detail>
-      {!arrived && (
-        <Button
-          variant="secondary"
-          size="md"
-          leadingIcon="nav"
-          className="w-33"
-          onClick={() => window.open(directionsUrl({ lat: store.lat, lng: store.lng }), '_blank', 'noopener')}
-        >
-          Directions
-        </Button>
-      )}
-    </div>
-  )
+/** Figma "PickupLocation": order type and store, plus the carhop car and parking. */
+export function OrderInfo({ typeText, storeName, onDirections, children }: InfoProps) {
   return (
-    <section className="flex flex-col gap-3 rounded-8 bg-surface-base p-4">
-      {order.method === 'dineIn' && order.readyAt && <Detail label="Arrival">Dine-in · arriving at {dateTimeClock(order.readyAt)}</Detail>}
-      {branch}
-      {order.method === 'carhop' && car && (
-        <div className="flex items-center gap-3">
-          <Detail label="Your car">
-            {car.split(' · ').map((part) => (
-              <span key={part} className="block">
-                {part}
-              </span>
-            ))}
-          </Detail>
-          {onEditCar && !arrived && (
-            <button type="button" onClick={onEditCar} className="shrink-0 cta-m text-text-primary underline underline-offset-4">
-              Edit
-            </button>
+    <section aria-label="Order info" className="flex flex-col gap-4">
+      <div className="flex flex-col gap-2.5">
+        <InfoRow label="Order type">{typeText}</InfoRow>
+        <InfoRow label="Store">
+          {onDirections ? (
+            <IconLink icon="nav" onClick={onDirections}>
+              {storeName}
+            </IconLink>
+          ) : (
+            storeName
           )}
-        </div>
-      )}
-      {arrived && order.parkingSpot && <Detail label="Parking spot">{order.parkingSpot}</Detail>}
-      {arrived && (
-        <Button fullWidth size="md" disabled leadingIcon="check">
-          Arrived at {dateTimeClock(order.arrivedAt)}
-        </Button>
+        </InfoRow>
+      </div>
+      {children && (
+        <>
+          <Divider />
+          {children}
+        </>
       )}
     </section>
   )
 }
 
-const dateTimeClock = (iso?: string) => dateTime(iso).split(' · ').pop()
+/** Figma "Car": a label with a link, over a muted box with an icon. */
+function CarhopDetail({ label, action, onAction, icon, children }: { label: string; action?: string; onAction?: () => void; icon: IconName; children: ReactNode }) {
+  return (
+    <div className="flex flex-col gap-1.5">
+      <div className="flex items-start justify-between gap-3">
+        <span className="body-m text-text-secondary">{label}</span>
+        {action && onAction && (
+          <button type="button" onClick={onAction} className="cta-m text-text-primary underline underline-offset-2 active:opacity-70">
+            {action}
+          </button>
+        )}
+      </div>
+      <div className="flex items-start gap-2 rounded-4 bg-surface-muted px-2.5 py-3">
+        <span className="flex shrink-0 p-0.5">
+          <Icon name={icon} size={16} className="text-text-primary" />
+        </span>
+        <p className="min-w-0 flex-1 body-s break-words text-text-primary">{children}</p>
+      </div>
+    </div>
+  )
+}
+
+/** Carhop: the car (Edit) and where to park, or where they parked (Change spot). */
+export function CarhopInfo({ car, parking, onEditCar, onChangeSpot }: { car: string; parking: string; onEditCar?: () => void; onChangeSpot?: () => void }) {
+  return (
+    <div className="flex flex-col gap-4">
+      <CarhopDetail label="Your car" action="Edit" onAction={onEditCar} icon="car">
+        {car || 'Add your car so staff can find you.'}
+      </CarhopDetail>
+      <CarhopDetail label="Parking spot" action="Change spot" onAction={onChangeSpot} icon="parking">
+        {parking}
+      </CarhopDetail>
+    </div>
+  )
+}
 
 /* -------------------------------- Your order ------------------------------ */
 
 /** Figma "Items": item count, Order item rows with dividers, and the order note. */
-export function ItemsCard({ order }: { order: Order }) {
+export function ItemsSection({ order }: { order: Order }) {
   const totals = lineTotals(order)
   const count = order.items.reduce((n, i) => n + i.quantity, 0)
   return (
-    <Card title="Your order" aside={<span className="caption text-text-tertiary">{count} {count === 1 ? 'item' : 'items'}</span>} className="gap-1">
+    <section aria-labelledby="items-title" className="flex flex-col gap-1">
+      <div className="flex items-center justify-between gap-3">
+        <h2 id="items-title" className="title-l text-text-primary">
+          Your order
+        </h2>
+        <span className="caption text-text-tertiary">
+          {count} {count === 1 ? 'item' : 'items'}
+        </span>
+      </div>
       <ul className="flex flex-col">
         {order.items.map((i, k) => {
           const slug = itemById.get(i.itemId)?.slug
@@ -167,19 +198,22 @@ export function ItemsCard({ order }: { order: Order }) {
         })}
       </ul>
       {order.note && <p className="rounded-4 bg-surface-muted p-3 body-s break-words text-text-primary">Note: {order.note}</p>}
-    </Card>
+    </section>
   )
 }
 
 /* ------------------------------ Payment details --------------------------- */
 
-/** Figma "PaymentDetails": totals, then how it was paid (balance and card split when balance was used). */
-export function PaymentCard({ order }: { order: Order }) {
+/** Figma "PaymentDetails": totals, how it was paid (balance and card split when balance was used), and the invoice link. */
+export function PaymentSection({ order, downloading, onDownload }: { order: Order; downloading: boolean; onDownload: () => void }) {
   const balance = order.balanceUsed ?? 0
   const rest = Math.max(0, order.total - balance)
   const label = paymentLabelOf(order)
   return (
-    <Card title="Payment details" className="gap-2.5">
+    <section aria-labelledby="payment-title" className="flex flex-col gap-2.5">
+      <h2 id="payment-title" className="title-l text-text-primary">
+        Payment details
+      </h2>
       <InfoRow label="Subtotal">
         <Price amount={order.subtotal} size="md" />
       </InfoRow>
@@ -206,41 +240,11 @@ export function PaymentCard({ order }: { order: Order }) {
       ) : (
         <InfoRow label="Paid with">{label}</InfoRow>
       )}
-      <InfoRow label="Paid on">{dateTime(order.placedAt)}</InfoRow>
-      <InfoRow label="Status">{order.status === 'cancelled' ? 'Refunded' : 'Paid'}</InfoRow>
-    </Card>
-  )
-}
-
-/** Figma "Refund": amount, where it went, when, and the INDPT balance note. */
-export function RefundCard({ order }: { order: Order }) {
-  if (!order.refund) return null
-  return (
-    <Card title="Refund" className="gap-2.5">
-      <InfoRow label="Amount">
-        <Price amount={order.refund.amount} size="md" />
-      </InfoRow>
-      <InfoRow label="Refunded to">INDPT balance</InfoRow>
-      <InfoRow label="Refunded on">{dateTime(order.refund.refundedAt)}</InfoRow>
-      <p className="flex items-center gap-1.5 rounded-6 bg-surface-muted px-2.5 py-2 body-s text-text-secondary">
-        <Icon name="info" size={16} className="shrink-0" />
-        Refund added to your INDPT balance. It will be used automatically on your next order.
-      </p>
-      <a href="https://indpt.app" target="_blank" rel="noopener" className="inline-flex items-center gap-1.5 self-start label-m text-text-primary underline underline-offset-4">
-        INDPT account
-        <Icon name="external" size={16} />
-      </a>
-    </Card>
-  )
-}
-
-/** Figma "OrderInfo": order number (past orders), order type, store. */
-export function OrderInfoCard({ order, store, past, methodLabel }: { order: Order; store: Store; past: boolean; methodLabel: string }) {
-  return (
-    <section className="flex flex-col gap-2.5 rounded-8 bg-surface-base p-4">
-      {past && <InfoRow label="Order number">#{order.id.replace(/^SLT-/, '')}</InfoRow>}
-      <InfoRow label="Order type">{methodLabel}</InfoRow>
-      <InfoRow label="Store">{store.name}</InfoRow>
+      <div className="flex justify-end pt-1">
+        <IconLink icon="receipt" loading={downloading} onClick={onDownload}>
+          Download invoice
+        </IconLink>
+      </div>
     </section>
   )
 }

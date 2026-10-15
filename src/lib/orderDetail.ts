@@ -9,6 +9,7 @@ import { demoOrders } from './demoOrders'
 import { applyPatch, useOrderUpdates } from './orderUpdates'
 import { useOrders } from './orders'
 import { time12 } from './format'
+import type { IconName } from '../icons'
 
 /** The order with this id, or null. */
 export function useOrder(id: string | undefined): Order | null {
@@ -47,28 +48,44 @@ export function dateTime(iso?: string | null) {
 
 const at = (o: Order, status: Order['status']) => o.timeline.find((t) => t.status === status)?.at
 
-export type Hero = { label: string; tone: HeroTone }
+export type Hero = { label: string; tone: HeroTone; icon: IconName }
 
 const readyHero: Record<OrderMethod, string> = { pickup: 'Ready to collect', carhop: 'Ready for you', dineIn: 'Ready at the counter' }
+const readyIcon: Record<OrderMethod, IconName> = { pickup: 'bag', carhop: 'car', dineIn: 'cup' }
 const doneHero: Record<OrderMethod, string> = { pickup: 'Picked up', carhop: 'Delivered', dineIn: 'Collected' }
 
-/** Figma "Status hero" (Status × Order type): the order number with a status tag. */
+/** Figma 110:723 "Status hero" (Status × Order type): the order number with a status icon and label. */
 export function heroFor(o: Order): Hero {
   switch (stageOf(o)) {
     case 'placed':
-      return { label: o.scheduled ? 'Order scheduled' : 'Order placed', tone: 'dark' }
+      return { label: 'Order placed', tone: 'dark', icon: 'desk-bell' }
     case 'preparing':
-      return { label: 'Being prepared', tone: 'dark' }
+      return { label: 'Being prepared', tone: 'dark', icon: 'chef-hat' }
     case 'ready':
-      return { label: readyHero[o.method], tone: 'success' }
     case 'arrived':
-      // Carhop after I'm here (same words as the Active order card).
-      return { label: 'Delivering to you', tone: 'dark' }
+      // Carhop after I'm here stays Ready for you, with the Staff is on the way note under it.
+      return { label: readyHero[o.method], tone: 'success', icon: readyIcon[o.method] }
     case 'done':
-      return { label: doneHero[o.method], tone: 'base' }
+      return { label: doneHero[o.method], tone: 'base', icon: 'check' }
     case 'cancelled':
-      return { label: 'Order cancelled', tone: 'error' }
+      return { label: 'Order cancelled', tone: 'error', icon: 'x' }
   }
+}
+
+const sameDay = (a: Date, b: Date) => a.toDateString() === b.toDateString()
+
+/** Figma "Order type" row: "Pickup at 7:15 PM", "Carhop tomorrow at 7:15 PM", "Dine-in on 12 Oct at 7:15 PM". */
+export function orderTypeText(o: Order, methodLabel: string, now = new Date()) {
+  const iso = o.readyAt ?? o.completedAt ?? o.placedAt
+  const d = new Date(iso)
+  const tomorrow = new Date(now)
+  tomorrow.setDate(now.getDate() + 1)
+  const day = sameDay(d, now)
+    ? ''
+    : sameDay(d, tomorrow)
+      ? ' tomorrow'
+      : ` on ${d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })}`
+  return `${methodLabel}${day} at ${clock(iso)}`
 }
 
 export type StepState = 'done' | 'current' | 'upcoming' | 'failed'

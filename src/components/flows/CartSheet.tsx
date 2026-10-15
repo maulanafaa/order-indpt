@@ -17,6 +17,7 @@ import { Price } from '../ui/Price'
 import { ProductImage } from '../ui/ProductImage'
 import { QuantityStepper } from '../ui/QuantityStepper'
 import { Collapse } from '../ui/Collapse'
+import { CartTestSheet } from './CartTestSheet'
 import { Textarea } from '../ui/Textarea'
 import { useToast } from '../ui/toastContext'
 
@@ -51,6 +52,8 @@ export function CartSheet({ store, open, onClose, soldOutItems, unavailableModif
   const toast = useToast()
   /** The header divider shows only once the list is scrolled. */
   const [scrolled, setScrolled] = useState(false)
+  /** Prototype test settings (gear in the header). */
+  const [testOpen, setTestOpen] = useState(false)
   /** Lines fading out after a remove (taken off the cart once the fade ends). */
   const [leavingIds, setLeavingIds] = useState<Set<string>>(() => new Set())
   /** Upsell items added from this sheet: they stay in place with a stepper instead of "+". */
@@ -135,6 +138,7 @@ export function CartSheet({ store, open, onClose, soldOutItems, unavailableModif
                 {count} {count === 1 ? 'item' : 'items'}
               </span>
             </h2>
+            <IconButton icon="settings" label="Test settings" variant="outline" size={32} onClick={() => setTestOpen(true)} />
             <IconButton icon="x" label="Close" variant="outline" size={32} onClick={onClose} />
           </div>
         </header>
@@ -214,6 +218,7 @@ export function CartSheet({ store, open, onClose, soldOutItems, unavailableModif
           </Button>
         </div>
       </div>
+      <CartTestSheet storeSlug={store.slug} open={testOpen} onClose={() => setTestOpen(false)} />
     </BottomSheet>
   )
 }

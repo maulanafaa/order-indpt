@@ -5,3 +5,8 @@ export const SUPPORT_PHONE = '920024788'
 export function callSupport() {
   window.location.href = `tel:${SUPPORT_PHONE}`
 }
+
+/** Opens the phone's native call prompt for a number (e.g. the branch). */
+export function callNumber(phone: string) {
+  window.location.href = `tel:${phone.replace(/[^\d+]/g, '')}`
+}

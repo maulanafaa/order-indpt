@@ -1,6 +1,7 @@
 import { cn } from '../../lib/cn'
 import { formatPrice } from '../../lib/format'
-import { SarIcon } from './SarIcon'
+import { useCurrency } from '../../lib/currency'
+import { CurrencyIcon } from './CurrencyIcon'
 
 export type PriceSize = 'sm' | 'md' | 'lg' | 'cta'
 export type PriceTone = 'default' | 'muted' | 'inverse' | 'inherit'
@@ -28,14 +29,15 @@ type PriceProps = {
   className?: string
 }
 
-/** Figma "Price": riyal sign + amount. Size × Tone. */
+/** Figma "Price": currency mark (the branch's country, see CurrencyScope) + amount. Size × Tone. */
 export function Price({ amount, size = 'md', tone = 'default', strike, className }: PriceProps) {
   const s = sizes[size]
+  const currency = useCurrency()
   return (
     <span
       className={cn('inline-flex items-center whitespace-nowrap', s.gap, s.text, tones[tone], strike && 'line-through', className)}
     >
-      <SarIcon size={s.icon} className="shrink-0" />
+      <CurrencyIcon code={currency} size={s.icon} className="shrink-0" />
       <span>{formatPrice(amount)}</span>
     </span>
   )

@@ -67,7 +67,7 @@ export function FindStoreTestSheet({
     <BottomSheet open={open} onClose={onClose} title="Test settings">
       <div className="flex flex-col gap-6">
         <section className="flex flex-col gap-3">
-          <h3 className="overline-text text-text-tertiary">Location access</h3>
+          <h3 className="title-s text-text-primary">Location access</h3>
           <div role="radiogroup" aria-label="Location access" className="flex gap-2">
             {PERMISSIONS.map((o) => (
               <Chip
@@ -85,7 +85,7 @@ export function FindStoreTestSheet({
         </section>
 
         <section className={cn('flex flex-col gap-3 transition-opacity duration-200', permission !== 'granted' && 'opacity-40')}>
-          <h3 className="overline-text text-text-tertiary">You are in</h3>
+          <h3 className="title-s text-text-primary">You are in</h3>
           <div role="radiogroup" aria-label="You are in" inert={permission !== 'granted'} className="flex flex-wrap gap-2">
             {PLACES.map((o) => (
               <Chip key={o.key} role="radio" aria-checked={near === o.key} selected={near === o.key} onClick={() => setNear(o.key)}>
@@ -97,7 +97,7 @@ export function FindStoreTestSheet({
         </section>
 
         <section className="flex flex-col gap-1">
-          <h3 className="overline-text text-text-tertiary">Stores to try</h3>
+          <h3 className="title-s text-text-primary">Stores to try</h3>
           <ul className="flex flex-col">
             {testStores().map(({ store, label }) => (
               <li key={store.id} className="border-b border-border-default last:border-b-0">

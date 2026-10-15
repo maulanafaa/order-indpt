@@ -74,12 +74,18 @@
   --animate-content-in: content-in 380ms cubic-bezier(0.37, 0, 0.63, 1) both;
   --animate-rise-in: rise-in 400ms cubic-bezier(0.37, 0, 0.63, 1) both; /* same curve as --ease-card */
   --animate-spin: spin 0.8s linear infinite;
+  /* Map pin: the selected pin grows up from its tip. */
+  --animate-pin-in: pin-in 260ms cubic-bezier(0.32, 0.72, 0, 1) both;
   /* Image skeleton: a light sweep across the placeholder while a photo loads. */
   --animate-shimmer: shimmer 1.2s ease-in-out infinite;
 
   @keyframes sheet-in {
     from { transform: translateY(100%); }
     to { transform: translateY(0); }
+  }
+  @keyframes pin-in {
+    from { transform: scale(0.7); }
+    to { transform: scale(1); }
   }
   @keyframes fade-in {
     from { opacity: 0; }

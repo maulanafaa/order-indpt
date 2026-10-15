@@ -17,15 +17,21 @@ import { cn } from '../lib/cn'
 import { useActiveOrders, type ActiveOrder } from '../lib/activeOrders'
 import { upsellItems } from '../lib/upsell'
 import { branchBadge, branchState } from '../lib/branch'
-import { availabilityFor, categories, items, itemsByCategory, storeBySlug } from '../lib/data'
+import { categories, items, itemsByCategory, storeBySlug } from '../lib/data'
 import { useScenario } from '../lib/scenarios'
 import { useNow } from '../lib/useNow'
+import { CurrencyScope } from '../components/ui/CurrencyScope'
+import { useAvailability } from '../lib/testCart'
 
 export default function StorePage() {
   const { slug = '' } = useParams()
   const store = storeBySlug.get(slug)
   if (!store) return <UnknownStore />
-  return <StoreMenu key={store.id} store={store} />
+  return (
+    <CurrencyScope country={store.country}>
+      <StoreMenu key={store.id} store={store} />
+    </CurrencyScope>
+  )
 }
 
 function UnknownStore() {
@@ -62,7 +68,8 @@ function StoreMenu({ store }: { store: Store }) {
   const openOrder = (o: ActiveOrder) => navigate(`/order/${o.id}`)
   // Carhop ready: I'm here opens the order with the arrival flow started.
   const imHere = (o: ActiveOrder) => navigate(`/order/${o.id}?here=1`)
-  const availability = useMemo(() => availabilityFor(store.id), [store.id])
+  // Branch data plus anything forced in the cart test settings.
+  const availability = useAvailability(store.id)
   const { item, lastItem, openItem, closeItem } = useItemParam()
   const cart = useStoreCart(store, openItem)
   const flow = useCartFlow({
